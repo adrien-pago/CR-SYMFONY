@@ -1,1 +1,66 @@
- 
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - CR-SYMFONY{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# Temporairement commenté pour le développement local
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Faire disparaître les messages flash après 10 secondes
+            const flashMessages = document.querySelectorAll('.alert');
+            flashMessages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.transition = 'opacity 0.5s ease-in-out';
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 500);
+                }, 10000);
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h1 class="h3 mb-0">Inscription</h1>
+                </div>
+                <div class="card-body">
+                    {% for message in app.flashes('debug') %}
+                        <div class="alert alert-info">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('error') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {{ form_start(registrationForm, {'attr': {'class': 'needs-validation'}}) }}
+                        {{ form_row(registrationForm.firstName) }}
+                        {{ form_row(registrationForm.lastName) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
+
+                        <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    {{ form_end(registrationForm) }}
+
+                    <div class="mt-3">
+                        <a href="{{ path('app_login') }}">Déjà inscrit ? Connectez-vous</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -4,10 +4,17 @@
 
 {% block body %}
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h1 class="text-center">Bienvenue sur CR-SYMFONY</h1>
-            <p class="text-center">Votre système de gestion de formulaires</p>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h1 class="h3 mb-0">Bienvenue {{ app.user.firstName }} {{ app.user.lastName }}</h1>
+                </div>
+                <div class="card-body">
+                    <p>Vous êtes connecté en tant que {{ app.user.email }}</p>
+                    <a href="{{ path('app_logout') }}" class="btn btn-danger">Se déconnecter</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
