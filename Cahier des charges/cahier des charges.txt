@@ -1,0 +1,987 @@
+Cahier des charges v2
+
+Je voudrais un compte-rendu de mammographie qui soit rapide à faire.
+Dans la majorité des cas, il me suffit de choisir entre plusieurs options différentes.
+Je voudrais une trame avec des menus déroulants et choisir entre ces derniers, et un résultat final sous la forme d'un .docx ; ou en tout cas un format qui me permette de garder une mise en page (gras, italique, centré, souligné) et de faire des modifications de texte à la marge.
+
+
+ 1) structure générale 
+ 
+Voici un CR (compte-rendu) type.
+Je surligne tout ce qui est inamovible. Le reste sera modifiable et détaillé ensuite.
+La police de chaque élément est la bonne (taille de texte, gras, souligné, italique, centrage
+
+Titre
+
+Indication :
+Lorem ipsum 1
+
+Technique :
+Lorem ipsum 2
+
+Comparatif
+Lorem ipsum 2,5
+
+Examen clinique
+Lorem ipsum 3
+
+Densité des seins
+Lorem ipsum 3,5
+
+Sein droit :
+Lorem ipsum 4
+
+Sein gauche : 
+Lorem ipsum 5
+
+Conclusion :
+Lorem ipsum 6
+
+Sein droit : BIRADS X
+Sein gauche : BIRADS X
+Proposition de suivi
+
+
+
+ 2) détail 
+Je vais te donner la trame complète détaillée.
+Chacune des parties variables comporte plusieurs options listées à sélectionner :
+
+Remarque: lorsque j'écris "blancblanc" : mettre rien du tout (ou un espace, enfin rien quoi).
+
+a) Menu déroulant . Toutes les options d'un menu déroulant présentent un choix par défaut présenté en surbrillance jaune. L'item en surbrillance est écrit sur le menu déroulant qui n'a pas été ouvert.
+ex : 
++choisir un titre
+-titre 1
+-titre 2
+-titre 3
+-titre 4
+
+Si le compte-rendu est validé sans avoir ouvert le menu déroulant, alors c'est "choisir un titre" qui sera inscrit dans le compte-rendu final.
+
+b) Choix à boutons. Les options d'un menu à bouton sont mutuellement exclusives. Je te présente les menus à bouton en surbrillance bleue. Idéalement, la zone à cliquer pour choisir un bouton sera toute la surface du bouton, et le bouton sélectionné changera d'apparence (surbrillance de sa bordure, ou case cochée, comme tu veux, l'idée c'est que ça se voie.)
+Deux boutons ne peuvent être choisis simultanément.
+Voici 2 exemples différents :
+
+ex 1 :
+gauche / droite // "latéralité?"
+
+Le formulaire présente 2 boutons, gauche et droite (pour plus de facilité, gauche à gauche et droite à droite).
+Si aucun bouton n'est coché, alors c'est "latéralité?" qui sera retranscrit dans le compte-rendu, sans les guillemets.
+
+ex 2 :
+a / b / c / d // "densité mammaire non précisée"
+a=> Les seins ont une densité BI-RADS A, principalement graisseuse.
+b=> Les seins ont une densité BI-RADS B, avec quelques opacités fibroglandulaires éparses.
+c=> Les seins ont une densité BI-RADS C : seins denses de façon hétérogène, possiblement masquante.
+d=>Les seins ont une densité BI-RADS D, extrêmement dense, diminuant la sensibilité de la mammographie.
+
+Le formulaire présente 4 boutons, a, b, c et d.
+Si le bouton a est coché, alors le texte a) sera retranscrit dans le compte-rendu, idem pour b c et d.
+Si aucun bouton n'est coché, alors c'est "densité mammaire non précisée qui sera retranscrit dans le compte-rendu.
+
+c) choix de date, chiffre :
+je souhaite rentrer certaines dates sous des formats différents, certaines avec le jour+mois+année, et certaines mois+année.
+
+
+ex 1: 01/01/2022 => 01 janvier 2022.
+ex 2: 02/2025      => février 2025
+
+Si rien n'est sélectionné, retranscrire un "?" dans le CR final par défaut, si je souhaite autre chose, ce sera précisé.
+
+
+
+Remarque :
+Lorsqu'un choix dans un des menus déclenche l'apparition de plusieurs items, je les mettrai à la même hauteur sur une tabulation.
+Chaque nouveau questionnaire commence par un +
+Chaque item d'un menu déroulant commence par un - (sauf le premier par défaut qui a un +)
+Chaque texte à ajouter à la suite commence par un $
+
+
+ex : 
++ choix 
+- choix 1
+	+sous choix 1
+	-sous choix 1 1
+	-sous choix 1 2
+
+	+sous choix 2
+	-sous choix 2 1
+	-sous choix 2 2
+- choix 2
+	-sous-choix 1
+	-sous choix 1 1
+	-sous choix 1 2
+		+ en (année aaaa)
+
+		+ traité par
+		- traitement 1
+		- traitement 2
+		
+		
+
+
+Voici la trame de texte :
+
+Titre :
++Mammographie bilatérale
+-Mammographie et échographie bilatérale
+-Mammographie unilatérale droite
+-Mammographie unilatérale gauche
+-Mammographie et échographie unilatérale droite
+-Mammographie et échographie unilatérale gauche
+-Echographie mammaire bilatérale
+-Echographie mammaire unilatérale droite
+-Echographie mammaire unilatérale gauche
+
+
+
+Lorem ipsum 1 :
+
+Première ligne :
++Dépistage organisé.
+-Dépistage individuel.
+-Suivi d'une anomalie classée ACR 3.
+-Suivi annuel chez une patiente aux antécédents de néoplasie mammaire.
+-Anomalie clinique
+=> $Bilan 
+	+(douleur/masse/écoulement/gynécomastie/autre/"anomalie clinique")
+	douleur => $d'une douleur mammaire 
+		+(gauche/droite/"latéralité?")	
+		+(spontanée/post-traumatique/"apparition")
+		+(récente/datant de plusieurs mois/"ancienneté")
+		$.
+	masse => $d'une masse mammaire
+		+(gauche/droite/'latéralité?)
+		+(de découverte récente/ancienne, stable/anciene, évolutive/"palpation")
+		$.
+	écoulement  => $d'un écoulement mammelonnaire
+		+(gauche/droite/"latéralité?")
+		+(unipore/multipore/"blancblanc") 
+		+(clair/lactescent/verdâtre/sanguinolant/"blancblanc") 
+		$.
+	 gynécomastie => d'une gynécomastie
+		+(gauche/droite/bilatérale/"latéralité")
+		+(douloureuse/indolore/"blancblanc")
+		$.
+	autre => (champ de texte)
+
+Deuxième ligne :
+Voici un tableau qui résume les informations que je voudrais consigner. 
+Je souhaite ne case non et une case qui "ouvre" les items du tableau.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Antécédents personnels sénologiques et ovariens : (Non/Oui/"ne sait pas")
+Non => Absence d'antécédent personnel chirurgie mammaire, de cancer du sein ou de l'ovaire.
+Oui =>$ Antécédents personnels :
+
+	$ Cancer du sein :
+		+(oui/non/"non renseigné") ;
+			si oui : 
+				$ en (chiffre à rentrer) $,
+
+				+histologie ("blancblanc")
+				- à type de carcinome infiltrant non spécifique,
+				- à type de carcinome lobulaire infiltrant ,
+
+				$ avec +(traitement conservateur./ mastectomie totale/"blancblanc").
+					si mastectomie totale :
+						+ reconstruction ("blancblanc")
+						- sans geste de reconstruction.
+						- et reconstruction par prothèse.
+						- et reconstruction par lipofilling.
+				
+
+	$ Chirurgie pour lésion à risque :
+		+(oui/non/"non renseigné") ;
+			 si oui :
+				+ lésion à risque 	
+				- hyperplasie canalaire atypique 
+				- hyperplasie lobulaire atypique 
+				- carcinome lobulaire in situ
+				
+				+ (gauche/droite/"latéralité?")
+				+  en (nombre à rentrer aaaa)
+
+	$ Chirurgie pour lésion bénigne :
+		+(oui/non/"non renseigné") ;
+			 si oui :
+				+ type de lésion ("blancblanc ")
+				- fibroadénome 
+				- papillome intracanalaire 
+				- tumeur phyllode
+				
+				+ (gauche/droite/"latéralité?")
+				+  en (nombre à rentrer aaaa)
+
+	$ Chirurgie plastique :
+		+(oui/non/"non renseigné") ;
+			si oui :
+				+ type de chirurgie
+				- réduction mammaire
+					+(gauche/droite/bilatérale/"blancblanc")
+					+ en (date en aaaa) (mettre "blancblanc" par défaut).
+				- prothèse mammaire 
+					+(gauche/droite/bilatérale/"blancblanc")
+						si gauche :
+							+ $ en (date en aaaa) (mettre "année ?" par défaut)$.
+						si droite :
+							+ $ en (date en aaaa) (mettre "année ?" par défaut) $.
+						si bilatérale :
+							+ $ en (date en aaaa) (mettre "année ?" par défaut) $à gauche.
+							+ $ en (date en aaaa) (mettre "année ?" par défaut) $à droite.
+				- de symétrisation 
+					+ (à gauche/ à droite/"blancblanc") $.
+
+	 $Antécédent de néoplasie ovarienne :
+		+ (oui/non/"non renseignée")
+			si oui : 
+				en (nombre à rentrer aaaa) $.
+
+	$Maladie de Hodgkin avec irradiation thoracique :
+		+ (oui/non/"non renseigné")
+
+Non => Absence d'antécédent personnel sénologique.
+
+Troisième ligne :
+Patiente de (nombre à rentrer aa) ans,
+
+Quatrième ligne (en fait juste à la suite de la troisième) :
+Statut hormonal +(ménopausée/non ménopausée/ménopause en cours./"statut hormonal")
+	si ménopausée :
+	+ $à l'âge de (chiffre à rentrer) $ans. 
+	+(Pas de traitement hormonal substitutif/ Traitement hormonal substitutif en cours/Traitement hormonal substitutif arrêté/"blancblanc") $.
+	si non ménopausée :
+	+ cycle ("blancblanc")
+	- en première quinzaine du cycle.
+	- en seconde quinzaine du cycle.
+	- en milieu de cycle.
+
+Cinquième ligne :
+enfants +(0/1/2/3/4/5+/"blancblanc")
+
+0 => $Pas d'enfant.
+1 =>$ 1 enfant
+	allaitement : (Oui/Non/".")
+	Oui => $, allaité.
+	Non =>$ , non allaité.
+2 =>$ 2 enfants
+	allaitement : (Oui/Non/1 seul/".")
+	Oui => $, allaités.
+	Non => $, non allaités.
+	1 seul => $, 1 allaité.
+3 => $3 enfants
+	allaitement : (Oui/Non/1 seul/2/".")
+	Oui => $, allaités.
+	Non => $, non allaités.
+	1 seul => $, 1 allaité.
+	2 => $, 2 allaités.
+4 => $4 enfants
+	allaitement : (Oui/Non/1/Certains/".")
+	Oui => $, allaités.
+	Non =>$ , non allaités.
+	1 => $, 1 allaité.
+	Certains => $, certains allaités.
+5+ =>$ 5 enfants ou plus
+	allaitement : (Oui/Non/1/Certains/".")
+	Oui => $, allaités.
+	Non => $, non allaités.
+	1 => $, 1 allaité.
+	Certains => $, certains allaités.
+
+Sixième ligne : Antécédents familiaux
+L'idée est de reproduire les informations demandées dans le tableau ci-dessous, avec une option RAS et une option qui ouvre les items et je choisis oui/non.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Est-il possible selon les réponses de confectionner un score? (faible priorité)
+Si c'est possible, voici ci-après les détails du score (les items se somment). Le résultat serait écrit sur une ligne en dessous, traduisant la case de droite du tableau ci-dessous : je peux le cocher à la main ou automatiser.
+ 
+
+
+ Antécédents familiaux sénologiques et ovariens : +(Non/Oui/"ne sait pas.")
+Non => $Absence d'antécédent familial de néoplasie mammaire ou ovarienne.
+
+Oui => $Antécédents familiaux :
+	$Mutation BRCA 1 ou BRCA 2 identifiée : (non. /dans la branche paternelle. /dans la branche maternelle./chez une sœur,/"ne sait pas".) (score = 5)
+	$Cancer du sein avant 30 ans (non./dans la branche paternelle,/dans la branche maternelle,/chez une sœur,/"ne sait pas.") 
+		si oui +(entrer chiffre) $. (score = 4)
+	$Cancer du sein entre 30 et 39 ans (non./dans la branche paternelle,/dans la branche maternelle,/chez une sœur,/"ne sait pas.")
+		si oui +(entrer chiffre)$. (score = 3)
+	$Cancer du sein entre 40 et 49 ans (non./dans la branche paternelle,/dans la branche maternelle,/chez une sœur,/"ne sait pas.")
+		si oui +(entrer chiffre)$. (score = 2)
+	$Cancer du sein entre 50 et 70 ans (non./dans la branche paternelle,/dans la branche maternelle,/chez une sœur,/"ne sait pas.")
+		si oui +(entrer chiffre)$. (score = 1)
+	$Cancer du sein après 70 ans (non./dans la branche paternelle,/dans la branche maternelle,/chez une sœur,/"ne sait pas.")
+		si oui +(entrer chiffre)$. (score = 0)
+	$Cancer ovarien avant 70 ans (non./dans la branche paternelle,/dans la branche maternelle,/chez une sœur,/"ne sait pas.")
+		si oui +(entrer chiffre)$. (score = 4)
+	$Cancer ovarien après 70 ans (non./dans la branche paternelle,/dans la branche maternelle,/chez une sœur,/"ne sait pas.")
+		si oui +(entrer chiffre)$. (score = 0)
+	$Cancer du sein chez un homme quel que soit l'âge : (non./dans la branche paternelle,/dans la branche maternelle,/chez un frère,/"ne sait pas.")
+		si oui +(entrer chiffre)$. (score = 4)
+
+$Au total, le contexte familial (est évocateur d'un haut risque / n'est pas évocateur d'un haut risque/"risque à calculer") $selon le score d'Eisinger.
+
+
+Lorem ipsum 2 :
++Mammographie bilatérale de face et oblique externe ; tomosynthèse de face.
+-Mammographie unilatérale droite de face et oblique externe ; tomosynthèse de face 
+-Mammographie unilatérale gauche de face et oblique externe ; tomosynthèse de face.
+-Mammographie bilatérale de face selon la méthode d'Ecklund, avec tomosynthèse.
+- Pas de mammo ("blancblanc") 
+
+Remarque :
+si possible :
+modifier les sections de résultat selon la technique.
+- mammo droite : que résultat sur le sein droit, supprimer à gauche
+- mammo gauche : que résultat sur le sein gauche, supprimer à droite
+- pas de mammo : supprimer les 2 résultats de mammo et la section "densité des seins".
+
++ incidences complémentaires ("blancblanc")
+- Réalisation complémentaire de clichés agrandis de face et de profil à (droite./gauche./"latéralité?")
+- Réalisation complémentaire d'un cliché de face roulé à (droite./gauche./"latéralité?")
+- Réalisation complémentaire d'un cliché de face tournée (dit de Cléopâtre) à (droite./gauche./"latéralité?")
+- Réalisation complémentaire d'un cliché comprimé localisé à (droite./gauche./"latéralité?")
+- Réalisation complémentaire d'un cliché comprimé localisé à (droite./gauche./"latéralité?")
+
++bouton "ajouter"
+
++Difficulté technique = 0 ("Pas de difficulté technique.")
+- Douleur à la compression mammaire limitant la qualité de l'acquisition
+- Pectus excavatum
+- Patiente difficilement mobilisable
+- Patiente porteuse de prothèse mammaire
+- Autre : (champ de texte)
+
++échographie ("blancblanc")
+-Echographie mammaire bilatérale réalisée
+	+(densité/clinique/mammo/implants/demande/".")
+	dense=> pour seins denses en mammographie.
+	clinique=> pour exploration d'une anomalie clinique.
+	mammo=> pour exploration d'une anomalie mammographique.
+	implants=> pour suivi des implants mammaires.
+	demande=> à la demande de la patiente.
+-Echographie unilatérale gauche.
+-Echographie unilatérale droite.
+
+Remarque :
+si possible :
+modifier les sections de résultat selon la technique.
+- écho bilatérale : ajouter échographie dans la section résultat sein droit et sein gauche
+- écho droite : ajouter échographie dans la section résultat sein droit
+- écho ghauche : ajouter échographie dans la section résultat sein gauche
+
+
+Comparatif
+Lorem ipsum 2,5 +(mammo/mammo-écho/non/"comparatif")
+mammo =>Nous disposons pour comparatif des précédentes clichés mammographiques datant du 
+	+(date au format jj/mm/aaaa)
+			+(clichés/PACS/internet/"mode")
+			clichés =>(apportés par la patiente).
+			PACS =>(consultés sur le PACS).
+			internet =>(consultés en ligne).
+mammo-écho =>Nous disposons pour comparatif du précédent bilan mammo-échographique datant du 
+	+(date au format jj/mm/aaaa)
+	+(clichés/PACS/internet/"mode")
+			clichés =>(apporté par la patiente).
+			PACS => (consulté sur le PACS).
+			internet => (consulté en ligne).
+non =>Absence de mammographie antérieure pour comparatif.
+
+bouton ajouter : Nous disposons également d'un bilan plus ancien datant de (mm/aaaa).
+
+
+Lorem ipsum 3
+Examen clinique normal des seins?  +(Oui/Non/Refus/"blancblanc")
+
+Oui =>$Absence de masse mammaire palpable ; les seins sont symétriques.
+Non => +(masse/écoulement/érythème/rétraction/asymétrie/autre/"Examen clinique pathologique")
+	masse => $Palpation d'une masse mammaire 
+		+(droite/gauche/"latéralité?") $,
+		+(mobile/fixée/"mobilité") $,
+		+(diffuse/quadrant/union/région/péri-aréolaire/sous-mammaire/axillaire/"topographie?")
+		diffuse=> à type d'induration globale du sein.
+		quadrant => du quadrant +(supéroexterne/ supérointerne /inférointerne /inféroexterne /"quadrant") $.
+		union => de l'union des quadrants +(supérieurs/internes/inférieurs/externes/"union") $.
+		région => des quadrants +(supérieurs/internes/inférieurs/externes/"régions") $.
+		péri-aréolaire => péri-aréolaire.
+		sous-mammaire => du sillon sous-mammaire.
+		axillaire => du prolongement axillaire.
+	écoulement=> $Ecoulement mammelonnaire 
+		+(droit/gauche/"latéralité?") 
+		+(reproduit./non reproductible ce jour./".")
+	érythème => $Erythème cutané mammaire 
+		+(diffus/quadrant/union/région/péri-aréolaire/sous-mammaire/axillaire/"topographie?")
+		diffus=> diffus
+		quadrant => du quadrant +(supéroexterne/supérointerne/inférointerne/inféroexterne/"quadrant")
+		union => de l'union des quadrants +(supérieurs/internes/inférieurs/externes)
+		région => des quadrants +(supérieurs/internes/inférieurs/externes)
+		péri-aréolaire => péri-aréolaire
+		sous-mammaire => du sillon sous-mammaire
+		axillaire => du prolongement axillaire
+
+		+(droit./gauche./"latéralité?") 
+
+	rétraction => $ Rétraction cutanée
+		+(diffuse/quadrant/union/région/péri-aréolaire/sous-mammaire/axillaire/"topographie?")
+		diffuse=> diffuse
+		quadrant => du quadrant +(supéroexterne/ supérointerne /inférointerne /inféroexterne /"quadrant") 
+		union => de l'union des quadrants +(supérieurs/internes/inférieurs/externes)
+		région => des quadrants +(supérieurs/internes/inférieurs/externes)
+		péri-aréolaire => péri-aréolaire
+		sous-mammaire => du sillon sous-mammaire
+		axillaire => du prolongement axillaire
+
+		+(droit./gauche./"latéralité?") 
+
+	asymétrie =>Asymétrie mammaire :
+		+(le sein droit est plus volumineux. / le sein gauche est plus volumineux./".")
+	
+	autre => (champ de texte)
+
+Refus=> $Refus de la patiente.
+
+
+Examen clinique normal des creux axillaires? +(Oui/Non/"blancblanc")
+
+Oui => $ Absence de masse anormale palpable dans les creux axillaires.
+Non => +(infiltration/nodule/autre/"Palpation anormale des creux axillaires")
+	infiltration => $ Infiltration axillaire
+		 +(droite./gauche./"latéralité?") 
+	nodule => $ Nodule axillaire 
+		+(mobile/fixé/"mobilité")
+		+(droit./gauche./"latéralité?")
+
+
+Densité des seins :
+Lorem ipsum 3,5 +(A/B/C/D/"densité mammaire non précisée")
+A => Les seins ont une densité BI-RADS A, principalement graisseuse.
+B=> Les seins ont une densité BI-RADS B, avec quelques opacités fibroglandulaires éparses.
+C=> Les seins ont une densité BI-RADS C : densité mammaire hétérogène, possiblement masquante.
+D=>Les seins ont une densité BI-RADS D, extrêmement dense, diminuant la sensibilité de la mammographie.
+
+
+Sein droit :
+
+Lecture des clichés mammographiques :
+
+Asymétrie de densité :
+asymétrie de densité +(Non/Oui/"asymétrie")
+Non => La glande mammaire est harmonieusement répartie, sans asymétrie de densité.
+Oui => +(focale/globale/simple/"type d'asymétrie)
+
+	si focale : +(supéroexterne/supérointerne/inférointerne/inféroexterne/du prolongement axillaire/"siège") $,
+			+(superficiel/moyen/profond/"profondeur")
+			superficiel => dans le tiers superficiel de la glande,
+			moyen => dans le tiers moyen de la glande,
+			profond => dans le tiers profond de la glande,
+			+(tomo négative/tomo confirme/tomo masse/"tomosynthèse")
+			tomo négative =>$ se déconstruisant en tomosynthèse, mettant en évidence une superposition glandulaire, banale.
+			tomo confirme => $ confirmée en tomosynthèse.
+			tomo masse => $ l'analyse en tomosynthèse montre une masse.
+			+(évolutive/non évolutive/pas d'antériorité/"évolution")
+			évolutive =>$Cette asymétrie focale est évolutive comparativement à l'antériorité.
+			non évolutive =>$Cette asymétrie focale est stable comparativement à l'antériorité.
+			pas d'antériorité =>$Absence d'antériorité disponible pour juger de son évolutivité.
+			+(bords convexes/bords concaves/"bords")
+			bords convexes=> $Ses bords sont convexes.
+			bords concaves=>$Ses bords sont concaves.
+			
+			+(pas d'anomalie associée/microcalcification/distorsion architecturale)
+			pas d'anomalie associée => Absence de signe suspect associée : pas de microcalcification ni de distorsion architecturale.
+			microcalcification => Présence de microcalcification au sein de cette asymétrie simple.
+			distorsion architecturale => Cette asymétrie est associée à une distorsion architecturale.
+
+	si globale : +(diffuse/supérieure/inférieure/interne/externe)
+			diffuse=> $,
+			supérieure=>$ des régions supérieures,
+			inférieure =>$ des régions inférieures,
+			interne => $des régions internes,
+			externe =>$ des régions externes,
+			+(sans valeur pathologique./champ libre/"valeur")
+
+	si simple : +(face/oblique externe/"incidence")
+			face => visible sur l'incidence de face,
+			oblique externe => visible sur l'incidence oblique externe,
+			+(supérieure/interne/inférieure/interne/"siège")
+			supérieure => en projection des quadrants supérieurs,
+			interne => en projection des quadrants internes,
+			inférieure => en projection des quadrants inférieurs,
+			externe => en projection des quadrants externes,
+			+(superficiel/moyen/profond/"profondeur")
+			superficiel => dans le tiers superficiel de la glande.
+			moyen => dans le tiers moyen de la glande.
+			profond => dans le tiers profond de la glande.
+
+			+(évolutive/non évolutive/pas d'antériorité/"évolution")
+			évolutive =>$Cette asymétrie simple est évolutive comparativement à l'antériorité.
+			non évolutive =>$Cette asymétrie simple est inchangée comparativement à l'antériorité.
+			pas d'antériorité =>$Absence d'antériorité disponible pour juger de son évolutivité.
+			
+			+(pas d'anomalie associée/microcalcification/distorsion architecturale)
+			pas d'anomalie associée => Absence de signe suspect associée : pas de microcalcification ni de distorsion architecturale.
+			microcalcification => Présence de microcalcification au sein de cette asymétrie simple.
+			distorsion architecturale => Cette asymétrie est associée à une distorsion architecturale.
+			+(bénin/texte libre/blancblanc/"valeur")
+			bénin => Cet asymétrie simple ne présente pas de valeur pathologique.
+
+Distorsion architecturale
+Distorsion architecturale +(Non/Intramammaire/Des bords mammaires/"Distorsion architecturale")
+Non =>$ Les contours de la glande mammaire sont réguliers, sans distorsion architecturale décelable.
+Intramammaire => $Distorsion architecturale intramamaire
+	+ (du quadrant/à l'union/en projection/rétro-aréolaire/du prolongement axillaire/"topographie?")
+	du quadrant=> $du quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?")
+	à l'union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes)
+	en projection => $en projection des quadrants
+		+(supérieurs/internes/inférieurs/externes)
+	rétro-aréolaire => rétro-aréolaire
+	du prolongement axillaire => du prolongement axillaire
+	
+	+(à centre clair./à centre dense./sans anomalie de densité associée./"densité?")
+
+Des bords mammaires => $ Distorsion du contour
+	+(superficiel/profond/"topographie")
+	$de la glande mammaire,
+	+ (au quadrant/à l'union/en projection/du prolongement axillaire/"topographie?")
+	au quadrant=> $au quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?")
+	à l'union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes)
+	en projection => $en projection des quadrants
+		+(supérieurs/internes/inférieurs/externes)
+	du prolongement axillaire => du prolongement axillaire
+	
+	+(à type de rétraction/à type de bombement/"blancblanc")
+	
+
+Masse
+Masse +(Non/Oui/"masse")
+
+Non =>$Absence de masse décelable.
+Oui =>$Masse
+	+$ numéro Mmammo (chiffre) //idéalement faire automatiquement le numérotage 1,2,3 etc...//
+	+ (du quadrant/à l'union/rétro-aréolaire/en projection/du prolongement axillaire/"topographie?")
+	du quadrant=> $du quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?")
+	à l'union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes)
+	en projection=>$en projection des quadrants
+		+(supérieurs/internes/inférieurs/externes)
+	rétro-aréolaire => rétro-aréolaire
+	du prolongement axillaire => du prolongement axillaire
+	 +$située dans le tiers +(antérieur/moyen/profond/"profondeur") $du sein, 
+	+$mesurant (chiffre) x (chiffre) mm. 
+	+$Elle est de forme +(ovale/ronde/irrégulière/"forme"), 
+	+$de contours (circonscrits/microlobulés/masqués/indistincts/spiculés/"contours"), 
+	+$de densité +(graisseuse/faible/isodense/élevée/ganglion/hamartome/"densité").
+	ganglion => densité graisseuse centrale typique de ganglion intraparenchymateux.
+	hamartome => densité hétérogène circonscrite, suggérant un hamartome mammaire.
+	+(Présence/Absence/"blancblanc") $de microcalcification au sein de la masse. 
+	+(Antériorité : BI-RADS 2/Pas d'antériorité BI-RADS 3/Non lieu/"Blancblanc")
+	Antériorité : BIRADS 2 => Nous disposons d'un comparatif datant de plus de 2 ans montrant un aspect stable, permettant d'affirmer le caractère bénin de la masse.
+	Pas d'antériorité BI-RADS3 => Nous ne disposons pas de comparatif datant de plus de 2 ans pour affirmer la bénignité : masse probablement bénigne justifiant d'une surveillance à court terme.
+	Non lieu => blancblanc
+	
+
+bouton "ajouter masse"
+
+
+Microcalcifications suspectes
+Microcalcifications suspectes +(Non/Oui/"microcalcifications")
+Non => $ Absence de microcalcification mammaire suspecte.
+Oui =>$ Microcalcifications
+	distribution +(diffuse/régionale/groupée/linéaire/segmentaire/"distribution")
+	diffuse => de distribution diffuse,
+	régionale => de distribution régionale,
+	groupées => groupées,
+	linéaire => de distribution linéaire,
+	segmentaire => de distribution segmentaire,
+
+	$ de forme +(fines polymorphes/grossières hétérogènes/rondes punctiformes/amorphes/linéaires/linéaires branchées/"forme")
+
+	$ situées + (quadrant/union/rétro-aréolaire/en projection/prolongement axillaire/"topographie?")
+	quadrant=> $dans le quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?") $,
+	union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes) $,
+	en projection=>$en projection des quadrants
+		+(supérieurs/internes/inférieurs/externes) $,
+	rétro-aréolaire => dans la région rétro-aréolaire,
+	prolongement axillaire => dans le prolongement axillaire,
+	 +$dans le tiers +(antérieur/moyen/profond/"blancblanc") $du sein. //si rien de coché, supprimer l'item
+	+$L'ensemble mesure (chiffre) x (chiffre) mm. //si rien de rentré, supprimer l'item ; si 1 de rentré : mesurant X mm de grand axe.
+
+        comparaison+(apparues/évolutives/stables/pas d'antériorité/"blancblanc")
+	apparues =>Elles sont apparues comparativement à l'antériorité.
+	évolutives => Elles sont évolutives comparativement à l'antériorité.
+	stables => Elles sont stables comparativement à l'antériorité.
+	pas d'antériorité =>Absence de mammographie antérieure pour juger de leur évolutivité.
+
+	Anomalie associée +(aucune/masse/distorsion/asymétrie/"blancblanc")
+		aucune =>Elles ne se superposent pas à une autre anomalie mammographique (ni masse ni 	distorsion architecturale, ni asymétrie de densité).
+		masse =>Elles sont associées à une masse.
+		distorsion => Elles sont associées à une distorsion architecturale.
+		asymétrie => Elles sont associées à symétrie focale de densité.
+
+	attitude +(bénin/suivi/histologie/joker/"attitude")
+	bénin => Les caractéristiques de ces microcalcifications ne sont pas suspectes.
+	suivi => Les caractéristiques morphologiques de ces microcalcifications justifient d'une surveillance rapprochée
+	histologie => Les caractéristiques morphologiques de ces microcalcifications justifient d'un prélèvement histologique.
+	joker => "blancblanc
+
+	
+	
+
+bouton ajouter
+
+Calcifications non suspectes
++Pas de calcification non suspectes ("blancblanc") 
+- Calcifications mammaires typiquement bénignes
+	+calcification ("blancblanc")
+	-en bâtonnets.
+	- fines régulières, denses, linéaires, orientées vers le mammelon, typiques de mastite à plasmocytes.
+	- : macrocalcifications en pop-corn.
+	- de morphologie vasculaire.
+	- cutanées.
+	- rondes à centre clair.
+	- cuppuliformes traduisant un dépôt calcique intrakystique.
+
+bouton ajouter
+
+
+Désorganisation architecturale :
+- Pas de chirurgie ("blancblanc")
+- Désorganisation architecturale en rapport avec les antécédents chirurgicaux
+	$ situées + (quadrant/union/en projection/rétro-aréolaire/prolongement axillaire/"topographie?")
+	quadrant=> $dans le quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?") $.
+	union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes) $.
+	en projection=>$en projection des quadrants
+		+(supérieurs/internes/inférieurs/externes) $.
+	rétro-aréolaire => dans la région rétro-aréolaire.
+	prolongement axillaire => dans le prolongement axillaire.
+
+Prolongement axillaire
+Prolongement axillaire +(libre/FG/FGs/ADM/ADMs/"blancblanc")
+libre => $Le prolongement axillaire est libre.
+FG => $Formation ganglionnaire de taille et de morphologie non suspecte dans le prolongement axillaire.
+FGs => $Formations ganglionnaires de taille et de morphologie non suspecte dans le prolongement axillaire
+ADM => $Adénomégalie du prolongement axillaire.
+ADMs => $Adénomégalies du prolongement axillaire.
+
+
+Téguments cutanés
+Tégument cutanés +(normal/épaissi/rétraction/"cutané")
+normal => $Les téguments cutanés sont respectés.
+épaissi => $Epaississement cutané
+	+(diffus/focal/"topographie")
+		si diffus : +(RT+/RT-/".")
+			RT+ => $, en rapport avec un antécédent d'irradiation mammaire.
+			RT- => .
+
+		si focal : +(supérieur/interne/inférieur/externe/"topographie")
+			supérieur => des régions supérieures du sein.
+			interne => des régions internes du sein.
+			inférieur => des régions inférieures du sein.
+			externe => des régions externes du sein.
+
+(texte libre)
+
+Exploration échographique :
+
+Masse
+Masse +(Non/Oui/"masse")
+Non =>$Absence de masse échographiquement décelable.
+Oui =>$ Masse
+	+ numéro Mécho (chiffre)
+	+ (du quadrant/à l'union/rétro-aréolaire/du prolongement axillaire/"topographie?")
+	du quadrant=> $du quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?") $,
+	à l'union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes/"union") $,
+	rétro-aréolaire => rétro-aréolaire,
+	du prolongement axillaire => du prolongement axillaire,
+
+	+$ sur le rayon de (chiffre) $h,   //si rien de rempli : supprimer l'item
+	+$ à (chiffre) $cm du mammelon,  // si rien de rempli : supprimer l'item
+	+$mesurant (chiffre) $x (chiffre) $x (chiffre) $mm, // si rien de rempli : "taille non mesurée ; si 1 de rempli : "mesurant X mm de grand axe, ", si 2 de remplis : "mesurant X x X mm".
+	+$ présentant une forme +(ronde/ovale/irrégulière/"forme") $,
+	+$ des contours +(circonscrit/microlobulés/spiculés/mal limités irréguliers/"contours") $,
+	+(fibrose périphérique/stroma normal/"stroma")
+	fibrose périphérique => avec transformation fibreuse du stroma périphérique,
+	stroma normal => sans anomalie du parenchyme mammaire adjacent,
+	+$ une échostructure
+		+ échostructure ("échostructure")
+		- anéchogène pure avec renforcement postérieur, typique de kyste mammaire
+		- anéchogène pure sans renforcement postérieur, compatible avec un kyste mammaire mais non typique
+		- hétérogène avec des éléments mobiles évoquant un kyste complexe
+		- fortement hypoéchogène
+		- modérément hypoéchogène
+		- modérément hypoéchogène, homogène
+		- modérément hypoéchogène avec calcifications périphériques
+		- hétérogène
+		- hyperéchogène
+
+	+correspondance mammo ("blancblanc")
+	-Cette masse correspond à la masse mamographique Mmammo (chiffre).
+	-Cette masse ne présente pas de traduction mammographique.
+
+	+antériorité suivi BI-RADS3("blancblanc")
+	-Cette masse est stable comparativement à l'antériorité
+	-Cette masse a diminué de taille comparativement à l'antériorité : (chiffre) vs (chiffre)	
+	-Cette masse a augmenté de taille comparativement à l'antériorité (chiffre) vs (chiffre)
+
+	+(Antériorité : BI-RADS 2/Pas d'antériorité BI-RADS 3/Non lieu/"Blancblanc")
+	Antériorité : BIRADS 2 => Nous disposons d'un comparatif datant de plus de 2 ans montrant un aspect stable, permettant d'affirmer le caractère bénin de la masse.
+	Pas d'antériorité BI-RADS3 => Nous ne disposons pas de comparatif datant de plus de 2 ans pour affirmer la bénignité : masse probablement bénigne justifiant d'une surveillance à court terme.
+	Non lieu => blancblanc
+
+bouton "ajouter une autre masse"
+
+Non masse
++Absence d'anomalie non-masse échographiquement décelable.
+- Dilatation canalaire focale de contenu échogène sans image endoluminale visible
+- Dilatation canalaire avec image d'addition endoluminale mesurant (chiffre) x (chiffre) mm.
+	+$ sur le rayon de (chiffre) $h,   //si rien de rempli : supprimer l'item
+	+$ à (chiffre) $cm du mammelon,  // si rien de rempli : supprimer l'item
+	+$mesurant (chiffre) $x (chiffre) $x (chiffre) $mm, // si rien de rempli : "taille non mesurée ; si 1 de rempli : "mesurant X mm de grand axe, ", si 2 de remplis : "mesurant X x X mm".
+	+$ présentant une forme +(ronde/ovale/irrégulière/"forme") $,
+	+$ des contours +(circonscrit/microlobulés/spiculés/mal limités irréguliers/"contours") $.
+
+- Plage hypoéchogène atténuante mal limitée
+	+ (du quadrant/à l'union/rétro-aréolaire/du prolongement axillaire/"topographie?")
+	du quadrant=> $du quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?") $,
+	à l'union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes) $,
+	rétro-aréolaire => rétro-aréolaire
+	du prolongement axillaire => du prolongement axillaire
+
+	+$ sur le rayon de (chiffre) $h,   //si rien de rempli : supprimer l'item
+	+$ à (chiffre) $cm du mammelon,  // si rien de rempli : supprimer l'item
+	+$mesurant (chiffre) $x (chiffre) $x (chiffre) $mm, // si rien de rempli : "taille non mesurée ; si 1 de rempli : "mesurant X mm de grand axe", si 2 de remplis : "mesurant X x X mm".
+
+- Visualisation des microcalcifications mammographiques
+	+ (du quadrant/à l'union/rétro-aréolaire/du prolongement axillaire/"topographie?")
+	du quadrant=> $du quadrant 																+(supéroexterne/supérointerne/inférointerne/inféroexterne /"quadrant?") $,
+	à l'union=> $à l'union des quadrants
+		+(supérieurs/internes/inférieurs/externes) $,
+	rétro-aréolaire => rétro-aréolaire,
+	du prolongement axillaire => du prolongement axillaire,
+
+	+$ sur le rayon de (chiffre) $h,   //si rien de rempli : supprimer l'item
+	+$ à (chiffre) $cm du mammelon,  // si rien de rempli : supprimer l'item
+
+bouton "ajouter une autre non-masse"
+
+Creux axillaire
+Creux axillaire +(Libre/FG/FG+/ADM/ADM+)
+Libre => Absence d'adénomégalie du creux axillaire.
+FG => Formation ganglionnaire du creux axillaire, sans valeur pathologique.
+FGs=> Formations ganglionnaires du creux axillaire, sans valeur pathologique
+ADM => Adénomégalie du creux axillaire
+	+(cortex épaissi/petit axe/petit axe + perte hile graisseux/"adm")
+	cortex épaissi => avec un cortex ganglionnaire focalement épaissi à (nombre) mm.
+	petit axe => mesurant (nombre) mm de petit axe
+	petit axe + perte hile graisseux => mesurant (nombre) mm de petit axe, et avec perte de son hile graisseux central.
+ADMs => Adénomégalies du creux axillaire, (nombre), la plus volumineuse mesurant (nombre) mm de petit axe.
+
+(Texte libre)
+
+Sein gauche :
+copier coller du sein droit
+
+
+Lorem ipsum 6
++blanc
+- Bilan de dépistage négatif : absence de lésion mammaire suspecte.
+- Masse de (nombre) mm du sein +(gauche/droit/"latéralité?").
+- Microcalcifications +(groupées/segmentaires/régionales/"distrib") du sein +(droit/gauche/"latéralité?").
+- Distorsion architecturale à centre +(clair/dense/"blancblanc") du sein +(droit/gauche/"latéralité").
+-Asymétrie de densité +(focale/évolutive/"asymétrie"), +(à bords convexes/à bords concaves/"bords").
+- L'anomalie ayant justifié le suivi rapproché est stable depuis 2 ans, en faveur de son caractère bénin.
+- Cette anomalie ayant justifié une surveillance à court terme présente une évolutivité.
+- Ecoulement unipore à bilan mammo-échographique négatif : proposition d'une IRM complémentaire à la recherche d'une lésion sous-jacente.
+- Ecoulement multipore, sans lésion suspecte mammo-échographique : aspect évocateur d'une galactorrhée secondaire (endogène? médicamenteuse?). Le bilan pourra être complété par des dosages hormonaux et une éventuelle IRM cérébrale.
+
+bouton "ajouter"
+
+
+Sein droit : BI-RADS +(0/1/2/3/4/5/6)
+	si 0 => $0 : la caractérisation de cet examen nécessite d'autres explorations.
+	si 1 => $1 : absence d'anomalie décelable.	
+	si 2 => $2 : aspect typiquement bénin.
+	si 3 =>$3 : il existe une anomalie probablement bénigne pour laquelle une surveillance à court terme est conseillée ; dans certaines circonstances, un prélèvement peut être envisagé.
+	si 4 =>$4 +(a/b/c/pas de lettre/"Sous-type") $: il existe une anomalie indéterminée ou suspecte pour laquelle une vérification histologique est indiquée.
+	si 5 =>$5 : il existe une anomalie suspecte de cancer.
+	si 6 => $6 : néoplasie connue.
+
+bouton "ajouter" // ex : Sein droit BI-RADS 5 (texte libre)	
+					                     + BI-RADS 4a (texte libre)
+
+Sein gauche : BI-RADS +(0/1/2/3/4/5/6) //(exactement la même chose qu'au dessus, je ne recopie pas).
+bouton "ajouter"
+
+Proposition de suivi
+simplifier l'intitulé des propositions:
+-surveillance biennale (a)
+-surveillance 1-2 ans (b)
+-suivi  écho (c)
+-suivi mammo micro (d)
+-suivi mammo autre (e)
+-microbiopsie (f)
+-macrobiopsie (g)
+-avis chirurgical (h)
+
++proposition de suivi ("blancblanc")
+- a) Proposition d'une poursuite de la surveillance biennale.
+- b) Proposition d'une nouvelle mammographie de dépistage dans 
+	+2 ans,
+	-1 an,
+ soit en (mm/aaaa).
+
+-c) Proposition de suivi de la masse mammaire +(gauche/droite/"latéralité?") par échographie ciblée dans
+	+4 mois,
+	-6 mois,
+	-8 mois,
+	- 1 an, 
+soit en (mm/aaaa).
+
+- d) Proposition de suivi des microcalcifications mammaires
+	+(gauche/droite/"latéralité?") 
+par mammographie unilatérale avec agrandis dans 
+	+(6 mois/1 an/"délai") 
+soit en (mm/aaaa).
+
+-e) Proposition d'un suivi
+	+(de l'asymétrie de densité/de la distorsion architecturale/champ de texte/"de l'anomalie")
+	+(gauche/droite/"latéralité?")
+par mammographie unilatérale dans 
+	+ 6mois
+	- 1 an
+
+- f) Proposition d'une exploration de la masse mammaire
+	 +(gauche/droite/"latéralité?") 
+par microbiopsie échoguidée.
+
+- g)Proposition d'une caractérisation 
+	+(des microcalcifications/de la distorsion architecturale/"de l'anomalie") 
+par macrobiopsie sous stéréotaxie ; le dossier est adressé à un centre spécialisé :
+	+(clinique du Pont de Chaume/ Oncopôle/champ de texte/"nom du centre")
+
+-h) Proposition d'un avis chirurgical spécialisé pour suite de la prise en charge.
+
+
+
+exemple de mammographie normale (actualisé depuis v1)
+
+
+Mammographie et échographie bilatérale
+
+Indication :
+Dépistage organisé.
+Absence d'antécédent personnel chirurgie mammaire, de cancer du sein ou de l'ovaire.
+Patiente de 65 ans, ménopausée à 47 ans. Pas de traitement hormonal substitutif.
+1 enfant, allaité.
+
+Antécédents familiaux :
+Mutation BRCA 1 ou BRCA 2 identifiée : non
+Cancer du sein avant 30 ans : non
+Cancer du sein entre 30 et 39 ans : non
+Cancer du sein entre 40 et 49 ans : non
+Cancer du sein entre 50 et 70 ans : dans la branche paternelle (1)
+Cancer du sein après 70 ans : dans la branche paternelle (1)
+Cancer ovarien avant 70 ans : non
+Cancer ovarien après 70 ans : non
+Cancer du sein chez un homme quel que soit l'âge : non.
+Au total, le contexte familial n'est pas évocateur d'un haut risque selon le score d'Eisinger.
+
+Technique :
+Mammographie bilatérale de face et oblique externe ; tomosynthèse de face.
+Pas de difficulté technique.
+Echographie mammaire bilatérale réalisée pour seins denses en mammographie.
+
+
+Comparatif :
+Nous disposons pour comparatif des précédentes mammographies datant du 02 janvier 2022 ; clichés apportés par la patiente.
+
+Examen clinique
+Absence de masse mammaire palpable ; les seins sont symétriques.
+Absence de masse anormale palpable dans les creux axillaires.
+
+Densité des seins
+Les seins ont une densité BI-RADS C : densité mammaire hétérogène, possiblement masquante.
+
+Sein droit :
+
+Lecture des clichés mammographiques
+Les contours de la glande mammaire sont réguliers, sans distorsion architecturale décelable.
+Absence de masse décelable.
+Absence de microcalcification mammaire suspecte.
+La glande mammaire est harmonieusement répartie, sans asymétrie de densité.
+Le prolongement axillaire est libre.
+Les téguments cutanés sont respectés.
+
+Exploration échographique :
+Absence de masse échographiquement décelable.
+Absence d'anomalie non-masse échographiquement décelable.
+Absence d'adénomégalie du creux axillaire.
+
+Sein gauche :
+
+Lecture des clichés mammographiques :
+Les contours de la glande mammaire sont réguliers, sans distorsion architecturale décelable.
+Absence de masse décelable.
+Absence de microcalcification mammaire suspecte.
+La glande mammaire est harmonieusement répartie, sans asymétrie de densité.
+Le prolongement axillaire est libre.
+Les téguments cutanés sont respectés.
+
+Exploration échographique :
+Absence de masse échographiquement décelable.
+Absence d'anomalie non-masse échographiquement décelable.
+Absence d'adénomégalie du creux axillaire.
+
+Conclusion :
+Bilan de dépistage négatif : absence de lésion mammaire suspecte.
+
+Sein droit : BI-RADS 1
+Sein gauche : BI-RADS 1
+
+Proposition d'une poursuite de la surveillance biennale.
+

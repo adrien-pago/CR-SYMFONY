@@ -1,0 +1,90 @@
+// Variables personnalisées
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$light-gray: #f8f9fa;
+
+// Styles généraux
+body {
+    background-color: $light-gray;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+// Styles pour les conteneurs d'authentification
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    h1 {
+        color: $primary-color;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        margin-bottom: 1rem;
+        &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+        }
+    }
+
+    .btn-primary {
+        background-color: $primary-color;
+        border-color: $primary-color;
+        &:hover {
+            background-color: darken($primary-color, 10%);
+            border-color: darken($primary-color, 10%);
+        }
+    }
+
+    .form-check {
+        margin: 1rem 0;
+    }
+
+    a {
+        color: $primary-color;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Styles pour les messages d'erreur
+.alert {
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    padding: 0.75rem 1.25rem;
+
+    &.alert-danger {
+        background-color: lighten($danger-color, 40%);
+        border-color: $danger-color;
+        color: darken($danger-color, 10%);
+    }
+}
+
+// Styles pour la navigation
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+
+    .navbar-brand {
+        color: $primary-color;
+        font-weight: bold;
+    }
+
+    .nav-link {
+        color: $secondary-color;
+        &:hover {
+            color: $primary-color;
+        }
+    }
+} 
