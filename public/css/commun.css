@@ -1,12 +1,15 @@
-.main-card {
-    border: 2px solid #0d6efd;
-    box-shadow: 0 0 15px rgba(13, 110, 253, 0.1);
+/* Main card */
+.main-card > .card-header {
+    background-color: #c9ddf8 !important;
+    border-bottom: 2px solid #0b5ed7 !important;
 }
 
-.main-card .card-header {
+/* Sous-cartes normales */
+.card:not(.main-card) > .card-header {
     background-color: #e7f1ff;
-    border-bottom: 2px solid #0d6efd;
+    border-bottom: 1px solid #dee2e6;
 }
+
 
 .toggle-visibility {
     cursor: pointer;
@@ -27,11 +30,6 @@
 
 .card:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
 }
 
 .card-body {

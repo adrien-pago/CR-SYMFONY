@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleButtons = document.querySelectorAll('.toggle-visibility');
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const targetClass = this.getAttribute('data-target');
             const card = this.closest('.card');
             const content = card.querySelector('.card-body');
             const isVisible = !content.classList.contains('d-none');
@@ -38,6 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
         bilanBtn.addEventListener('click', function() {
             bilanOptions.classList.toggle('d-none');
             this.classList.toggle('active');
+            
+            // Changer l'icône du bouton
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('bi-plus-circle');
+                icon.classList.toggle('bi-minus-circle');
+            }
         });
     }
 
@@ -45,16 +51,29 @@ document.addEventListener('DOMContentLoaded', function() {
     optionBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             // Retirer la classe active de tous les boutons
-            optionBtns.forEach(b => b.classList.remove('active'));
+            optionBtns.forEach(b => {
+                b.classList.remove('active');
+                const icon = b.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('bi-check-circle-fill');
+                    icon.classList.add('bi-dot-circle');
+                }
+            });
+            
             // Ajouter la classe active au bouton cliqué
             this.classList.add('active');
-
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.classList.remove('bi-dot-circle');
+                icon.classList.add('bi-check-circle-fill');
+            }
+            
             // Masquer tous les conteneurs d'options
             document.querySelectorAll('.option-container').forEach(container => {
                 container.classList.add('d-none');
             });
-
-            // Afficher le conteneur d'options correspondant
+            
+            // Afficher le conteneur correspondant
             const targetId = this.getAttribute('data-target');
             const targetContainer = document.getElementById(targetId);
             if (targetContainer) {
@@ -64,20 +83,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Gestion du bouton Reset
-    resetBtn.addEventListener('click', function() {
-        // Réinitialiser tous les champs de formulaire dans les conteneurs d'options
-        document.querySelectorAll('.option-container select, .option-container textarea').forEach(field => {
-            field.value = '';
-        });
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            // Réinitialiser tous les champs de formulaire dans les conteneurs d'options
+            document.querySelectorAll('.option-container select, .option-container textarea').forEach(field => {
+                field.value = '';
+            });
 
-        // Retirer la classe active de tous les boutons d'options
-        optionBtns.forEach(btn => btn.classList.remove('active'));
+            // Retirer la classe active de tous les boutons d'options
+            optionBtns.forEach(btn => {
+                btn.classList.remove('active');
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('bi-check-circle-fill');
+                    icon.classList.add('bi-dot-circle');
+                }
+            });
 
-        // Masquer tous les conteneurs d'options
-        document.querySelectorAll('.option-container').forEach(container => {
-            container.classList.add('d-none');
+            // Masquer tous les conteneurs d'options
+            document.querySelectorAll('.option-container').forEach(container => {
+                container.classList.add('d-none');
+            });
         });
-    });
+    }
 
     // Nouveau code pour la section Antécédents
     const antecedentsBtns = document.querySelectorAll('.antecedents-btn');

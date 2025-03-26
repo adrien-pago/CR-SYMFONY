@@ -43,30 +43,30 @@
 
                                 {# Partie Bilan de la section Indication #}
                                 <div class="mb-4">
-                                    <button type="button" id="bilanBtn" class="btn btn-outline-primary">
-                                        <i class="bi bi-plus-circle"></i> <span class="bilan-text"> Bilan</span>
+                                    <button type="button" id="bilanBtn" class="btn btn-outline-primary d-flex align-items-center">
+                                        <i class="bi bi-plus-circle me-2"></i> <span class="bilan-text">Bilan</span>
                                     </button>
                                     
                                     {# Options du bilan #}
                                     <div id="bilanOptions" class="d-none mt-3">
-                                        <div class="d-flex gap-2 mb-4">
+                                        <div class="d-flex gap-2 mb-4 flex-wrap">
                                             <button type="button" class="btn btn-outline-secondary option-btn" data-target="douleurOptions">
-                                                Douleur
+                                                <i class="bi bi-dot-circle me-2"></i>Douleur
                                             </button>
                                             <button type="button" class="btn btn-outline-secondary option-btn" data-target="masseOptions">
-                                                Masse
+                                                <i class="bi bi-dot-circle me-2"></i>Masse
                                             </button>
                                             <button type="button" class="btn btn-outline-secondary option-btn" data-target="ecoulementOptions">
-                                                Écoulement
+                                                <i class="bi bi-dot-circle me-2"></i>Écoulement
                                             </button>
                                             <button type="button" class="btn btn-outline-secondary option-btn" data-target="gynecomastieOptions">
-                                                Gynécomastie
+                                                <i class="bi bi-dot-circle me-2"></i>Gynécomastie
                                             </button>
                                             <button type="button" class="btn btn-outline-secondary option-btn" data-target="autreOptions">
-                                                Autre
+                                                <i class="bi bi-dot-circle me-2"></i>Autre
                                             </button>
                                             <button type="button" id="resetBtn" class="btn btn-outline-danger ms-auto">
-                                                <i class="bi bi-x-circle"></i> Reset
+                                                <i class="bi bi-x-circle me-2"></i>Reset
                                             </button>
                                         </div>
 
@@ -182,76 +182,309 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        
-
-                        {# Section Antécédents personnels #}
-                        <div class="mb-4 ms-3">
-                            <h5 class="mb-3">Antécédents personnels sénologiques et ovariens</h5>
-                            <div class="d-flex gap-2 mb-3">
-                                <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="non">
-                                    Non
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="oui">
-                                    Oui
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="ne_sait_pas">
-                                    Ne sait pas
-                                </button>
-                                <button type="button" id="resetAntecedentsBtn" class="btn btn-outline-danger">
-                                    <i class="bi bi-x-circle"></i> Reset
-                                </button>
-                            </div>
-
-                            {# Conteneur pour les options détaillées #}
-                            <div id="antecedentsDetails" class="d-none mt-3">
-                                {# Cancer du sein #}
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Cancer du sein</h5>
+                            
+                                {# Section Antécédents personnels #}
+                                <div class="mb-4 ms-3">
+                                    <h5 class="mb-3">Antécédents personnels sénologiques et ovariens</h5>
+                                    <div class="d-flex gap-2 mb-3">
+                                        <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="non">
+                                            Non
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="oui">
+                                            Oui
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="ne_sait_pas">
+                                            Ne sait pas
+                                        </button>
+                                        <button type="button" id="resetAntecedentsBtn" class="btn btn-outline-danger">
+                                            <i class="bi bi-x-circle"></i> Reset
+                                        </button>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <select class="form-select" name="cancer_sein" id="cancerSeinSelect">
-                                                    <option value="">Non renseigné</option>
-                                                    <option value="oui">Oui</option>
-                                                    <option value="non">Non</option>
-                                                </select>
+
+                                    {# Conteneur pour les options détaillées #}
+                                    <div id="antecedentsDetails" class="d-none mt-3">
+                                        {# Cancer du sein #}
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Cancer du sein</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" name="cancer_sein" id="cancerSeinSelect">
+                                                            <option value="">Non renseigné</option>
+                                                            <option value="oui">Oui</option>
+                                                            <option value="non">Non</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                {# Options si cancer du sein = oui #}
+                                                <div id="cancerSeinDetails" class="d-none">
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
+                                                            <input type="number" class="form-control" name="cancer_sein_annee" placeholder="Année">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <select class="form-select" name="cancer_sein_histologie">
+                                                                <option value="">Histologie</option>
+                                                                <option value="carcinome_infiltrant">Carcinome infiltrant non spécifique</option>
+                                                                <option value="carcinome_lobulaire">Carcinome lobulaire infiltrant</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <select class="form-select" name="cancer_sein_traitement" id="cancerSeinTraitement">
+                                                                <option value="">Traitement</option>
+                                                                <option value="conservateur">Traitement conservateur</option>
+                                                                <option value="mastectomie">Mastectomie totale</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    {# Options si mastectomie #}
+                                                    <div id="mastectomieDetails" class="d-none">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <select class="form-select" name="mastectomie_reconstruction">
+                                                                    <option value="">Reconstruction</option>
+                                                                    <option value="sans">Sans geste de reconstruction</option>
+                                                                    <option value="prothese">Reconstruction par prothèse</option>
+                                                                    <option value="lipofilling">Reconstruction par lipofilling</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        {# Options si cancer du sein = oui #}
-                                        <div id="cancerSeinDetails" class="d-none">
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                    <input type="number" class="form-control" name="cancer_sein_annee" placeholder="Année">
+                                        {# Chirurgie pour lésion à risque #}
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Chirurgie pour lésion à risque</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" name="chirurgie_risque" id="chirurgieRisqueSelect">
+                                                            <option value="">Non renseigné</option>
+                                                            <option value="oui">Oui</option>
+                                                            <option value="non">Non</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <select class="form-select" name="cancer_sein_histologie">
-                                                        <option value="">Histologie</option>
-                                                        <option value="carcinome_infiltrant">Carcinome infiltrant non spécifique</option>
-                                                        <option value="carcinome_lobulaire">Carcinome lobulaire infiltrant</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <select class="form-select" name="cancer_sein_traitement" id="cancerSeinTraitement">
-                                                        <option value="">Traitement</option>
-                                                        <option value="conservateur">Traitement conservateur</option>
-                                                        <option value="mastectomie">Mastectomie totale</option>
-                                                    </select>
+
+                                                {# Options si chirurgie à risque = oui #}
+                                                <div id="chirurgieRisqueDetails" class="d-none">
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
+                                                            <select class="form-select" name="chirurgie_risque_type">
+                                                                <option value="">Type de lésion</option>
+                                                                <option value="hyperplasie_canalaire">Hyperplasie canalaire atypique</option>
+                                                                <option value="hyperplasie_lobulaire">Hyperplasie lobulaire atypique</option>
+                                                                <option value="carcinome_lobulaire">Carcinome lobulaire in situ</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <select class="form-select" name="chirurgie_risque_lateralite">
+                                                                <option value="">Latéralité ?</option>
+                                                                <option value="gauche">Gauche</option>
+                                                                <option value="droite">Droite</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="number" class="form-control" name="chirurgie_risque_annee" placeholder="Année">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            {# Options si mastectomie #}
-                                            <div id="mastectomieDetails" class="d-none">
+                                        {# Chirurgie pour lésion bénigne #}
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Chirurgie pour lésion bénigne</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" name="chirurgie_benigne" id="chirurgieBenigneSelect">
+                                                            <option value="">Non renseigné</option>
+                                                            <option value="oui">Oui</option>
+                                                            <option value="non">Non</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                {# Options si chirurgie bénigne = oui #}
+                                                <div id="chirurgieBenigneDetails" class="d-none">
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
+                                                            <select class="form-select" name="chirurgie_benigne_type">
+                                                                <option value="">Type de lésion</option>
+                                                                <option value="fibroadenome">Fibroadénome</option>
+                                                                <option value="papillome">Papillome intracanalaire</option>
+                                                                <option value="tumeur_phyllode">Tumeur phyllode</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <select class="form-select" name="chirurgie_benigne_lateralite">
+                                                                <option value="">Latéralité ?</option>
+                                                                <option value="gauche">Gauche</option>
+                                                                <option value="droite">Droite</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="number" class="form-control" name="chirurgie_benigne_annee" placeholder="Année">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {# Chirurgie plastique #}
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Chirurgie plastique</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" name="chirurgie_plastique" id="chirurgiePlastiqueSelect">
+                                                            <option value="">Non renseigné</option>
+                                                            <option value="oui">Oui</option>
+                                                            <option value="non">Non</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                {# Options si chirurgie plastique = oui #}
+                                                <div id="chirurgiePlastiqueDetails" class="d-none">
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
+                                                            <select class="form-select" name="chirurgie_plastique_type" id="chirurgiePlastiqueType">
+                                                                <option value="">Type de chirurgie</option>
+                                                                <option value="reduction">Réduction mammaire</option>
+                                                                <option value="prothese">Prothèse mammaire</option>
+                                                                <option value="symetrisation">Symétrisation</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    {# Options pour réduction mammaire #}
+                                                    <div id="reductionDetails" class="d-none">
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-4">
+                                                                <select class="form-select" name="reduction_lateralite">
+                                                                    <option value="">Latéralité</option>
+                                                                    <option value="gauche">Gauche</option>
+                                                                    <option value="droite">Droite</option>
+                                                                    <option value="bilaterale">Bilatérale</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="number" class="form-control" name="reduction_annee" placeholder="Année">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {# Options pour prothèse mammaire #}
+                                                    <div id="protheseDetails" class="d-none">
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-4">
+                                                                <select class="form-select" name="prothese_lateralite" id="protheseLateralite">
+                                                                    <option value="">Latéralité</option>
+                                                                    <option value="gauche">Gauche</option>
+                                                                    <option value="droite">Droite</option>
+                                                                    <option value="bilaterale">Bilatérale</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        {# Options selon la latéralité #}
+                                                        <div id="protheseGaucheDetails" class="d-none">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <input type="number" class="form-control" name="prothese_gauche_annee" placeholder="Année">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="protheseDroiteDetails" class="d-none">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <input type="number" class="form-control" name="prothese_droite_annee" placeholder="Année">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="protheseBilateraleDetails" class="d-none">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6">
+                                                                    <input type="number" class="form-control" name="prothese_bilaterale_gauche_annee" placeholder="Année à gauche">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="number" class="form-control" name="prothese_bilaterale_droite_annee" placeholder="Année à droite">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {# Options pour symétrisation #}
+                                                    <div id="symetrisationDetails" class="d-none">
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-4">
+                                                                <select class="form-select" name="symetrisation_lateralite">
+                                                                    <option value="">Latéralité</option>
+                                                                    <option value="gauche">À gauche</option>
+                                                                    <option value="droite">À droite</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {# Antécédent de néoplasie ovarienne #}
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Antécédent de néoplasie ovarienne</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" name="neoplasie_ovarienne" id="neoplasieOvarienneSelect">
+                                                            <option value="">Non renseigné</option>
+                                                            <option value="oui">Oui</option>
+                                                            <option value="non">Non</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                {# Options si néoplasie ovarienne = oui #}
+                                                <div id="neoplasieOvarienneDetails" class="d-none">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="number" class="form-control" name="neoplasie_ovarienne_annee" placeholder="Année">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {# Maladie de Hodgkin #}
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Maladie de Hodgkin avec irradiation thoracique</h5>
+                                            </div>
+                                            <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <select class="form-select" name="mastectomie_reconstruction">
-                                                            <option value="">Reconstruction</option>
-                                                            <option value="sans">Sans geste de reconstruction</option>
-                                                            <option value="prothese">Reconstruction par prothèse</option>
-                                                            <option value="lipofilling">Reconstruction par lipofilling</option>
+                                                        <select class="form-select" name="hodgkin">
+                                                            <option value="">Non renseigné</option>
+                                                            <option value="oui">Oui</option>
+                                                            <option value="non">Non</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -260,433 +493,199 @@
                                     </div>
                                 </div>
 
-                                {# Chirurgie pour lésion à risque #}
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Chirurgie pour lésion à risque</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <select class="form-select" name="chirurgie_risque" id="chirurgieRisqueSelect">
-                                                    <option value="">Non renseigné</option>
-                                                    <option value="oui">Oui</option>
-                                                    <option value="non">Non</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        {# Options si chirurgie à risque = oui #}
-                                        <div id="chirurgieRisqueDetails" class="d-none">
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                    <select class="form-select" name="chirurgie_risque_type">
-                                                        <option value="">Type de lésion</option>
-                                                        <option value="hyperplasie_canalaire">Hyperplasie canalaire atypique</option>
-                                                        <option value="hyperplasie_lobulaire">Hyperplasie lobulaire atypique</option>
-                                                        <option value="carcinome_lobulaire">Carcinome lobulaire in situ</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <select class="form-select" name="chirurgie_risque_lateralite">
-                                                        <option value="">Latéralité ?</option>
-                                                        <option value="gauche">Gauche</option>
-                                                        <option value="droite">Droite</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="number" class="form-control" name="chirurgie_risque_annee" placeholder="Année">
-                                                </div>
+                                {# Section Âge de la patiente #}
+                                <div class="mb-4 ms-3">
+                                    <h5 class="mb-3">Âge de la patiente</h5>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" name="age_patiente" placeholder="Âge en années">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {# Chirurgie pour lésion bénigne #}
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Chirurgie pour lésion bénigne</h5>
+                                {# Section Statut hormonal #}
+                                <div class="mb-4 ms-3">
+                                    <h5 class="mb-3">Statut hormonal</h5>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select class="form-select" name="statut_hormonal" id="statutHormonalSelect">
+                                                <option value="">Statut hormonal</option>
+                                                <option value="menopausee">Ménopausée</option>
+                                                <option value="non_menopausee">Non ménopausée</option>
+                                                <option value="menopause_en_cours">Ménopause en cours</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
+
+                                    {# Options si ménopausée #}
+                                    <div id="menopauseeDetails" class="d-none mt-3">
                                         <div class="row mb-3">
                                             <div class="col-md-4">
-                                                <select class="form-select" name="chirurgie_benigne" id="chirurgieBenigneSelect">
-                                                    <option value="">Non renseigné</option>
-                                                    <option value="oui">Oui</option>
-                                                    <option value="non">Non</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        {# Options si chirurgie bénigne = oui #}
-                                        <div id="chirurgieBenigneDetails" class="d-none">
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                    <select class="form-select" name="chirurgie_benigne_type">
-                                                        <option value="">Type de lésion</option>
-                                                        <option value="fibroadenome">Fibroadénome</option>
-                                                        <option value="papillome">Papillome intracanalaire</option>
-                                                        <option value="tumeur_phyllode">Tumeur phyllode</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <select class="form-select" name="chirurgie_benigne_lateralite">
-                                                        <option value="">Latéralité ?</option>
-                                                        <option value="gauche">Gauche</option>
-                                                        <option value="droite">Droite</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="number" class="form-control" name="chirurgie_benigne_annee" placeholder="Année">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">À l'âge de</span>
+                                                    <input type="number" class="form-control" name="age_menopause" placeholder="Âge">
+                                                    <span class="input-group-text">ans</span>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                {# Chirurgie plastique #}
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Chirurgie plastique</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <select class="form-select" name="chirurgie_plastique" id="chirurgiePlastiqueSelect">
-                                                    <option value="">Non renseigné</option>
-                                                    <option value="oui">Oui</option>
-                                                    <option value="non">Non</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        {# Options si chirurgie plastique = oui #}
-                                        <div id="chirurgiePlastiqueDetails" class="d-none">
-                                            <div class="row mb-3">
-                                                <div class="col-md-4">
-                                                    <select class="form-select" name="chirurgie_plastique_type" id="chirurgiePlastiqueType">
-                                                        <option value="">Type de chirurgie</option>
-                                                        <option value="reduction">Réduction mammaire</option>
-                                                        <option value="prothese">Prothèse mammaire</option>
-                                                        <option value="symetrisation">Symétrisation</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            {# Options pour réduction mammaire #}
-                                            <div id="reductionDetails" class="d-none">
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <select class="form-select" name="reduction_lateralite">
-                                                            <option value="">Latéralité</option>
-                                                            <option value="gauche">Gauche</option>
-                                                            <option value="droite">Droite</option>
-                                                            <option value="bilaterale">Bilatérale</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <input type="number" class="form-control" name="reduction_annee" placeholder="Année">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {# Options pour prothèse mammaire #}
-                                            <div id="protheseDetails" class="d-none">
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <select class="form-select" name="prothese_lateralite" id="protheseLateralite">
-                                                            <option value="">Latéralité</option>
-                                                            <option value="gauche">Gauche</option>
-                                                            <option value="droite">Droite</option>
-                                                            <option value="bilaterale">Bilatérale</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                {# Options selon la latéralité #}
-                                                <div id="protheseGaucheDetails" class="d-none">
-                                                    <div class="row mb-3">
-                                                        <div class="col-md-4">
-                                                            <input type="number" class="form-control" name="prothese_gauche_annee" placeholder="Année">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div id="protheseDroiteDetails" class="d-none">
-                                                    <div class="row mb-3">
-                                                        <div class="col-md-4">
-                                                            <input type="number" class="form-control" name="prothese_droite_annee" placeholder="Année">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div id="protheseBilateraleDetails" class="d-none">
-                                                    <div class="row mb-3">
-                                                        <div class="col-md-6">
-                                                            <input type="number" class="form-control" name="prothese_bilaterale_gauche_annee" placeholder="Année à gauche">
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="number" class="form-control" name="prothese_bilaterale_droite_annee" placeholder="Année à droite">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {# Options pour symétrisation #}
-                                            <div id="symetrisationDetails" class="d-none">
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <select class="form-select" name="symetrisation_lateralite">
-                                                            <option value="">Latéralité</option>
-                                                            <option value="gauche">À gauche</option>
-                                                            <option value="droite">À droite</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {# Antécédent de néoplasie ovarienne #}
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Antécédent de néoplasie ovarienne</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <select class="form-select" name="neoplasie_ovarienne" id="neoplasieOvarienneSelect">
-                                                    <option value="">Non renseigné</option>
-                                                    <option value="oui">Oui</option>
-                                                    <option value="non">Non</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        {# Options si néoplasie ovarienne = oui #}
-                                        <div id="neoplasieOvarienneDetails" class="d-none">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <input type="number" class="form-control" name="neoplasie_ovarienne_annee" placeholder="Année">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {# Maladie de Hodgkin #}
-                                <div class="card mb-3">
-                                    <div class="card-header">
-                                        <h5 class="mb-0">Maladie de Hodgkin avec irradiation thoracique</h5>
-                                    </div>
-                                    <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <select class="form-select" name="hodgkin">
-                                                    <option value="">Non renseigné</option>
-                                                    <option value="oui">Oui</option>
-                                                    <option value="non">Non</option>
+                                                <select class="form-select" name="traitement_hormonal">
+                                                    <option value="">Traitement hormonal substitutif</option>
+                                                    <option value="pas_de_traitement">Pas de traitement hormonal substitutif</option>
+                                                    <option value="en_cours">Traitement hormonal substitutif en cours</option>
+                                                    <option value="arrete">Traitement hormonal substitutif arrêté</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {# Options si non ménopausée #}
+                                    <div id="nonMenopauseeDetails" class="d-none mt-3">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <select class="form-select" name="cycle">
+                                                    <option value="">Cycle</option>
+                                                    <option value="premiere_quinzaine">En première quinzaine du cycle</option>
+                                                    <option value="seconde_quinzaine">En seconde quinzaine du cycle</option>
+                                                    <option value="milieu_cycle">En milieu de cycle</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        {# Section Âge de la patiente #}
-                        <div class="mb-4 ms-3">
-                            <h5 class="mb-3">Âge de la patiente</h5>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="age_patiente" placeholder="Âge en années">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {# Section Statut hormonal #}
-                        <div class="mb-4 ms-3">
-                            <h5 class="mb-3">Statut hormonal</h5>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <select class="form-select" name="statut_hormonal" id="statutHormonalSelect">
-                                        <option value="">Statut hormonal</option>
-                                        <option value="menopausee">Ménopausée</option>
-                                        <option value="non_menopausee">Non ménopausée</option>
-                                        <option value="menopause_en_cours">Ménopause en cours</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            {# Options si ménopausée #}
-                            <div id="menopauseeDetails" class="d-none mt-3">
-                                <div class="row mb-3">
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-text">À l'âge de</span>
-                                            <input type="number" class="form-control" name="age_menopause" placeholder="Âge">
-                                            <span class="input-group-text">ans</span>
+                                {# Section Enfants #}
+                                <div class="mb-4 ms-3">
+                                    <h5 class="mb-3">Enfants</h5>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            {{ form_row(form.nombre_enfants, {'label': false}) }}
+                                        </div>
+                                        <div class="col-md-6 mb-3" id="allaitementContainer" style="display: none;">
+                                            {{ form_row(form.allaitement, {'label': false}) }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <select class="form-select" name="traitement_hormonal">
-                                            <option value="">Traitement hormonal substitutif</option>
-                                            <option value="pas_de_traitement">Pas de traitement hormonal substitutif</option>
-                                            <option value="en_cours">Traitement hormonal substitutif en cours</option>
-                                            <option value="arrete">Traitement hormonal substitutif arrêté</option>
-                                        </select>
+
+                                {# Section Antécédents familiaux #}
+                                <div class="mb-4 ms-3">
+                                    <h5 class="mb-3">Antécédents familiaux sénologiques et ovariens</h5>
+                                    <div class="d-flex gap-2 mb-3">
+                                        <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="non">
+                                            Non
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="oui">
+                                            Oui
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="ne_sait_pas">
+                                            Ne sait pas
+                                        </button>
+                                        <button type="button" id="resetAntecedentsFamiliauxBtn" class="btn btn-outline-danger">
+                                            <i class="bi bi-x-circle"></i> Reset
+                                        </button>
+                                    </div>
+
+                                    <div id="antecedentsFamiliauxDetails" class="d-none mt-3">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Mutation BRCA identifiée</label>
+                                                {{ form_row(form.mutation_brca, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer du sein avant 30 ans</label>
+                                                {{ form_row(form.cancer_sein_avant_30, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-sein-avant-30-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_sein_avant_30_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer du sein entre 30 et 39 ans</label>
+                                                {{ form_row(form.cancer_sein_30_39, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-sein-30-39-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_sein_30_39_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer du sein entre 40 et 49 ans</label>
+                                                {{ form_row(form.cancer_sein_40_49, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-sein-40-49-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_sein_40_49_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer du sein entre 50 et 70 ans</label>
+                                                {{ form_row(form.cancer_sein_50_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-sein-50-70-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_sein_50_70_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer du sein après 70 ans</label>
+                                                {{ form_row(form.cancer_sein_apres_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-sein-apres-70-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_sein_apres_70_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer ovarien avant 70 ans</label>
+                                                {{ form_row(form.cancer_ovarien_avant_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-ovarien-avant-70-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_ovarien_avant_70_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer ovarien après 70 ans</label>
+                                                {{ form_row(form.cancer_ovarien_apres_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-ovarien-apres-70-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_ovarien_apres_70_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Cancer du sein chez l'homme</label>
+                                                {{ form_row(form.cancer_sein_homme, {'label': false, 'attr': {'class': 'form-select'}}) }}
+                                            </div>
+                                            <div class="col-md-6 cancer-sein-homme-nombre d-none">
+                                                <label class="form-label">Nombre</label>
+                                                {{ form_row(form.cancer_sein_homme_nombre, {'label': false}) }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            {# Options si non ménopausée #}
-                            <div id="nonMenopauseeDetails" class="d-none mt-3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <select class="form-select" name="cycle">
-                                            <option value="">Cycle</option>
-                                            <option value="premiere_quinzaine">En première quinzaine du cycle</option>
-                                            <option value="seconde_quinzaine">En seconde quinzaine du cycle</option>
-                                            <option value="milieu_cycle">En milieu de cycle</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {# Section Enfants #}
-                        <div class="mb-4 ms-3">
-                            <h5 class="mb-3">Enfants</h5>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    {{ form_row(form.nombre_enfants, {'label': false}) }}
-                                </div>
-                                <div class="col-md-6 mb-3" id="allaitementContainer" style="display: none;">
-                                    {{ form_row(form.allaitement, {'label': false}) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        {# Section Antécédents familiaux #}
-                        <div class="mb-4 ms-3">
-                            <h5 class="mb-3">Antécédents familiaux sénologiques et ovariens</h5>
-                            <div class="d-flex gap-2 mb-3">
-                                <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="non">
-                                    Non
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="oui">
-                                    Oui
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="ne_sait_pas">
-                                    Ne sait pas
-                                </button>
-                                <button type="button" id="resetAntecedentsFamiliauxBtn" class="btn btn-outline-danger">
-                                    <i class="bi bi-x-circle"></i> Reset
-                                </button>
-                            </div>
-
-                            <div id="antecedentsFamiliauxDetails" class="d-none mt-3">
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Mutation BRCA identifiée</label>
-                                        {{ form_row(form.mutation_brca, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer du sein avant 30 ans</label>
-                                        {{ form_row(form.cancer_sein_avant_30, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-sein-avant-30-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_sein_avant_30_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer du sein entre 30 et 39 ans</label>
-                                        {{ form_row(form.cancer_sein_30_39, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-sein-30-39-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_sein_30_39_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer du sein entre 40 et 49 ans</label>
-                                        {{ form_row(form.cancer_sein_40_49, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-sein-40-49-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_sein_40_49_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer du sein entre 50 et 70 ans</label>
-                                        {{ form_row(form.cancer_sein_50_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-sein-50-70-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_sein_50_70_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer du sein après 70 ans</label>
-                                        {{ form_row(form.cancer_sein_apres_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-sein-apres-70-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_sein_apres_70_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer ovarien avant 70 ans</label>
-                                        {{ form_row(form.cancer_ovarien_avant_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-ovarien-avant-70-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_ovarien_avant_70_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer ovarien après 70 ans</label>
-                                        {{ form_row(form.cancer_ovarien_apres_70, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-ovarien-apres-70-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_ovarien_apres_70_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Cancer du sein chez l'homme</label>
-                                        {{ form_row(form.cancer_sein_homme, {'label': false, 'attr': {'class': 'form-select'}}) }}
-                                    </div>
-                                    <div class="col-md-6 cancer-sein-homme-nombre d-none">
-                                        <label class="form-label">Nombre</label>
-                                        {{ form_row(form.cancer_sein_homme_nombre, {'label': false}) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -707,8 +706,3 @@
     <script src="{{ asset('js/form_mamo.js') }}"></script>
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/commun.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-{% endblock %} 
