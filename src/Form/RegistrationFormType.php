@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormError;
 
 class RegistrationFormType extends AbstractType
 {
@@ -28,9 +33,9 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez entrer votre prénom',
-                    ]),
-                ],
+                        'message' => 'Veuillez entrer votre prénom'
+                    ])
+                ]
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
@@ -40,33 +45,35 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez entrer votre nom',
-                    ]),
-                ],
+                        'message' => 'Veuillez entrer votre nom'
+                    ])
+                ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'votre@email.com'
+                    'placeholder' => 'Votre email'
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez entrer votre email',
+                        'message' => 'Veuillez entrer votre email'
                     ]),
-                ],
+                    new Email([
+                        'message' => 'Veuillez entrer un email valide'
+                    ])
+                ]
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'mapped' => false,
                 'attr' => [
-                    'autocomplete' => 'new-password',
                     'class' => 'form-control',
                     'placeholder' => 'Votre mot de passe'
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez entrer un mot de passe',
+                        'message' => 'Veuillez entrer un mot de passe'
                     ]),
                     new Length([
                         'min' => 8,
@@ -75,9 +82,18 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Regex([
                         'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-                        'message' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial',
-                    ]),
+                        'message' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial'
+                    ])
+                ]
+            ])
+            ->add('confirmPassword', PasswordType::class, [
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Confirmez votre mot de passe'
                 ],
+                'label' => 'Confirmer le mot de passe',
+                'label_attr' => ['class' => 'form-label']
             ])
             /* Temporairement commenté pour le développement local
             ->add('recaptcha', TextType::class, [
@@ -95,18 +111,27 @@ class RegistrationFormType extends AbstractType
             ])
             */
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'J\'accepte le traitement de mes données personnelles conformément à la politique de confidentialité',
+                'label' => 'J\'accepte le traitement de mes données personnelles conformément à la <a href="/rgpd" target="_blank">politique de confidentialité</a>',
+                'label_html' => true,
                 'mapped' => false,
-                'attr' => [
-                    'class' => 'form-check-input'
-                ],
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Vous devez accepter nos conditions.',
-                    ]),
-                ],
+                        'message' => 'Vous devez accepter nos conditions.'
+                    ])
+                ]
             ])
         ;
+
+        // Ajouter un EventListener pour la validation des mots de passe
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $password = $form->get('password')->getData();
+            $confirmPassword = $form->get('confirmPassword')->getData();
+
+            if ($password !== $confirmPassword) {
+                $form->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas'));
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

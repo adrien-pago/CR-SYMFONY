@@ -22,29 +22,13 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            // Débogage
-            $this->addFlash('debug', 'Formulaire soumis');
-            
-            // Afficher les données soumises
-            $formData = $form->getData();
-            $this->addFlash('debug', 'Données du formulaire : ' . json_encode([
-                'firstName' => $formData->getFirstName(),
-                'lastName' => $formData->getLastName(),
-                'email' => $formData->getEmail(),
-                'plainPassword' => $form->get('plainPassword')->getData(),
-                'agreeTerms' => $form->get('agreeTerms')->getData()
-            ]));
-
             if ($form->isValid()) {
-                // Débogage
-                $this->addFlash('debug', 'Formulaire valide');
-                
                 try {
                     // encode the plain password
                     $user->setPassword(
                         $userPasswordHasher->hashPassword(
                             $user,
-                            $form->get('plainPassword')->getData()
+                            $form->get('password')->getData()
                         )
                     );
 
@@ -56,18 +40,7 @@ class RegistrationController extends AbstractController
 
                     return $this->redirectToRoute('app_login');
                 } catch (\Exception $e) {
-                    // Débogage
-                    $this->addFlash('error', 'Erreur lors de l\'enregistrement : ' . $e->getMessage());
-                    return $this->render('registration/register.html.twig', [
-                        'registrationForm' => $form->createView(),
-                    ]);
-                }
-            } else {
-                // Débogage détaillé des erreurs
-                $errors = $form->getErrors(true);
-                foreach ($errors as $error) {
-                    $field = $error->getOrigin()->getName();
-                    $this->addFlash('error', "Erreur sur le champ '$field' : " . $error->getMessage());
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'inscription.');
                 }
             }
         }
