@@ -20,32 +20,147 @@
                 <div class="card-body">
                     {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ form_row(form.dateExamen) }}
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.titre) }}
                             </div>
-                            <div class="col-md-6 mb-3">
-                                {{ form_row(form.typeExamen) }}
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(form.indication) }}
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            {{ form_row(form.motif) }}
-                        </div>
+                        {# Partie Bilan de la section Indication #}
+                        <div class="mb-4">
+                            <button type="button" id="bilanBtn" class="btn btn-outline-primary">
+                                <i class="bi bi-plus-circle"></i> Bilan
+                            </button>
+                            
+                            {# Options du bilan #}
+                            <div id="bilanOptions" class="d-none mt-3">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="douleurOptions">
+                                        Douleur
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="masseOptions">
+                                        Masse
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="ecoulementOptions">
+                                        Écoulement
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="gynecomastieOptions">
+                                        Gynécomastie
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="autreOptions">
+                                        Autre
+                                    </button>
+                                </div>
 
-                        <div class="mb-3">
-                            {{ form_row(form.antecedents) }}
-                        </div>
+                                {# Options pour la douleur #}
+                                <div id="douleurOptions" class="option-container d-none mt-3">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="douleur_lateralite">
+                                                <option value="">Latéralité ?</option>
+                                                <option value="gauche">Gauche</option>
+                                                <option value="droite">Droite</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="douleur_apparition">
+                                                <option value="">Apparition</option>
+                                                <option value="spontanee">Spontanée</option>
+                                                <option value="post_traumatique">Post-traumatique</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="douleur_anciennete">
+                                                <option value="">Ancienneté</option>
+                                                <option value="recente">Récente</option>
+                                                <option value="ancienne">Datant de plusieurs mois</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="mb-3">
-                            {{ form_row(form.resultats) }}
-                        </div>
+                                {# Options pour la masse #}
+                                <div id="masseOptions" class="option-container d-none mt-3">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="masse_lateralite">
+                                                <option value="">Latéralité ?</option>
+                                                <option value="gauche">Gauche</option>
+                                                <option value="droite">Droite</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="masse_palpation">
+                                                <option value="">Palpation</option>
+                                                <option value="recente">De découverte récente</option>
+                                                <option value="ancienne_stable">Ancienne, stable</option>
+                                                <option value="ancienne_evolutive">Ancienne, évolutive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="mb-3">
-                            {{ form_row(form.conclusion) }}
-                        </div>
+                                {# Options pour l'écoulement #}
+                                <div id="ecoulementOptions" class="option-container d-none mt-3">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="ecoulement_lateralite">
+                                                <option value="">Latéralité ?</option>
+                                                <option value="gauche">Gauche</option>
+                                                <option value="droite">Droite</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="ecoulement_type">
+                                                <option value="">Type</option>
+                                                <option value="unipore">Unipore</option>
+                                                <option value="multipore">Multipore</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="ecoulement_aspect">
+                                                <option value="">Aspect</option>
+                                                <option value="clair">Clair</option>
+                                                <option value="lactescent">Lactescent</option>
+                                                <option value="verdatre">Verdâtre</option>
+                                                <option value="sanguinolant">Sanguinolant</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="mb-3">
-                            {{ form_row(form.recommandations) }}
+                                {# Options pour la gynécomastie #}
+                                <div id="gynecomastieOptions" class="option-container d-none mt-3">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="gynecomastie_lateralite">
+                                                <option value="">Latéralité</option>
+                                                <option value="gauche">Gauche</option>
+                                                <option value="droite">Droite</option>
+                                                <option value="bilaterale">Bilatérale</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <select class="form-select" name="gynecomastie_douleur">
+                                                <option value="">Douleur</option>
+                                                <option value="douloureuse">Douloureuse</option>
+                                                <option value="indolore">Indolore</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Option pour autre #}
+                                <div id="autreOptions" class="option-container d-none mt-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" name="autre_description" rows="3" placeholder="Description de l'anomalie"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -59,4 +174,9 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/form_mamo.js') }}"></script>
 {% endblock %} 
