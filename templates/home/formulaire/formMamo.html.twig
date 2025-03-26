@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mammographie - CR-SYMFONY{% endblock %}
+
+{% block header %}
+    {{ include('partials/_header.html.twig') }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="card-title mb-0">Compte-rendu de Mammographie</h2>
+                    <a href="{{ path('app_home') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Retour
+                    </a>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form_row(form.dateExamen) }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form_row(form.typeExamen) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.motif) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.antecedents) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.resultats) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.conclusion) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.recommandations) }}
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Enregistrer
+                            </button>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
