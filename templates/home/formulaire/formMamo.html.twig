@@ -31,12 +31,12 @@
                         {# Partie Bilan de la section Indication #}
                         <div class="mb-4">
                             <button type="button" id="bilanBtn" class="btn btn-outline-primary">
-                                <i class="bi bi-plus-circle"></i> Bilan
+                                <i class="bi bi-plus-circle"></i> <span class="bilan-text"> Bilan</span>
                             </button>
                             
                             {# Options du bilan #}
                             <div id="bilanOptions" class="d-none mt-3">
-                                <div class="btn-group" role="group">
+                                <div class="d-flex gap-2 mb-3">
                                     <button type="button" class="btn btn-outline-secondary option-btn" data-target="douleurOptions">
                                         Douleur
                                     </button>
@@ -52,10 +52,14 @@
                                     <button type="button" class="btn btn-outline-secondary option-btn" data-target="autreOptions">
                                         Autre
                                     </button>
+                                    <button type="button" id="resetBtn" class="btn btn-outline-danger ms-auto">
+                                        <i class="bi bi-x-circle"></i> Reset
+                                    </button>
                                 </div>
 
                                 {# Options pour la douleur #}
                                 <div id="douleurOptions" class="option-container d-none mt-3">
+                                    <p class="text-muted mb-2">d'une douleur mammaire</p>
                                     <div class="row">
                                         <div class="col-md-4 mb-2">
                                             <select class="form-select" name="douleur_lateralite">
@@ -83,6 +87,7 @@
 
                                 {# Options pour la masse #}
                                 <div id="masseOptions" class="option-container d-none mt-3">
+                                    <p class="text-muted mb-2">d'une masse mammaire</p>
                                     <div class="row">
                                         <div class="col-md-4 mb-2">
                                             <select class="form-select" name="masse_lateralite">
@@ -104,6 +109,7 @@
 
                                 {# Options pour l'écoulement #}
                                 <div id="ecoulementOptions" class="option-container d-none mt-3">
+                                    <p class="text-muted mb-2">d'un écoulement mammelonnaire</p>
                                     <div class="row">
                                         <div class="col-md-4 mb-2">
                                             <select class="form-select" name="ecoulement_lateralite">
@@ -133,6 +139,7 @@
 
                                 {# Options pour la gynécomastie #}
                                 <div id="gynecomastieOptions" class="option-container d-none mt-3">
+                                    <p class="text-muted mb-2">d'une gynécomastie</p>
                                     <div class="row">
                                         <div class="col-md-4 mb-2">
                                             <select class="form-select" name="gynecomastie_lateralite">
