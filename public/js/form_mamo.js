@@ -453,4 +453,166 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Gestion de la section Technique
+    const difficulteTechniqueSelect = document.querySelector('#form_mamo_difficulte_technique');
+    const difficulteTechniqueAutreContainer = document.getElementById('difficulteTechniqueAutreContainer');
+    const echographieSelect = document.querySelector('#form_mamo_echographie');
+    const echographieIndicationContainer = document.getElementById('echographieIndicationContainer');
+    const ajouterIncidencesBtn = document.getElementById('ajouterIncidencesBtn');
+    const incidencesContainer = document.querySelector('.incidences-complementaires');
+
+    // Gestion de la difficulté technique
+    if (difficulteTechniqueSelect && difficulteTechniqueAutreContainer) {
+        difficulteTechniqueSelect.addEventListener('change', function() {
+            difficulteTechniqueAutreContainer.style.display = this.value === 'autre' ? 'block' : 'none';
+        });
+    }
+
+    // Gestion de l'échographie
+    if (echographieSelect && echographieIndicationContainer) {
+        echographieSelect.addEventListener('change', function() {
+            echographieIndicationContainer.style.display = this.value === 'bilaterale' ? 'block' : 'none';
+        });
+    }
+
+    // Gestion du bouton Ajouter pour les incidences complémentaires
+    if (ajouterIncidencesBtn) {
+        ajouterIncidencesBtn.addEventListener('click', function() {
+            // Créer un nouveau groupe d'incidences
+            const newIncidencesGroup = document.createElement('div');
+            newIncidencesGroup.className = 'incidences-group mb-3';
+            newIncidencesGroup.innerHTML = `
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-8">
+                        <select class="form-select" name="incidences_complementaires[]">
+                            <option value="">Sélectionner une incidence</option>
+                            <option value="agrandis_face_profil">Réalisation complémentaire de clichés agrandis de face et de profil</option>
+                            <option value="face_roule">Réalisation complémentaire d'un cliché de face roulé</option>
+                            <option value="face_cleopatre">Réalisation complémentaire d'un cliché de face tournée (dit de Cléopâtre)</option>
+                            <option value="comprime_localise">Réalisation complémentaire d'un cliché comprimé localisé</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" name="incidences_lateralite[]">
+                            <option value="">Latéralité ?</option>
+                            <option value="droite">Droite</option>
+                            <option value="gauche">Gauche</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button type="button" class="btn btn-outline-danger remove-incidence w-100">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Ajouter le nouveau groupe après le dernier groupe existant
+            const incidencesContainer = document.querySelector('.incidences-complementaires');
+            incidencesContainer.appendChild(newIncidencesGroup);
+
+            // Ajouter l'événement de suppression
+            const removeBtn = newIncidencesGroup.querySelector('.remove-incidence');
+            removeBtn.addEventListener('click', function() {
+                newIncidencesGroup.remove();
+            });
+        });
+    }
+
+    // Gestion de la modification des sections de résultat selon la technique
+    const techniqueMammographieSelect = document.querySelector('#form_mamo_technique_mammographie');
+    if (techniqueMammographieSelect) {
+        techniqueMammographieSelect.addEventListener('change', function() {
+            // Cette fonction sera implémentée plus tard quand nous ajouterons les sections de résultat
+            console.log('Technique mammographie changée:', this.value);
+        });
+    }
+
+    // Gestion de la modification des sections de résultat selon l'échographie
+    if (echographieSelect) {
+        echographieSelect.addEventListener('change', function() {
+            // Cette fonction sera implémentée plus tard quand nous ajouterons les sections de résultat
+            console.log('Échographie changée:', this.value);
+        });
+    }
+
+    // Gestion de la section Comparatif
+    const comparatifTypeSelect = document.querySelector('#form_mamo_comparatif_type');
+    const comparatifDetails = document.getElementById('comparatifDetails');
+    const ajouterComparatifAncienBtn = document.getElementById('ajouterComparatifAncienBtn');
+    const comparatifAncienContainer = document.getElementById('comparatifAncienContainer');
+
+    // Gestion du type de comparatif
+    if (comparatifTypeSelect && comparatifDetails) {
+        comparatifTypeSelect.addEventListener('change', function() {
+            comparatifDetails.classList.toggle('d-none', this.value === 'non');
+            // Réinitialiser le conteneur du bilan plus ancien si "Non" est sélectionné
+            if (this.value === 'non') {
+                comparatifAncienContainer.classList.add('d-none');
+                document.querySelector('#form_mamo_comparatif_ancien_date').value = '';
+            }
+        });
+    }
+
+    // Gestion du bouton pour ajouter un bilan plus ancien
+    if (ajouterComparatifAncienBtn && comparatifAncienContainer) {
+        ajouterComparatifAncienBtn.addEventListener('click', function() {
+            comparatifAncienContainer.classList.toggle('d-none');
+            if (!comparatifAncienContainer.classList.contains('d-none')) {
+                this.innerHTML = '<i class="bi bi-minus-circle me-1"></i>Supprimer le bilan plus ancien';
+            } else {
+                this.innerHTML = '<i class="bi bi-plus-circle me-1"></i>Nous disposons également d\'un bilan plus ancien datant de (MM/AAAA)';
+                document.querySelector('#form_mamo_comparatif_ancien_date').value = '';
+            }
+        });
+    }
+
+    // Initialisation des calendriers
+    const calendarIcons = document.querySelectorAll('.calendar-icon');
+    calendarIcons.forEach(icon => {
+        const targetId = icon.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        
+        if (input) {
+            // Trouver la carte parente
+            const card = input.closest('.card');
+            
+            // Configuration du calendrier
+            const config = {
+                dateFormat: targetId.includes('ancien') ? 'm/Y' : 'd/m/Y',
+                locale: 'fr',
+                allowInput: true,
+                altInput: true,
+                altFormat: targetId.includes('ancien') ? 'F Y' : 'd/m/Y',
+                static: true,
+                position: 'below',
+                inline: false,
+                showMonths: 1,
+                disableMobile: true,
+                onChange: function(selectedDates, dateStr) {
+                    input.value = dateStr;
+                },
+                onOpen: function() {
+                    if (card) {
+                        card.classList.add('calendar-open');
+                    }
+                },
+                onClose: function() {
+                    if (card) {
+                        card.classList.remove('calendar-open');
+                    }
+                }
+            };
+
+            // Initialiser Flatpickr
+            const fp = flatpickr(input, config);
+
+            // Gérer le clic sur l'icône
+            icon.addEventListener('click', function(e) {
+                e.preventDefault();
+                fp.toggle();
+            });
+        }
+    });
 }); 

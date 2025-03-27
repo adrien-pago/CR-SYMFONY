@@ -29,7 +29,7 @@
                                 {{ form_widget(form.titre) }}
                             </div>
                         </div>
-
+                       
                         {# Section Indication #}
                         <div class="card mb-4">
                             <div class="card-header text-center d-flex justify-content-between align-items-center">
@@ -688,6 +688,137 @@
                             </div>
                         </div>
 
+                        {# Section Technique #}
+                        <div class="card mb-4">
+                            <div class="card-header text-center d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">Technique</h4>
+                                <i class="bi bi-eye toggle-visibility" data-target="technique-content"></i>
+                            </div>
+                            <div class="card-body technique-content">
+                                {# Mammographie #}
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Mammographie</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_row(form.technique_mammographie, {'label': false}) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Incidences complémentaires #}
+                                <div class="mb-4">
+                                    <h5 class="mb-3 d-flex align-items-center">
+                                        Incidences complémentaires
+                                        <button type="button" class="btn btn-outline-primary btn-sm ms-3" id="ajouterIncidencesBtn">
+                                            <i class="bi bi-plus-circle me-1"></i>Ajouter
+                                        </button>
+                                    </h5>
+                                    <div class="incidences-complementaires">
+                                        {# Ligne par défaut #}                                      
+                                        <div class="row g-2 align-items-center mb-3">
+                                            <div class="col-md-8">
+                                                <select class="form-select" name="incidences_complementaires[]">
+                                                    <option value="">Sélectionner une incidence</option>
+                                                    <option value="agrandis_face_profil">Réalisation complémentaire de clichés agrandis de face et de profil</option>
+                                                    <option value="face_roule">Réalisation complémentaire d'un cliché de face roulé</option>
+                                                    <option value="face_cleopatre">Réalisation complémentaire d'un cliché de face tournée (dit de Cléopâtre)</option>
+                                                    <option value="comprime_localise">Réalisation complémentaire d'un cliché comprimé localisé</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select class="form-select" name="incidences_lateralite[]">
+                                                    <option value="">Latéralité ?</option>
+                                                    <option value="droite">Droite</option>
+                                                    <option value="gauche">Gauche</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-1 text-end">
+                                                <button type="button" class="btn w-100" style="visibility: hidden;">&nbsp;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {# Difficulté technique #}
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Difficulté technique</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_row(form.difficulte_technique, {'label': false}) }}
+                                        </div>
+                                        <div class="col-md-6" id="difficulteTechniqueAutreContainer" style="display: none;">
+                                            {{ form_row(form.difficulte_technique_autre, {'label': false}) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Échographie #}
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Échographie</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_row(form.echographie, {'label': false}) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form_row(form.echographie_indication, {'label': false}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Section Comparatif #}
+                        <div class="card mb-4">
+                            <div class="card-header text-center d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">Comparatif</h4>
+                                <i class="bi bi-eye toggle-visibility" data-target="comparatif-content"></i>
+                            </div>
+                            <div class="card-body comparatif-content">
+                                <div class="mb-4">
+                                    <div class="row g-2 align-items-end">
+                                        <div class="col-md-5">
+                                            {{ form_row(form.comparatif_type, {'label': false}) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                {{ form_widget(form.comparatif_date, {'attr': {'class': 'form-control'}}) }}
+                                                <span class="input-group-text calendar-icon" data-target="form_mamo_comparatif_date">
+                                                    <i class="bi bi-calendar"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_row(form.comparatif_mode, {'label': false}) }}
+                                        </div>
+                                    </div>
+
+                                    {# Bouton pour ajouter un bilan plus ancien #}
+                                    <div class="row mt-3">
+                                        <div class="col-md-8">
+                                            <button type="button" class="btn btn-outline-primary w-100" id="ajouterComparatifAncienBtn">
+                                                <i class="bi bi-plus-circle me-1"></i>
+                                                Nous disposons également d'un bilan plus ancien datant de (MM/AAAA)
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {# Conteneur pour le bilan plus ancien #}
+                                    <div id="comparatifAncienContainer" class="d-none mt-3">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    {{ form_row(form.comparatif_ancien_date, {'label': false}) }}
+                                                    <span class="input-group-text calendar-icon" data-target="form_mamo_comparatif_ancien_date">
+                                                        <i class="bi bi-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-save"></i> Enregistrer
@@ -703,6 +834,9 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/fr.js"></script>
     <script src="{{ asset('js/form_mamo.js') }}"></script>
 {% endblock %}
 

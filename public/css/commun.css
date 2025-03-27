@@ -35,3 +35,74 @@
 .card-body {
     padding: 1.25rem;
 } 
+
+.btn-outline-secondary {
+    border-radius: 0.5rem;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    color: #ffffff;
+    background-color: #1e1e1f;
+    border: 1px solid #ced4da;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    color: #0a0000;
+}
+
+/* Styles pour le calendrier Flatpickr */
+.flatpickr-calendar {
+    height: auto !important;
+    max-height: 400px !important;
+    overflow-y: auto !important;
+    z-index: 9999 !important;
+    background: white !important;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1) !important;
+    border: 1px solid #ddd !important;
+}
+
+.flatpickr-calendar.open {
+    display: block !important;
+}
+
+.flatpickr-calendar.arrowTop:after,
+.flatpickr-calendar.arrowTop:before {
+    bottom: 100% !important;
+}
+
+.flatpickr-calendar.arrowBottom:after,
+.flatpickr-calendar.arrowBottom:before {
+    top: 100% !important;
+}
+
+.card {
+    position: relative;
+    transition: min-height 0.3s ease;
+}
+
+.card.calendar-open {
+    min-height: 600px;
+}
+
+.card-body {
+    position: relative;
+    z-index: 1;
+}
+
+.input-group {
+    position: relative;
+    z-index: 2;
+}
+
+/* Style pour l'icône du calendrier */
+.calendar-icon {
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+.calendar-icon:hover {
+    background-color: #e9ecef;
+}

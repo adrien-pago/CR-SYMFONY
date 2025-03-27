@@ -808,6 +808,434 @@ class FormMamoType extends AbstractType
                 'attr' => [
                     'class' => 'form-select'
                 ]
+            ])
+            ->add('technique_mammographie', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Mammographie bilatérale de face et oblique externe ; tomosynthèse de face' => 'bilaterale_face_oblique',
+                    'Mammographie unilatérale droite de face et oblique externe ; tomosynthèse de face' => 'unilaterale_droite',
+                    'Mammographie unilatérale gauche de face et oblique externe ; tomosynthèse de face' => 'unilaterale_gauche',
+                    'Mammographie bilatérale de face selon la méthode d\'Ecklund, avec tomosynthèse' => 'bilaterale_ecklund',
+                    'Pas de mammo' => 'pas_de_mammo'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('incidences_complementaires', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Réalisation complémentaire de clichés agrandis de face et de profil' => 'agrandis_face_profil',
+                    'Réalisation complémentaire d\'un cliché de face roulé' => 'face_roule',
+                    'Réalisation complémentaire d\'un cliché de face tournée (dit de Cléopâtre)' => 'face_cleopatre',
+                    'Réalisation complémentaire d\'un cliché comprimé localisé' => 'comprime_localise'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('incidences_lateralite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Latéralité ?' => '',
+                    'Droite' => 'droite',
+                    'Gauche' => 'gauche'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('difficulte_technique', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Pas de difficulté technique' => '0',
+                    'Douleur à la compression mammaire limitant la qualité de l\'acquisition' => 'douleur_compression',
+                    'Pectus excavatum' => 'pectus_excavatum',
+                    'Patiente difficilement mobilisable' => 'patiente_mobilisable',
+                    'Patiente porteuse de prothèse mammaire' => 'prothese_mammaire',
+                    'Autre' => 'autre'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('difficulte_technique_autre', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Précisez la difficulté technique'
+                ]
+            ])
+            ->add('echographie', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Echographie mammaire bilatérale réalisée' => 'bilaterale',
+                    'Echographie unilatérale gauche réalisée' => 'gauche',
+                    'Echographie unilatérale droite réalisée' => 'droite'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('echographie_indication', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Dense' => 'dense',
+                    'Clinique' => 'clinique',
+                    'Mammo' => 'mammo',
+                    'Implants' => 'implants',
+                    'Demande' => 'demande'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('comparatif_type', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Mammographie' => 'mammo',
+                    'Mammographie et échographie' => 'mammo_echo',
+                    'Non' => 'non'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('comparatif_date', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'JJ/MM/AAAA'
+                ]
+            ])
+            ->add('comparatif_mode', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'Clichés' => 'cliches',
+                    'PACS' => 'pacs',
+                    'Internet' => 'internet'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('comparatif_ancien_date', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'MM/AAAA'
+                ]
+            ])
+            // Section Densité des seins
+            ->add('examen_clinique_seins', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Oui' => 'oui',
+                    'Non' => 'non',
+                    'Refus' => 'refus',
+                    '' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('examen_clinique_seins_non_type', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Masse' => 'masse',
+                    'Écoulement' => 'ecoulement',
+                    'Érythème' => 'erytheme',
+                    'Rétraction' => 'retraction',
+                    'Asymétrie' => 'asymetrie',
+                    'Autre' => 'autre',
+                    'Examen clinique pathologique' => 'pathologique'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('masse_mobilite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Mobilité' => '',
+                    'Mobile' => 'mobile',
+                    'Fixée' => 'fixee'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('masse_topographie', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Topographie ?' => '',
+                    'Diffuse' => 'diffuse',
+                    'Quadrant' => 'quadrant',
+                    'Union' => 'union',
+                    'Région' => 'region',
+                    'Péri-aréolaire' => 'peri_areolaire',
+                    'Sous-mammaire' => 'sous_mammaire',
+                    'Axillaire' => 'axillaire'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('masse_quadrant', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Quadrant' => '',
+                    'Supéroexterne' => 'superoexterne',
+                    'Supérointerne' => 'superointerne',
+                    'Inférointerne' => 'inferointerne',
+                    'Inféroexterne' => 'inferoexterne'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('masse_union', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Union' => '',
+                    'Supérieurs' => 'superieurs',
+                    'Internes' => 'internes',
+                    'Inférieurs' => 'inferieurs',
+                    'Externes' => 'externes'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('masse_region', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Régions' => '',
+                    'Supérieures' => 'superieures',
+                    'Internes' => 'internes',
+                    'Inférieures' => 'inferieures',
+                    'Externes' => 'externes'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('ecoulement_reproductible', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    '.' => '',
+                    'Reproduit' => 'reproduit',
+                    'Non reproductible ce jour' => 'non_reproductible'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('erytheme_topographie', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Topographie ?' => '',
+                    'Diffus' => 'diffus',
+                    'Quadrant' => 'quadrant',
+                    'Union' => 'union',
+                    'Région' => 'region',
+                    'Péri-aréolaire' => 'peri_areolaire',
+                    'Sous-mammaire' => 'sous_mammaire',
+                    'Axillaire' => 'axillaire'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('erytheme_quadrant', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Quadrant' => '',
+                    'Supéroexterne' => 'superoexterne',
+                    'Supérointerne' => 'superointerne',
+                    'Inférointerne' => 'inferointerne',
+                    'Inféroexterne' => 'inferoexterne'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('erytheme_union', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Union' => '',
+                    'Supérieurs' => 'superieurs',
+                    'Internes' => 'internes',
+                    'Inférieurs' => 'inferieurs',
+                    'Externes' => 'externes'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('erytheme_region', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Régions' => '',
+                    'Supérieures' => 'superieures',
+                    'Internes' => 'internes',
+                    'Inférieures' => 'inferieures',
+                    'Externes' => 'externes'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('erytheme_lateralite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Latéralité ?' => '',
+                    'Droite' => 'droite',
+                    'Gauche' => 'gauche'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('retraction_topographie', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Topographie ?' => '',
+                    'Diffuse' => 'diffuse',
+                    'Quadrant' => 'quadrant',
+                    'Union' => 'union',
+                    'Région' => 'region',
+                    'Péri-aréolaire' => 'peri_areolaire',
+                    'Sous-mammaire' => 'sous_mammaire',
+                    'Axillaire' => 'axillaire'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('retraction_quadrant', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Quadrant' => '',
+                    'Supéroexterne' => 'superoexterne',
+                    'Supérointerne' => 'superointerne',
+                    'Inférointerne' => 'inferointerne',
+                    'Inféroexterne' => 'inferoexterne'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('retraction_union', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Union' => '',
+                    'Supérieurs' => 'superieurs',
+                    'Internes' => 'internes',
+                    'Inférieurs' => 'inferieurs',
+                    'Externes' => 'externes'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('retraction_region', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Régions' => '',
+                    'Supérieures' => 'superieures',
+                    'Internes' => 'internes',
+                    'Inférieures' => 'inferieures',
+                    'Externes' => 'externes'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('retraction_lateralite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Latéralité ?' => '',
+                    'Droite' => 'droite',
+                    'Gauche' => 'gauche'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_type', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    '.' => '',
+                    'Le sein droit est plus volumineux' => 'droite',
+                    'Le sein gauche est plus volumineux' => 'gauche'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('examen_clinique_autre', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Description'
+                ]
+            ])
+            ->add('examen_clinique_axillaires', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Oui' => 'oui',
+                    'Non' => 'non',
+                    '' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('examen_clinique_axillaires_non_type', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Infiltration' => 'infiltration',
+                    'Nodule' => 'nodule',
+                    'Autre' => 'autre',
+                    'Palpation anormale des creux axillaires' => 'pathologique'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('infiltration_lateralite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Latéralité ?' => '',
+                    'Droite' => 'droite',
+                    'Gauche' => 'gauche'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('nodule_mobilite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Mobilité' => '',
+                    'Mobile' => 'mobile',
+                    'Fixé' => 'fixe'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('nodule_lateralite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Latéralité ?' => '',
+                    'Droite' => 'droite',
+                    'Gauche' => 'gauche'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
             ]);
     }
 
