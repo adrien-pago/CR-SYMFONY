@@ -2,29 +2,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestion de la visibilité des sections
     const toggleButtons = document.querySelectorAll('.toggle-visibility');
+
+    // Initialiser toutes les cartes comme fermées par défaut, sauf la carte principale
+    document.querySelectorAll('.card-body').forEach(content => {
+        if (!content.closest('.main-card')) {
+            content.style.display = 'none';
+        }
+    });
+
+    // Gestion des boutons individuels
     toggleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const card = this.closest('.card');
-            const content = card.querySelector('.card-body');
-            const isVisible = !content.classList.contains('d-none');
-            
-            // Toggle la visibilité
-            content.classList.toggle('d-none');
-            
-            // Changer l'icône
-            this.classList.toggle('bi-eye');
-            this.classList.toggle('bi-eye-slash');
-            
-            // Ajouter une animation de transition
-            if (!isVisible) {
-                content.style.opacity = '0';
-                content.style.transition = 'opacity 0.3s ease';
-                setTimeout(() => {
-                    content.style.opacity = '1';
-                }, 10);
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleCardVisibility(this);
+        });
+    });
+
+    // Ajouter le clic sur l'en-tête de la carte
+    document.querySelectorAll('.card-header').forEach(header => {
+        header.addEventListener('click', function(e) {
+            // Ne pas déclencher si on clique sur le bouton de l'œil
+            if (!e.target.closest('.toggle-visibility')) {
+                const toggleButton = this.querySelector('.toggle-visibility');
+                if (toggleButton) {
+                    toggleCardVisibility(toggleButton);
+                }
             }
         });
     });
+
+    // Fonction pour basculer la visibilité d'une carte
+    function toggleCardVisibility(toggleButton) {
+        const card = toggleButton.closest('.card');
+        const content = card.querySelector('.card-body');
+        const isVisible = content.style.display !== 'none';
+        
+        // Toggle la visibilité
+        content.style.display = isVisible ? 'none' : 'block';
+        
+        // Changer l'icône
+        toggleButton.classList.toggle('bi-eye');
+        toggleButton.classList.toggle('bi-eye-slash');
+    }
 
     const bilanBtn = document.getElementById('bilanBtn');
     const bilanOptions = document.getElementById('bilanOptions');
@@ -615,4 +634,267 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    // Gestion de la section Densité des seins
+    const asymetrieDensiteGauche = document.getElementById('form_mamo_asymetrie_densite_gauche');
+    const asymetrieDensiteTypeGauche = document.getElementById('form_mamo_asymetrie_densite_type_gauche');
+    const asymetrieDensiteDroite = document.getElementById('form_mamo_asymetrie_densite_droite');
+    const asymetrieDensiteTypeDroite = document.getElementById('form_mamo_asymetrie_densite_type_droite');
+
+    // Fonction pour mettre à jour les détails d'asymétrie pour un sein
+    function updateAsymetrieTypeDetails(prefix) {
+        const asymetrieDensite = document.getElementById(`form_mamo_asymetrie_densite_${prefix}`);
+        const asymetrieDensiteType = document.getElementById(`form_mamo_asymetrie_densite_type_${prefix}`);
+        const detailsContainer = document.getElementById(`asymetrieDensite${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Details`);
+        
+        if (asymetrieDensite && asymetrieDensiteType && detailsContainer) {
+            if (asymetrieDensite.value === 'oui') {
+                detailsContainer.classList.remove('d-none');
+                updateAsymetrieTypeDetailsDisplay(prefix);
+            } else {
+                detailsContainer.classList.add('d-none');
+            }
+        }
+    }
+
+    // Fonction pour mettre à jour l'affichage des détails selon le type d'asymétrie
+    function updateAsymetrieTypeDetailsDisplay(prefix) {
+        const asymetrieDensiteType = document.getElementById(`form_mamo_asymetrie_densite_type_${prefix}`);
+        const focaleDetails = document.getElementById(`asymetrieFocale${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Details`);
+        const globaleDetails = document.getElementById(`asymetrieGlobale${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Details`);
+        const simpleDetails = document.getElementById(`asymetrieSimple${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Details`);
+
+        if (asymetrieDensiteType && focaleDetails && globaleDetails && simpleDetails) {
+            // Masquer tous les détails
+            focaleDetails.classList.add('d-none');
+            globaleDetails.classList.add('d-none');
+            simpleDetails.classList.add('d-none');
+
+            // Afficher les détails correspondants
+            switch (asymetrieDensiteType.value) {
+                case 'focale':
+                    focaleDetails.classList.remove('d-none');
+                    break;
+                case 'globale':
+                    globaleDetails.classList.remove('d-none');
+                    break;
+                case 'simple':
+                    simpleDetails.classList.remove('d-none');
+                    break;
+            }
+        }
+    }
+
+    // Écouteurs d'événements pour le sein gauche
+    if (asymetrieDensiteGauche) {
+        asymetrieDensiteGauche.addEventListener('change', () => updateAsymetrieTypeDetails('gauche'));
+    }
+
+    if (asymetrieDensiteTypeGauche) {
+        asymetrieDensiteTypeGauche.addEventListener('change', () => updateAsymetrieTypeDetailsDisplay('gauche'));
+    }
+
+    // Écouteurs d'événements pour le sein droit
+    if (asymetrieDensiteDroite) {
+        asymetrieDensiteDroite.addEventListener('change', () => updateAsymetrieTypeDetails('droite'));
+    }
+
+    if (asymetrieDensiteTypeDroite) {
+        asymetrieDensiteTypeDroite.addEventListener('change', () => updateAsymetrieTypeDetailsDisplay('droite'));
+    }
+
+    // Initialisation de l'affichage
+    document.addEventListener('DOMContentLoaded', () => {
+        updateAsymetrieTypeDetails('gauche');
+        updateAsymetrieTypeDetails('droite');
+    });
+
+    // Gestion de l'examen clinique des seins
+    const examenCliniqueSeins = document.getElementById('form_mamo_examen_clinique_seins');
+    const examenCliniqueSeinsNonDetails = document.getElementById('examenCliniqueSeinsNonDetails');
+    const examenTypeBtns = document.querySelectorAll('.examen-type-btn');
+    const resetExamenCliniqueBtn = document.getElementById('resetExamenCliniqueBtn');
+
+    // Gestion de l'examen clinique des seins
+    if (examenCliniqueSeins) {
+        examenCliniqueSeins.addEventListener('change', function() {
+            if (this.value === 'non') {
+                examenCliniqueSeinsNonDetails.classList.remove('d-none');
+            } else {
+                examenCliniqueSeinsNonDetails.classList.add('d-none');
+                resetExamenCliniqueFields();
+            }
+        });
+    }
+
+    // Gestion des boutons d'examen clinique
+    examenTypeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Retirer la classe active de tous les boutons
+            examenTypeBtns.forEach(b => {
+                b.classList.remove('active');
+                const icon = b.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('bi-check-circle-fill');
+                    icon.classList.add('bi-dot-circle');
+                }
+            });
+            
+            // Ajouter la classe active au bouton cliqué
+            this.classList.add('active');
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.classList.remove('bi-dot-circle');
+                icon.classList.add('bi-check-circle-fill');
+            }
+            
+            // Masquer tous les conteneurs de détails
+            document.querySelectorAll('#examenCliniqueSeinsNonDetails > div:not(:first-child)').forEach(container => {
+                container.classList.add('d-none');
+            });
+            
+            // Afficher le conteneur correspondant
+            const targetId = this.getAttribute('data-target');
+            const targetContainer = document.getElementById(targetId);
+            if (targetContainer) {
+                targetContainer.classList.remove('d-none');
+            }
+        });
+    });
+
+    // Gestion des topographies
+    const topographieFields = ['masse', 'erytheme', 'retraction'];
+    topographieFields.forEach(field => {
+        const topographieSelect = document.getElementById(`form_mamo_${field}_topographie`);
+        const topographieDetails = document.getElementById(`${field}TopographieDetails`);
+        
+        if (topographieSelect && topographieDetails) {
+            topographieSelect.addEventListener('change', function() {
+                topographieDetails.classList.add('d-none');
+                if (['quadrant', 'union', 'region'].includes(this.value)) {
+                    topographieDetails.classList.remove('d-none');
+                }
+            });
+        }
+    });
+
+    // Fonction pour réinitialiser tous les champs
+    function resetExamenCliniqueFields() {
+        // Réinitialiser tous les selects
+        document.querySelectorAll('#examenCliniqueSeinsNonDetails select').forEach(select => {
+            select.value = '';
+        });
+        
+        // Réinitialiser tous les inputs
+        document.querySelectorAll('#examenCliniqueSeinsNonDetails input').forEach(input => {
+            input.value = '';
+        });
+
+        // Masquer tous les conteneurs de détails
+        document.querySelectorAll('#examenCliniqueSeinsNonDetails > div:not(:first-child)').forEach(container => {
+            container.classList.add('d-none');
+        });
+
+        // Retirer la classe active de tous les boutons
+        examenTypeBtns.forEach(btn => {
+            btn.classList.remove('active');
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('bi-check-circle-fill');
+                icon.classList.add('bi-dot-circle');
+            }
+        });
+    }
+
+    // Gestion du bouton Reset
+    if (resetExamenCliniqueBtn) {
+        resetExamenCliniqueBtn.addEventListener('click', resetExamenCliniqueFields);
+    }
+
+    // Gestion de l'examen clinique des creux axillaires
+    const examenCliniqueAxillaires = document.getElementById('form_mamo_examen_clinique_axillaires');
+    const examenCliniqueAxillairesNonDetails = document.getElementById('examenCliniqueAxillairesNonDetails');
+    const examenAxillaireBtns = document.querySelectorAll('.examen-axillaire-btn');
+    const resetExamenAxillaireBtn = document.getElementById('resetExamenAxillaireBtn');
+
+    // Gestion de l'examen clinique des creux axillaires
+    if (examenCliniqueAxillaires) {
+        examenCliniqueAxillaires.addEventListener('change', function() {
+            if (this.value === 'non') {
+                examenCliniqueAxillairesNonDetails.classList.remove('d-none');
+            } else {
+                examenCliniqueAxillairesNonDetails.classList.add('d-none');
+                resetExamenAxillaireFields();
+            }
+        });
+    }
+
+    // Gestion des boutons d'examen axillaire
+    examenAxillaireBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Retirer la classe active de tous les boutons
+            examenAxillaireBtns.forEach(b => {
+                b.classList.remove('active');
+                const icon = b.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('bi-check-circle-fill');
+                    icon.classList.add('bi-dot-circle');
+                }
+            });
+            
+            // Ajouter la classe active au bouton cliqué
+            this.classList.add('active');
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.classList.remove('bi-dot-circle');
+                icon.classList.add('bi-check-circle-fill');
+            }
+            
+            // Masquer tous les conteneurs de détails
+            document.querySelectorAll('#examenCliniqueAxillairesNonDetails > div:not(:first-child)').forEach(container => {
+                container.classList.add('d-none');
+            });
+            
+            // Afficher le conteneur correspondant
+            const targetId = this.getAttribute('data-target');
+            const targetContainer = document.getElementById(targetId);
+            if (targetContainer) {
+                targetContainer.classList.remove('d-none');
+            }
+        });
+    });
+
+    // Fonction pour réinitialiser tous les champs
+    function resetExamenAxillaireFields() {
+        // Réinitialiser tous les selects
+        document.querySelectorAll('#examenCliniqueAxillairesNonDetails select').forEach(select => {
+            select.value = '';
+        });
+        
+        // Réinitialiser tous les inputs
+        document.querySelectorAll('#examenCliniqueAxillairesNonDetails input').forEach(input => {
+            input.value = '';
+        });
+
+        // Masquer tous les conteneurs de détails
+        document.querySelectorAll('#examenCliniqueAxillairesNonDetails > div:not(:first-child)').forEach(container => {
+            container.classList.add('d-none');
+        });
+
+        // Retirer la classe active de tous les boutons
+        examenAxillaireBtns.forEach(btn => {
+            btn.classList.remove('active');
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.classList.remove('bi-check-circle-fill');
+                icon.classList.add('bi-dot-circle');
+            }
+        });
+    }
+
+    // Gestion du bouton Reset
+    if (resetExamenAxillaireBtn) {
+        resetExamenAxillaireBtn.addEventListener('click', resetExamenAxillaireFields);
+    }
 }); 
+

@@ -132,9 +132,9 @@ class FormMamoType extends AbstractType
             ->add('masse_lateralite', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Latéralité ?' => '',
+                    'Droite' => 'droite',
                     'Gauche' => 'gauche',
-                    'Droite' => 'droite'
+                    'Latéralité ?' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -182,9 +182,9 @@ class FormMamoType extends AbstractType
             ->add('ecoulement_lateralite', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Latéralité ?' => '',
+                    'Droit' => 'droit',
                     'Gauche' => 'gauche',
-                    'Droite' => 'droite'
+                    'Latéralité ?' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -928,7 +928,7 @@ class FormMamoType extends AbstractType
             ])
             // Section Densité des seins
             ->add('examen_clinique_seins', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
                     'Oui' => 'oui',
                     'Non' => 'non',
@@ -939,27 +939,21 @@ class FormMamoType extends AbstractType
                     'class' => 'form-select'
                 ]
             ])
-            ->add('examen_clinique_seins_non_type', ChoiceType::class, [
-                'required' => false,
+            ->add('asymetrie_clinique_type', ChoiceType::class, [
                 'choices' => [
-                    'Masse' => 'masse',
-                    'Écoulement' => 'ecoulement',
-                    'Érythème' => 'erytheme',
-                    'Rétraction' => 'retraction',
-                    'Asymétrie' => 'asymetrie',
-                    'Autre' => 'autre',
-                    'Examen clinique pathologique' => 'pathologique'
+                    'Non renseigné' => '',
+                    'Asymétrie de volume' => 'volume',
+                    'Asymétrie de forme' => 'forme',
+                    'Asymétrie de position' => 'position'
                 ],
-                'attr' => [
-                    'class' => 'form-select'
-                ]
+                'attr' => ['class' => 'form-select']
             ])
             ->add('masse_mobilite', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Mobilité' => '',
                     'Mobile' => 'mobile',
-                    'Fixée' => 'fixee'
+                    'Fixée' => 'fixee',
+                    'Mobilité' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -968,14 +962,14 @@ class FormMamoType extends AbstractType
             ->add('masse_topographie', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Topographie ?' => '',
                     'Diffuse' => 'diffuse',
                     'Quadrant' => 'quadrant',
                     'Union' => 'union',
                     'Région' => 'region',
                     'Péri-aréolaire' => 'peri_areolaire',
                     'Sous-mammaire' => 'sous_mammaire',
-                    'Axillaire' => 'axillaire'
+                    'Axillaire' => 'axillaire',
+                    'Topographie ?' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -984,11 +978,11 @@ class FormMamoType extends AbstractType
             ->add('masse_quadrant', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Quadrant' => '',
                     'Supéroexterne' => 'superoexterne',
                     'Supérointerne' => 'superointerne',
                     'Inférointerne' => 'inferointerne',
-                    'Inféroexterne' => 'inferoexterne'
+                    'Inféroexterne' => 'inferoexterne',
+                    'Quadrant' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -997,11 +991,11 @@ class FormMamoType extends AbstractType
             ->add('masse_union', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Union' => '',
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes'
+                    'Externes' => 'externes',
+                    'Union' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1010,11 +1004,11 @@ class FormMamoType extends AbstractType
             ->add('masse_region', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Régions' => '',
-                    'Supérieures' => 'superieures',
+                    'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
-                    'Inférieures' => 'inferieures',
-                    'Externes' => 'externes'
+                    'Inférieurs' => 'inferieurs',
+                    'Externes' => 'externes',
+                    'Régions' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1023,9 +1017,9 @@ class FormMamoType extends AbstractType
             ->add('ecoulement_reproductible', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    '.' => '',
                     'Reproduit' => 'reproduit',
-                    'Non reproductible ce jour' => 'non_reproductible'
+                    'Non reproductible ce jour' => 'non_reproductible',
+                    '.' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1034,14 +1028,14 @@ class FormMamoType extends AbstractType
             ->add('erytheme_topographie', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Topographie ?' => '',
                     'Diffus' => 'diffus',
                     'Quadrant' => 'quadrant',
                     'Union' => 'union',
                     'Région' => 'region',
                     'Péri-aréolaire' => 'peri_areolaire',
                     'Sous-mammaire' => 'sous_mammaire',
-                    'Axillaire' => 'axillaire'
+                    'Axillaire' => 'axillaire',
+                    'Topographie ?' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1050,11 +1044,11 @@ class FormMamoType extends AbstractType
             ->add('erytheme_quadrant', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Quadrant' => '',
                     'Supéroexterne' => 'superoexterne',
                     'Supérointerne' => 'superointerne',
                     'Inférointerne' => 'inferointerne',
-                    'Inféroexterne' => 'inferoexterne'
+                    'Inféroexterne' => 'inferoexterne',
+                    'Quadrant' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1063,11 +1057,11 @@ class FormMamoType extends AbstractType
             ->add('erytheme_union', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Union' => '',
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes'
+                    'Externes' => 'externes',
+                    'Union' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1076,11 +1070,11 @@ class FormMamoType extends AbstractType
             ->add('erytheme_region', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Régions' => '',
-                    'Supérieures' => 'superieures',
+                    'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
-                    'Inférieures' => 'inferieures',
-                    'Externes' => 'externes'
+                    'Inférieurs' => 'inferieurs',
+                    'Externes' => 'externes',
+                    'Régions' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1089,9 +1083,9 @@ class FormMamoType extends AbstractType
             ->add('erytheme_lateralite', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Latéralité ?' => '',
-                    'Droite' => 'droite',
-                    'Gauche' => 'gauche'
+                    'Droit' => 'droit',
+                    'Gauche' => 'gauche',
+                    'Latéralité ?' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1100,14 +1094,14 @@ class FormMamoType extends AbstractType
             ->add('retraction_topographie', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Topographie ?' => '',
                     'Diffuse' => 'diffuse',
                     'Quadrant' => 'quadrant',
                     'Union' => 'union',
                     'Région' => 'region',
                     'Péri-aréolaire' => 'peri_areolaire',
                     'Sous-mammaire' => 'sous_mammaire',
-                    'Axillaire' => 'axillaire'
+                    'Axillaire' => 'axillaire',
+                    'Topographie ?' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1116,11 +1110,11 @@ class FormMamoType extends AbstractType
             ->add('retraction_quadrant', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Quadrant' => '',
                     'Supéroexterne' => 'superoexterne',
                     'Supérointerne' => 'superointerne',
                     'Inférointerne' => 'inferointerne',
-                    'Inféroexterne' => 'inferoexterne'
+                    'Inféroexterne' => 'inferoexterne',
+                    'Quadrant' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1129,11 +1123,11 @@ class FormMamoType extends AbstractType
             ->add('retraction_union', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Union' => '',
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes'
+                    'Externes' => 'externes',
+                    'Union' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1142,11 +1136,11 @@ class FormMamoType extends AbstractType
             ->add('retraction_region', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Régions' => '',
-                    'Supérieures' => 'superieures',
+                    'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
-                    'Inférieures' => 'inferieures',
-                    'Externes' => 'externes'
+                    'Inférieurs' => 'inferieurs',
+                    'Externes' => 'externes',
+                    'Régions' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1155,24 +1149,333 @@ class FormMamoType extends AbstractType
             ->add('retraction_lateralite', ChoiceType::class, [
                 'required' => false,
                 'choices' => [
-                    'Latéralité ?' => '',
-                    'Droite' => 'droite',
-                    'Gauche' => 'gauche'
+                    'Droit' => 'droit',
+                    'Gauche' => 'gauche',
+                    'Latéralité ?' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
                 ]
             ])
-            ->add('asymetrie_type', ChoiceType::class, [
-                'required' => false,
+            ->add('asymetrie_densite', ChoiceType::class, [
                 'choices' => [
-                    '.' => '',
-                    'Le sein droit est plus volumineux' => 'droite',
-                    'Le sein gauche est plus volumineux' => 'gauche'
+                    'Non renseigné' => '',
+                    'BI-RADS A (Seins principalement graisseux)' => 'birads_a',
+                    'BI-RADS B (Quelques opacités fibroglandulaires éparses)' => 'birads_b',
+                    'BI-RADS C (Densité mammaire hétérogène)' => 'birads_c',
+                    'BI-RADS D (Seins extrêmement denses)' => 'birads_d',
+                    'Densité mammaire non précisée' => 'non_precisee'
                 ],
-                'attr' => [
-                    'class' => 'form-select'
-                ]
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_densite_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Oui' => 'oui',
+                    'Non' => 'non'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_densite_type_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Asymétrie focale' => 'focale',
+                    'Asymétrie globale' => 'globale',
+                    'Asymétrie simple' => 'simple'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_siege_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Quadrant supéro-externe' => 'quadrant_supero_externe',
+                    'Quadrant supéro-interne' => 'quadrant_supero_interne',
+                    'Quadrant inféro-externe' => 'quadrant_infero_externe',
+                    'Quadrant inféro-interne' => 'quadrant_infero_interne',
+                    'Union des quadrants' => 'union_quadrants',
+                    'Région rétro-aréolaire' => 'region_retro_areolaire',
+                    'Région axillaire' => 'region_axillaire'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_profondeur_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Antérieure' => 'anterieure',
+                    'Moyenne' => 'moyenne',
+                    'Postérieure' => 'posterieure'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_tomo_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Absence de masse' => 'absence_masse',
+                    'Masse bénigne' => 'masse_benigne',
+                    'Masse suspecte' => 'masse_suspecte'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_evolution_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Stable' => 'stable',
+                    'En augmentation' => 'augmentation',
+                    'En diminution' => 'diminution',
+                    'Nouvelle' => 'nouvelle'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_bords_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Bien délimités' => 'bien_delimites',
+                    'Mal délimités' => 'mal_delimites',
+                    'Spiculés' => 'spicules'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_anomalie_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Aucune' => 'aucune',
+                    'Microcalcifications' => 'microcalcifications',
+                    'Distorsion architecturale' => 'distorsion_architecturale'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_globale_localisation_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Supérieure' => 'superieure',
+                    'Inférieure' => 'inferieure',
+                    'Interne' => 'interne',
+                    'Externe' => 'externe'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_globale_valeur_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Légère' => 'legere',
+                    'Modérée' => 'moderee',
+                    'Importante' => 'importante'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_incidence_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Face' => 'face',
+                    'Profil' => 'profil',
+                    'Oblique' => 'oblique'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_siege_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Quadrant supéro-externe' => 'quadrant_supero_externe',
+                    'Quadrant supéro-interne' => 'quadrant_supero_interne',
+                    'Quadrant inféro-externe' => 'quadrant_infero_externe',
+                    'Quadrant inféro-interne' => 'quadrant_infero_interne',
+                    'Union des quadrants' => 'union_quadrants',
+                    'Région rétro-aréolaire' => 'region_retro_areolaire',
+                    'Région axillaire' => 'region_axillaire'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_profondeur_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Antérieure' => 'anterieure',
+                    'Moyenne' => 'moyenne',
+                    'Postérieure' => 'posterieure'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_evolution_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Stable' => 'stable',
+                    'En augmentation' => 'augmentation',
+                    'En diminution' => 'diminution',
+                    'Nouvelle' => 'nouvelle'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_anomalie_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Aucune' => 'aucune',
+                    'Microcalcifications' => 'microcalcifications',
+                    'Distorsion architecturale' => 'distorsion_architecturale'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_valeur_gauche', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Légère' => 'legere',
+                    'Modérée' => 'moderee',
+                    'Importante' => 'importante'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            // Champs pour le sein droit
+            ->add('asymetrie_densite_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Oui' => 'oui',
+                    'Non' => 'non'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_densite_type_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Asymétrie focale' => 'focale',
+                    'Asymétrie globale' => 'globale',
+                    'Asymétrie simple' => 'simple'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_siege_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Quadrant supéro-externe' => 'quadrant_supero_externe',
+                    'Quadrant supéro-interne' => 'quadrant_supero_interne',
+                    'Quadrant inféro-externe' => 'quadrant_infero_externe',
+                    'Quadrant inféro-interne' => 'quadrant_infero_interne',
+                    'Union des quadrants' => 'union_quadrants',
+                    'Région rétro-aréolaire' => 'region_retro_areolaire',
+                    'Région axillaire' => 'region_axillaire'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_profondeur_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Antérieure' => 'anterieure',
+                    'Moyenne' => 'moyenne',
+                    'Postérieure' => 'posterieure'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_tomo_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Absence de masse' => 'absence_masse',
+                    'Masse bénigne' => 'masse_benigne',
+                    'Masse suspecte' => 'masse_suspecte'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_evolution_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Stable' => 'stable',
+                    'En augmentation' => 'augmentation',
+                    'En diminution' => 'diminution',
+                    'Nouvelle' => 'nouvelle'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_bords_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Bien délimités' => 'bien_delimites',
+                    'Mal délimités' => 'mal_delimites',
+                    'Spiculés' => 'spicules'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_focale_anomalie_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Aucune' => 'aucune',
+                    'Microcalcifications' => 'microcalcifications',
+                    'Distorsion architecturale' => 'distorsion_architecturale'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_globale_localisation_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Supérieure' => 'superieure',
+                    'Inférieure' => 'inferieure',
+                    'Interne' => 'interne',
+                    'Externe' => 'externe'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_globale_valeur_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Légère' => 'legere',
+                    'Modérée' => 'moderee',
+                    'Importante' => 'importante'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_incidence_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Face' => 'face',
+                    'Profil' => 'profil',
+                    'Oblique' => 'oblique'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_siege_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Quadrant supéro-externe' => 'quadrant_supero_externe',
+                    'Quadrant supéro-interne' => 'quadrant_supero_interne',
+                    'Quadrant inféro-externe' => 'quadrant_infero_externe',
+                    'Quadrant inféro-interne' => 'quadrant_infero_interne',
+                    'Union des quadrants' => 'union_quadrants',
+                    'Région rétro-aréolaire' => 'region_retro_areolaire',
+                    'Région axillaire' => 'region_axillaire'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_profondeur_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Antérieure' => 'anterieure',
+                    'Moyenne' => 'moyenne',
+                    'Postérieure' => 'posterieure'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_evolution_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Stable' => 'stable',
+                    'En augmentation' => 'augmentation',
+                    'En diminution' => 'diminution',
+                    'Nouvelle' => 'nouvelle'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_anomalie_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Aucune' => 'aucune',
+                    'Microcalcifications' => 'microcalcifications',
+                    'Distorsion architecturale' => 'distorsion_architecturale'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_simple_valeur_droite', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'Légère' => 'legere',
+                    'Modérée' => 'moderee',
+                    'Importante' => 'importante'
+                ],
+                'attr' => ['class' => 'form-select']
             ])
             ->add('examen_clinique_autre', TextType::class, [
                 'required' => false,
@@ -1182,23 +1485,30 @@ class FormMamoType extends AbstractType
                 ]
             ])
             ->add('examen_clinique_axillaires', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
                     'Oui' => 'oui',
                     'Non' => 'non',
+                    'Refus' => 'refus',
                     '' => ''
                 ],
                 'attr' => [
                     'class' => 'form-select'
                 ]
             ])
-            ->add('examen_clinique_axillaires_non_type', ChoiceType::class, [
+            ->add('examen_clinique_axillaires_autre', TextType::class, [
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Précisez'
+                ]
+            ])
+            ->add('examen_clinique_axillaires_non_type', ChoiceType::class, [
+                'required' => true,
                 'choices' => [
                     'Infiltration' => 'infiltration',
                     'Nodule' => 'nodule',
-                    'Autre' => 'autre',
-                    'Palpation anormale des creux axillaires' => 'pathologique'
+                    'Autre' => 'autre'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -1232,6 +1542,212 @@ class FormMamoType extends AbstractType
                     'Latéralité ?' => '',
                     'Droite' => 'droite',
                     'Gauche' => 'gauche'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            // Section Densité des seins
+            ->add('densite_seins', ChoiceType::class, [
+                'choices' => [
+                    'Non renseigné' => '',
+                    'BI-RADS A (Seins principalement graisseux)' => 'birads_a',
+                    'BI-RADS B (Quelques opacités fibroglandulaires éparses)' => 'birads_b',
+                    'BI-RADS C (Densité mammaire hétérogène)' => 'birads_c',
+                    'BI-RADS D (Seins extrêmement denses)' => 'birads_d',
+                    'Densité mammaire non précisée' => 'non_precisee'
+                ],
+                'attr' => ['class' => 'form-select']
+            ])
+            ->add('asymetrie_densite', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Asymétrie' => '',
+                    'Non' => 'non',
+                    'Oui' => 'oui'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_densite_type', ChoiceType::class, [
+                'choices' => [
+                    'Asymétrie focale' => 'focale',
+                    'Asymétrie globale' => 'globale',
+                    'Asymétrie simple' => 'simple'
+                ],
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
+                'label' => false
+            ])
+            // Options pour asymétrie focale
+            ->add('asymetrie_focale_siege', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Siège' => '',
+                    'Supéroexterne' => 'superoexterne',
+                    'Supérointerne' => 'superointerne',
+                    'Inférointerne' => 'inferointerne',
+                    'Inféroexterne' => 'inferoexterne',
+                    'Prolongement axillaire' => 'prolongement_axillaire'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_focale_profondeur', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Profondeur' => '',
+                    'Superficiel' => 'superficiel',
+                    'Moyen' => 'moyen',
+                    'Profond' => 'profond'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_focale_tomo', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Tomosynthèse' => '',
+                    'Tomo négative' => 'tomo_negative',
+                    'Tomo confirme' => 'tomo_confirme',
+                    'Tomo masse' => 'tomo_masse'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_focale_evolution', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Évolution' => '',
+                    'Évolutive' => 'evolutive',
+                    'Non évolutive' => 'non_evolutive',
+                    'Pas d\'antériorité' => 'pas_antecedents'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_focale_bords', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Bords' => '',
+                    'Bords convexes' => 'bords_convexes',
+                    'Bords concaves' => 'bords_concaves'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_focale_anomalie', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Anomalie associée' => '',
+                    'Pas d\'anomalie associée' => 'pas_anomalie',
+                    'Microcalcification' => 'microcalcification',
+                    'Distorsion architecturale' => 'distorsion_architecturale'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            // Options pour asymétrie globale
+            ->add('asymetrie_globale_localisation', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Localisation' => '',
+                    'Diffuse' => 'diffuse',
+                    'Supérieure' => 'superieure',
+                    'Inférieure' => 'inferieure',
+                    'Interne' => 'interne',
+                    'Externe' => 'externe'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_globale_valeur', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Valeur' => '',
+                    'Sans valeur pathologique' => 'sans_valeur',
+                    'Champ libre' => 'champ_libre'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            // Options pour asymétrie simple
+            ->add('asymetrie_simple_incidence', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Incidence' => '',
+                    'Face' => 'face',
+                    'Oblique externe' => 'oblique_externe'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_simple_siege', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Siège' => '',
+                    'Supérieure' => 'superieure',
+                    'Interne' => 'interne',
+                    'Inférieure' => 'inferieure',
+                    'Externe' => 'externe'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_simple_profondeur', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Profondeur' => '',
+                    'Superficiel' => 'superficiel',
+                    'Moyen' => 'moyen',
+                    'Profond' => 'profond'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_simple_evolution', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Évolution' => '',
+                    'Évolutive' => 'evolutive',
+                    'Non évolutive' => 'non_evolutive',
+                    'Pas d\'antériorité' => 'pas_antecedents'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_simple_anomalie', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Anomalie associée' => '',
+                    'Pas d\'anomalie associée' => 'pas_anomalie',
+                    'Microcalcification' => 'microcalcification',
+                    'Distorsion architecturale' => 'distorsion_architecturale'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ]
+            ])
+            ->add('asymetrie_simple_valeur', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Valeur' => '',
+                    'Bénin' => 'benin',
+                    'Champ libre' => 'champ_libre'
                 ],
                 'attr' => [
                     'class' => 'form-select'
