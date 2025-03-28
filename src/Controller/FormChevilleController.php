@@ -11,6 +11,6 @@ class FormChevilleController extends AbstractController
     #[Route('/form/cheville', name: 'app_form_cheville')]
     public function index(): Response
     {
-        return $this->render('home/formulaire/formCheville.html.twig');
+        return $this->render('home/formulaire/Cheville/formCheville.html.twig');
     }
 } 

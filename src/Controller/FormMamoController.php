@@ -23,7 +23,7 @@ class FormMamoController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('home/formulaire/formMamo.html.twig', [
+        return $this->render('home/formulaire/Mamo/formMamo.html.twig', [
             'form' => $form->createView(),
         ]);
     }

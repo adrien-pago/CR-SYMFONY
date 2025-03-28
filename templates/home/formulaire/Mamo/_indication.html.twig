@@ -1,0 +1,509 @@
+{# templates/mamo/_indication.html.twig #}
+
+<div class="card mb-4">
+    <div class="card-header text-center d-flex justify-content-between align-items-center cursor-pointer">
+        <h4 class="mb-0">Indication</h4>
+        <i class="bi bi-eye toggle-visibility" data-target="indication-content"></i>
+    </div>
+    <div class="card-body indication-content">
+        {# Type d'indication #}
+        <div class="mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.indication) }}
+                </div>
+            </div>
+        </div>
+
+        {# Partie Bilan de la section Indication #}
+        <div class="mb-4">
+            <button type="button" id="bilanBtn" class="btn btn-outline-primary d-flex align-items-center">
+                <i class="bi bi-plus-circle me-2"></i> <span class="bilan-text">Bilan</span>
+            </button>
+            
+            {# Options du bilan #}
+            <div id="bilanOptions" class="d-none mt-3">
+                <div class="d-flex gap-2 mb-4 flex-wrap">
+                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="douleurOptions">
+                        <i class="bi bi-dot-circle me-2"></i>Douleur
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="masseOptions">
+                        <i class="bi bi-dot-circle me-2"></i>Masse
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="ecoulementOptions">
+                        <i class="bi bi-dot-circle me-2"></i>Écoulement
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="gynecomastieOptions">
+                        <i class="bi bi-dot-circle me-2"></i>Gynécomastie
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="autreOptions">
+                        <i class="bi bi-dot-circle me-2"></i>Autre
+                    </button>
+                    <button type="button" id="resetBtn" class="btn btn-outline-danger ms-auto">
+                        <i class="bi bi-x-circle me-2"></i>Reset
+                    </button>
+                </div>
+
+                {# Options pour la douleur #}
+                <div id="douleurOptions" class="option-container d-none mt-3">
+                    <p class="text-muted mb-2">d'une douleur mammaire</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.douleur_lateralite) }}
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.douleur_apparition) }}
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.douleur_anciennete) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour la masse #}
+                <div id="masseOptions" class="option-container d-none mt-3">
+                    <p class="text-muted mb-2">d'une masse mammaire</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.masse_lateralite) }}
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.masse_palpation) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour l'écoulement #}
+                <div id="ecoulementOptions" class="option-container d-none mt-3">
+                    <p class="text-muted mb-2">d'un écoulement mammelonnaire</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.ecoulement_lateralite) }}
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.ecoulement_type) }}
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.ecoulement_aspect) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour la gynécomastie #}
+                <div id="gynecomastieOptions" class="option-container d-none mt-3">
+                    <p class="text-muted mb-2">d'une gynécomastie</p>
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.gynecomastie_lateralite) }}
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            {{ form_row(form.gynecomastie_douleur) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Option pour autre #}
+                <div id="autreOptions" class="option-container d-none mt-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.autre_description) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        {# Section Antécédents personnels #}
+        <div class="mb-4">
+            <h5 class="mb-3">Antécédents personnels sénologiques et ovariens</h5>
+            <div class="d-flex gap-2 mb-3">
+                <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="non">
+                    Non
+                </button>
+                <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="oui">
+                    Oui
+                </button>
+                <button type="button" class="btn btn-outline-secondary antecedents-btn" data-value="ne_sait_pas">
+                    Ne sait pas
+                </button>
+                <button type="button" id="resetAntecedentsBtn" class="btn btn-outline-danger">
+                    <i class="bi bi-x-circle"></i> Reset
+                </button>
+            </div>
+
+            {# Conteneur pour les options détaillées #}
+            <div id="antecedentsDetails" class="d-none mt-3">
+                {# Cancer du sein #}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Cancer du sein</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                {{ form_row(form.cancer_sein) }}
+                            </div>
+                        </div>
+
+                        {# Options si cancer du sein = oui #}
+                        <div id="cancerSeinDetails" class="d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form_row(form.cancer_sein_annee) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.cancer_sein_histologie) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.cancer_sein_traitement) }}
+                                </div>
+                            </div>
+
+                            {# Options si mastectomie #}
+                            <div id="mastectomieDetails" class="d-none">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        {{ form_row(form.mastectomie_reconstruction) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Section Chirurgie à risque #}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Chirurgie pour lésion à risque</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                {{ form_row(form.chirurgie_risque) }}
+                            </div>
+                        </div>
+
+                        {# Options si chirurgie à risque = oui #}
+                        <div id="chirurgieRisqueDetails" class="d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form_row(form.chirurgie_risque_type) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.chirurgie_risque_lateralite) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.chirurgie_risque_annee) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Section Chirurgie bénigne #}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Chirurgie pour lésion bénigne</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                {{ form_row(form.chirurgie_benigne) }}
+                            </div>
+                        </div>
+
+                        {# Options si chirurgie bénigne = oui #}
+                        <div id="chirurgieBenigneDetails" class="d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form_row(form.chirurgie_benigne_type) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.chirurgie_benigne_lateralite) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.chirurgie_benigne_annee) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Section Chirurgie plastique #}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Chirurgie plastique</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                {{ form_row(form.chirurgie_plastique) }}
+                            </div>
+                        </div>
+
+                        {# Options si chirurgie plastique = oui #}
+                        <div id="chirurgiePlastiqueDetails" class="d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    {{ form_row(form.chirurgie_plastique_type) }}
+                                </div>
+                            </div>
+
+                            {# Options pour réduction mammaire #}
+                            <div id="reductionDetails" class="d-none">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        {{ form_row(form.reduction_lateralite) }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_row(form.reduction_annee) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# Options pour prothèse mammaire #}
+                            <div id="protheseDetails" class="d-none">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        {{ form_row(form.prothese_lateralite) }}
+                                    </div>
+                                </div>
+
+                                {# Options selon la latéralité #}
+                                <div id="protheseGaucheDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.prothese_gauche_annee) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="protheseDroiteDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.prothese_droite_annee) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="protheseBilateraleDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            {{ form_row(form.prothese_bilaterale_gauche_annee) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form_row(form.prothese_bilaterale_droite_annee) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# Options pour symétrisation #}
+                            <div id="symetrisationDetails" class="d-none">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        {{ form_row(form.symetrisation_lateralite) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Section Néoplasie ovarienne #}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Antécédent de néoplasie ovarienne</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                {{ form_row(form.neoplasie_ovarienne) }}
+                            </div>
+                        </div>
+
+                        {# Options si néoplasie ovarienne = oui #}
+                        <div id="neoplasieOvarienneDetails" class="d-none">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{ form_row(form.neoplasie_ovarienne_annee) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Maladie de Hodgkin #}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Maladie de Hodgkin avec irradiation thoracique</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(form.hodgkin) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Section Âge de la patiente #}
+        <div class="mb-4">
+            <h5 class="mb-3">Âge de la patiente</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form_row(form.age_patiente) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Section Statut hormonal #}
+        <div class="mb-4">
+            <h5 class="mb-3">Statut hormonal</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(form.statut_hormonal) }}
+                </div>
+            </div>
+
+            {# Options si ménopausée #}
+            <div id="menopauseeDetails" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        {{ form_row(form.age_menopause, {'label': 'Âge de la ménopause'}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(form.traitement_hormonal) }}
+                    </div>
+                </div>
+            </div>
+
+            {# Options si non ménopausée #}
+            <div id="nonMenopauseeDetails" class="d-none mt-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(form.cycle) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Section Enfants #}
+        <div class="mb-4">
+            <h5 class="mb-3">Enfants</h5>
+            <div class="row align-items-end">
+                <div class="col-md-6">
+                    {{ form_row(form.nombre_enfants) }}
+                </div>
+                <div class="col-md-6" id="allaitementContainer" style="display: none;">
+                    {{ form_row(form.allaitement, {'label': false}) }}
+                </div>
+            </div>
+        </div>
+
+        {# Section Antécédents familiaux #}
+        <div class="mb-4">
+            <h5 class="mb-3">Antécédents familiaux sénologiques et ovariens</h5>
+            <div class="d-flex gap-2 mb-3">
+                <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="non">
+                    Non
+                </button>
+                <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="oui">
+                    Oui
+                </button>
+                <button type="button" class="btn btn-outline-secondary antecedents-familiaux-btn" data-value="ne_sait_pas">
+                    Ne sait pas
+                </button>
+                <button type="button" id="resetAntecedentsFamiliauxBtn" class="btn btn-outline-danger">
+                    <i class="bi bi-x-circle"></i> Reset
+                </button>
+            </div>
+
+            <div id="antecedentsFamiliauxDetails" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.mutation_brca) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_sein_avant_30) }}
+                    </div>
+                    <div class="col-md-6 cancer-sein-avant-30-nombre d-none">
+                        {{ form_row(form.cancer_sein_avant_30_nombre) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_sein_30_39) }}
+                    </div>
+                    <div class="col-md-6 cancer-sein-30-39-nombre d-none">
+                        {{ form_row(form.cancer_sein_30_39_nombre) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_sein_40_49) }}
+                    </div>
+                    <div class="col-md-6 cancer-sein-40-49-nombre d-none">
+                        {{ form_row(form.cancer_sein_40_49_nombre) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_sein_50_70) }}
+                    </div>
+                    <div class="col-md-6 cancer-sein-50-70-nombre d-none">
+                        {{ form_row(form.cancer_sein_50_70_nombre) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_sein_apres_70) }}
+                    </div>
+                    <div class="col-md-6 cancer-sein-apres-70-nombre d-none">
+                        {{ form_row(form.cancer_sein_apres_70_nombre) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_ovarien_avant_70) }}
+                    </div>
+                    <div class="col-md-6 cancer-ovarien-avant-70-nombre d-none">
+                        {{ form_row(form.cancer_ovarien_avant_70_nombre) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_ovarien_apres_70) }}
+                    </div>
+                    <div class="col-md-6 cancer-ovarien-apres-70-nombre d-none">
+                        {{ form_row(form.cancer_ovarien_apres_70_nombre) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(form.cancer_sein_homme) }}
+                    </div>
+                    <div class="col-md-6 cancer-sein-homme-nombre d-none">
+                        {{ form_row(form.cancer_sein_homme_nombre) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

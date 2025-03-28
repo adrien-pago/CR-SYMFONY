@@ -1,0 +1,225 @@
+{# templates/mamo/_examen_clinique.html.twig #}
+
+<div class="card mb-4">
+    <div class="card-header text-center d-flex justify-content-between align-items-center cursor-pointer">
+        <h4 class="mb-0">Examen clinique</h4>
+        <i class="bi bi-eye toggle-visibility" data-target="examen-clinique-content"></i>
+    </div>
+    <div class="card-body examen-clinique-content">
+        {# Examen clinique des seins #}
+        <div class="mb-4">
+            <h5 class="mb-3">Examen clinique normal des seins ?</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.examen_clinique_seins, {'label': false}) }}
+                </div>
+            </div>
+
+            {# Options si examen clinique = Non #}
+            <div id="examenCliniqueSeinsNonDetails" class="d-none mt-3">
+                <div class="d-flex gap-2 mb-3">
+                    <button type="button" class="btn btn-outline-secondary examen-type-btn" data-target="masseDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Masse
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary examen-type-btn" data-target="ecoulementDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Écoulement
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary examen-type-btn" data-target="erythemeDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Érythème
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary examen-type-btn" data-target="retractionDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Rétraction
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary examen-type-btn" data-target="asymetrieDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Asymétrie
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary examen-type-btn" data-target="autreDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Autre
+                    </button>
+                    <button type="button" id="resetExamenCliniqueBtn" class="btn btn-outline-danger ms-auto">
+                        <i class="bi bi-x-circle me-2"></i>Reset
+                    </button>
+                </div>
+
+                {# Options pour la masse #}
+                <div id="masseDetails" class="d-none">
+                    <p class="text-muted mb-2">Palpation d'une masse mammaire</p>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.masse_lateralite, {'label': false}) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.masse_mobilite, {'label': false}) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.masse_topographie, {'label': false}) }}
+                        </div>
+                    </div>
+
+                    {# Options pour la topographie de la masse #}
+                    <div id="masseTopographieDetails" class="d-none">
+                        <div class="row mb-3">
+                            <div class="col-md-4 masse-quadrant-container">
+                                {{ form_row(form.masse_quadrant, {'label': false}) }}
+                            </div>
+                            <div class="col-md-4 masse-union-container">
+                                {{ form_row(form.masse_union, {'label': false}) }}
+                            </div>
+                            <div class="col-md-4 masse-region-container">
+                                {{ form_row(form.masse_region, {'label': false}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour l'écoulement #}
+                <div id="ecoulementDetails" class="d-none">
+                    <p class="text-muted mb-2">Écoulement mammelonnaire</p>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.ecoulement_lateralite, {'label': false}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.ecoulement_reproductible, {'label': false}) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour l'érythème #}
+                <div id="erythemeDetails" class="d-none">
+                    <p class="text-muted mb-2">Érythème cutané mammaire</p>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.erytheme_topographie, {'label': false}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.erytheme_lateralite, {'label': false}) }}
+                        </div>
+                    </div>
+
+                    {# Options pour la topographie de l'érythème #}
+                    <div id="erythemeTopographieDetails" class="d-none">
+                        <div class="row mb-3">
+                            <div class="col-md-4 erytheme-quadrant-container">
+                                {{ form_row(form.erytheme_quadrant, {'label': false}) }}
+                            </div>
+                            <div class="col-md-4 erytheme-union-container">
+                                {{ form_row(form.erytheme_union, {'label': false}) }}
+                            </div>
+                            <div class="col-md-4 erytheme-region-container">
+                                {{ form_row(form.erytheme_region, {'label': false}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour la rétraction #}
+                <div id="retractionDetails" class="d-none">
+                    <p class="text-muted mb-2">Rétraction cutanée</p>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.retraction_topographie, {'label': false}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.retraction_lateralite, {'label': false}) }}
+                        </div>
+                    </div>
+
+                    {# Options pour la topographie de la rétraction #}
+                    <div id="retractionTopographieDetails" class="d-none">
+                        <div class="row mb-3">
+                            <div class="col-md-4 retraction-quadrant-container">
+                                {{ form_row(form.retraction_quadrant, {'label': false}) }}
+                            </div>
+                            <div class="col-md-4 retraction-union-container">
+                                {{ form_row(form.retraction_union, {'label': false}) }}
+                            </div>
+                            <div class="col-md-4 retraction-region-container">
+                                {{ form_row(form.retraction_region, {'label': false}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour l'asymétrie #}
+                <div id="asymetrieDetails" class="d-none">
+                    <p class="text-muted mb-2">Asymétrie mammaire</p>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.asymetrie_clinique_type, {'label': false}) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Option pour autre #}
+                <div id="autreDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.examen_clinique_autre, {'label': false}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Examen clinique des creux axillaires #}
+        <div class="mb-4">
+            <h5 class="mb-3">Examen clinique normal des creux axillaires ?</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.examen_clinique_axillaires, {'label': false}) }}
+                </div>
+            </div>
+
+            {# Options si examen clinique = Non #}
+            <div id="examenCliniqueAxillairesNonDetails" class="d-none mt-3">
+                <div class="d-flex gap-2 mb-3">
+                    <button type="button" class="btn btn-outline-secondary examen-axillaire-btn" data-target="infiltrationDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Infiltration
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary examen-axillaire-btn" data-target="noduleDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Nodule
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary examen-axillaire-btn" data-target="autreAxillaireDetails">
+                        <i class="bi bi-dot-circle me-2"></i>Autre
+                    </button>
+                    <button type="button" id="resetExamenAxillaireBtn" class="btn btn-outline-danger ms-auto">
+                        <i class="bi bi-x-circle me-2"></i>Reset
+                    </button>
+                </div>
+
+                {# Options pour l'infiltration #}
+                <div id="infiltrationDetails" class="d-none">
+                    <p class="text-muted mb-2">Infiltration axillaire</p>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.infiltration_lateralite, {'label': false}) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour le nodule #}
+                <div id="noduleDetails" class="d-none">
+                    <p class="text-muted mb-2">Nodule axillaire</p>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.nodule_mobilite, {'label': false}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.nodule_lateralite, {'label': false}) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Option pour autre #}
+                <div id="autreAxillaireDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.examen_clinique_axillaires_autre, {'label': false}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

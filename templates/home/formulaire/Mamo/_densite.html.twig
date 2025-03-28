@@ -1,0 +1,210 @@
+{# templates/mamo/_densite.html.twig #}
+
+<div class="card mb-4">
+    <div class="card-header text-center d-flex justify-content-between align-items-center cursor-pointer">
+        <h4 class="mb-0">Densité des seins</h4>
+        <i class="bi bi-eye toggle-visibility" data-target="densite-seins-content"></i>
+    </div>
+    <div class="card-body densite-seins-content">
+        {# Densité mammaire #}
+        <div class="mb-4">
+            <h5 class="mb-3">Densité mammaire</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.densite_seins.densite_seins) }}
+                </div>
+            </div>
+        </div>
+
+        {# Cartes des seins côte à côte #}
+        <div class="row">
+            {# Sous-carte Sein gauche #}
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header text-center d-flex justify-content-between align-items-center cursor-pointer">
+                        <h5 class="mb-0">Sein gauche</h5>
+                        <i class="bi bi-eye toggle-visibility" data-target="densite-seins-content"></i>
+                    </div>
+                    <div class="card-body">
+                        {# Asymétrie de densité #}
+                        <div class="mb-4">
+                            <h5 class="mb-3">Asymétrie de densité</h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ form_row(form.densite_gauche.asymetrie_densite_gauche) }}
+                                </div>
+                            </div>
+
+                            {# Options si asymétrie = Oui #}
+                            <div id="asymetrieDensiteGaucheDetails" class="d-none mt-3">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        {{ form_row(form.densite_gauche.asymetrie_densite_type_gauche) }}
+                                    </div>
+                                </div>
+
+                                {# Options pour asymétrie focale #}
+                                <div id="asymetrieFocaleGaucheDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_focale_siege_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_focale_profondeur_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_focale_tomo_gauche) }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_focale_evolution_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_focale_bords_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_focale_anomalie_gauche) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Options pour asymétrie globale #}
+                                <div id="asymetrieGlobaleGaucheDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            {{ form_row(form.densite_gauche.asymetrie_globale_localisation_gauche) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form_row(form.densite_gauche.asymetrie_globale_valeur_gauche) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Options pour asymétrie simple #}
+                                <div id="asymetrieSimpleGaucheDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_simple_incidence_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_simple_siege_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_simple_profondeur_gauche) }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_simple_evolution_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_simple_anomalie_gauche) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_gauche.asymetrie_simple_valeur_gauche) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Sous-carte Sein droit #}
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header text-center d-flex justify-content-between align-items-center cursor-pointer">
+                        <h5 class="mb-0">Sein droit</h5>
+                        <i class="bi bi-eye toggle-visibility" data-target="densite-seins-content"></i>
+                    </div>
+                    <div class="card-body">
+                        {# Asymétrie de densité #}
+                        <div class="mb-4">
+                            <h5 class="mb-3">Asymétrie de densité</h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ form_row(form.densite_droite.asymetrie_densite_droite) }}
+                                </div>
+                            </div>
+
+                            {# Options si asymétrie = Oui #}
+                            <div id="asymetrieDensiteDroiteDetails" class="d-none mt-3">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        {{ form_row(form.densite_droite.asymetrie_densite_type_droite) }}
+                                    </div>
+                                </div>
+
+                                {# Options pour asymétrie focale #}
+                                <div id="asymetrieFocaleDroiteDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_focale_siege_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_focale_profondeur_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_focale_tomo_droite) }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_focale_evolution_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_focale_bords_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_focale_anomalie_droite) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Options pour asymétrie globale #}
+                                <div id="asymetrieGlobaleDroiteDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            {{ form_row(form.densite_droite.asymetrie_globale_localisation_droite) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form_row(form.densite_droite.asymetrie_globale_valeur_droite) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# Options pour asymétrie simple #}
+                                <div id="asymetrieSimpleDroiteDetails" class="d-none">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_simple_incidence_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_simple_siege_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_simple_profondeur_droite) }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_simple_evolution_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_simple_anomalie_droite) }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_row(form.densite_droite.asymetrie_simple_valeur_droite) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

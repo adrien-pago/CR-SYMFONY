@@ -1,0 +1,87 @@
+{# templates/mamo/_technique.html.twig #}
+
+<div class="card mb-4">
+    <div class="card-header text-center d-flex justify-content-between align-items-center cursor-pointer">
+        <h4 class="mb-0">Technique</h4>
+        <i class="bi bi-eye toggle-visibility" data-target="technique-content"></i>
+    </div>
+    <div class="card-body technique-content">
+        {# Mammographie #}
+        <div class="mb-4">
+            <h5 class="mb-3">Mammographie</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.technique_mammographie, {'label': false}) }}
+                </div>
+            </div>
+        </div>
+
+        {# Incidences complémentaires #}
+        <div class="mb-4">
+            <h5 class="mb-3 d-flex align-items-center">
+                Incidences complémentaires
+                <button type="button" class="btn btn-outline-primary btn-sm ms-3" id="ajouterIncidencesBtn">
+                    <i class="bi bi-plus-circle me-1"></i>Ajouter
+                </button>
+            </h5>
+            <div class="incidences-complementaires">
+                {# Ligne par défaut #}
+                <div class="row g-2 align-items-center mb-3">
+                    <div class="col-md-8">
+                        <select class="form-select" name="incidences_complementaires[]">
+                            <option value="">Sélectionner une incidence</option>
+                            <option value="agrandis_face_profil">
+                                Réalisation complémentaire de clichés agrandis de face et de profil
+                            </option>
+                            <option value="face_roule">
+                                Réalisation complémentaire d'un cliché de face roulé
+                            </option>
+                            <option value="face_cleopatre">
+                                Réalisation complémentaire d'un cliché de face tournée (dit de Cléopâtre)
+                            </option>
+                            <option value="comprime_localise">
+                                Réalisation complémentaire d'un cliché comprimé localisé
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" name="incidences_lateralite[]">
+                            <option value="">Latéralité ?</option>
+                            <option value="droite">Droite</option>
+                            <option value="gauche">Gauche</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button type="button" class="btn w-100" style="visibility: hidden;">&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Difficulté technique #}
+        <div class="mb-4">
+            <h5 class="mb-3">Difficulté technique</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.difficulte_technique, {'label': false}) }}
+                </div>
+                <div class="col-md-6" id="difficulteTechniqueAutreContainer" style="display: none;">
+                    {{ form_row(form.difficulte_technique_autre, {'label': false}) }}
+                </div>
+            </div>
+        </div>
+
+        {# Échographie #}
+        <div class="mb-4">
+            <h5 class="mb-3">Échographie</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.echographie, {'label': false}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.echographie_indication, {'label': false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

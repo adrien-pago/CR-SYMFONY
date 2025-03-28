@@ -11,6 +11,6 @@ class FormPoignetController extends AbstractController
     #[Route('/form/poignet', name: 'app_form_poignet')]
     public function index(): Response
     {
-        return $this->render('home/formulaire/formPoignet.html.twig');
+        return $this->render('home/formulaire/Poignet/formPoignet.html.twig');
     }
 } 
