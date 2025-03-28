@@ -1,0 +1,164 @@
+/* Base */
+body {
+    background-color: #f0f2f5;
+    color: #212529;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 0.5rem 1rem;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.25rem 1rem;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0d6efd;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+}
+
+.navbar-text h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link.dropdown-toggle {
+    padding: 0.5rem;
+    border-radius: 15%;
+    transition: background-color 0.3s;
+}
+
+.nav-link.dropdown-toggle:hover {
+    background-color: #f0f0f0;
+}
+
+.bi-list {
+    font-size: 2.25rem !important;
+    color: #0d6efd;
+}
+
+.dropdown-menu {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(13, 110, 253, 0.15);
+}
+
+/* Forms */
+.form-control, .form-select {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.card-header {
+    background-color: #f9fbfd;
+    border-bottom: 1px solid #eaecef;
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.card-body {
+    padding: 0.75rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .navbar-text h1 {
+        font-size: 1.25rem;
+    }
+
+    .navbar-brand {
+        font-size: 2rem;
+    }
+
+    .bi-list {
+        font-size: 2rem !important;
+    }
+
+    .card-header {
+        text-align: center;
+    }
+}
