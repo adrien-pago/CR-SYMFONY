@@ -11,3 +11,6 @@ php bin/console make:migration
 symfony server:start
 php -S 127.0.0.1:8000 -t public
 php bin/console server:run
+
+php bin/console cache:clear
+
