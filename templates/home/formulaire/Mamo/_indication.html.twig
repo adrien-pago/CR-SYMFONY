@@ -354,9 +354,7 @@
             <h5 class="mb-3">Âge de la patiente</h5>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form_row(form.age_patiente) }}
-                    </div>
+                    {{ form_row(form.age_patiente) }}
                 </div>
             </div>
         </div>
@@ -374,7 +372,7 @@
             <div id="menopauseeDetails" class="d-none mt-3">
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        {{ form_row(form.age_menopause, {'label': 'Âge de la ménopause'}) }}
+                        {{ form_row(form.age_menopause) }}
                     </div>
                 </div>
                 <div class="row">
@@ -402,7 +400,7 @@
                     {{ form_row(form.nombre_enfants) }}
                 </div>
                 <div class="col-md-6" id="allaitementContainer" style="display: none;">
-                    {{ form_row(form.allaitement, {'label': false}) }}
+                    {{ form_row(form.allaitement) }}
                 </div>
             </div>
         </div>

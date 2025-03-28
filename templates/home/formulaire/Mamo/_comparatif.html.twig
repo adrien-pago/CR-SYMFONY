@@ -13,8 +13,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="input-group">
-                        {{ form_widget(form.comparatif_date, {'attr': {'class': 'form-control'}}) }}
-                        <span class="input-group-text calendar-icon" data-target="form_mamo_comparatif_date">
+                        {{ form_widget(form.comparatif_date, {'attr': {'class': 'form-control flatpickr', 'id': 'comparatif_date'}}) }}
+                        <span class="input-group-text cursor-pointer" id="comparatif_date_icon">
                             <i class="bi bi-calendar"></i>
                         </span>
                     </div>
@@ -26,7 +26,7 @@
 
             {# Bouton pour ajouter un bilan plus ancien #}
             <div class="row mt-3">
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <button type="button" class="btn btn-outline-primary w-100" id="ajouterComparatifAncienBtn">
                         <i class="bi bi-plus-circle me-1"></i>
                         Nous disposons également d'un bilan plus ancien datant de (MM/AAAA)
@@ -37,10 +37,10 @@
             {# Conteneur pour le bilan plus ancien #}
             <div id="comparatifAncienContainer" class="d-none mt-3">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <div class="input-group">
-                            {{ form_row(form.comparatif_ancien_date, {'label': false}) }}
-                            <span class="input-group-text calendar-icon" data-target="form_mamo_comparatif_ancien_date">
+                            {{ form_widget(form.comparatif_ancien_date, {'attr': {'class': 'form-control flatpickr', 'id': 'comparatif_ancien_date'}}) }}
+                            <span class="input-group-text cursor-pointer" id="comparatif_ancien_date_icon">
                                 <i class="bi bi-calendar"></i>
                             </span>
                         </div>

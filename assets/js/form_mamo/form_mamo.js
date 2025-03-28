@@ -76,12 +76,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Gestion de la visibilité des sections (pliage/dépliage des cartes)
-    const toggleButtons = document.querySelectorAll('.toggle-visibility');
+    const toggleButtons = document.querySelectorAll('.form-mamo .toggle-visibility');
 
-    // Initialiser toutes les cartes comme fermées par défaut, sauf la carte principale
-    document.querySelectorAll('.card-body').forEach(content => {
-        if (!content.closest('.main-card')) {
-            content.style.display = 'none';
+    // Initialiser les cartes de contenu comme fermées
+    document.querySelectorAll('.form-mamo .card-body').forEach(content => {
+        // Ne masquer que les cartes de contenu (celles qui ont un parent avec la classe 'card')
+        if (content.closest('.card') && !content.closest('.card').classList.contains('main-card')) {
+            content.classList.add('d-none');
+        }
+    });
+
+    // Mettre à jour les icônes pour refléter l'état fermé
+    document.querySelectorAll('.form-mamo .toggle-visibility').forEach(icon => {
+        const card = icon.closest('.card');
+        if (card && !card.classList.contains('main-card')) {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
         }
     });
 
@@ -89,34 +99,39 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.stopPropagation();
-            toggleCardVisibility(this);
-        });
-    });
-
-    // Ajouter le clic sur l'en-tête de la carte
-    document.querySelectorAll('.card-header').forEach(header => {
-        header.addEventListener('click', function(e) {
-            // Ne pas déclencher si on clique sur le bouton de l'œil
-            if (!e.target.closest('.toggle-visibility')) {
-                const toggleButton = this.querySelector('.toggle-visibility');
-                if (toggleButton) {
-                    toggleCardVisibility(toggleButton);
+            const card = this.closest('.card');
+            const content = card.querySelector('.card-body');
+            const icon = this;
+            
+            if (content && !card.classList.contains('main-card')) {
+                if (content.classList.contains('d-none')) {
+                    // Ouvrir la carte
+                    content.classList.remove('d-none');
+                    icon.classList.remove('bi-eye');
+                    icon.classList.add('bi-eye-slash');
+                } else {
+                    // Fermer la carte
+                    content.classList.add('d-none');
+                    icon.classList.remove('bi-eye-slash');
+                    icon.classList.add('bi-eye');
                 }
             }
         });
     });
 
-    // Fonction pour basculer la visibilité d'une carte
-    function toggleCardVisibility(toggleButton) {
-        const card = toggleButton.closest('.card');
-        const content = card.querySelector('.card-body');
-        const isVisible = content.style.display !== 'none';
-        
-        // Toggle la visibilité
-        content.style.display = isVisible ? 'none' : 'block';
-        
-        // Changer l'icône
-        toggleButton.classList.toggle('bi-eye');
-        toggleButton.classList.toggle('bi-eye-slash');
-    }
+    // Ajouter le clic sur l'en-tête de la carte
+    document.querySelectorAll('.form-mamo .card-header').forEach(header => {
+        header.addEventListener('click', function(e) {
+            // Ne pas déclencher si on clique sur le bouton de l'œil
+            if (!e.target.closest('.toggle-visibility')) {
+                const card = this.closest('.card');
+                if (card && !card.classList.contains('main-card')) {
+                    const toggleButton = this.querySelector('.toggle-visibility');
+                    if (toggleButton) {
+                        toggleButton.click();
+                    }
+                }
+            }
+        });
+    });
 });

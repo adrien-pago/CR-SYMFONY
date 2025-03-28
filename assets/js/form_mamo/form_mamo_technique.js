@@ -129,4 +129,88 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    // Gestion des incidences complémentaires
+    const ajouterIncidencesBtn = document.getElementById('ajouterIncidencesBtn');
+    const incidencesContainer = document.querySelector('.incidences-complementaires');
+
+    // Fonction pour créer une nouvelle ligne d'incidence
+    function createNewIncidenceRow() {
+        const newRow = document.createElement('div');
+        newRow.className = 'row g-2 align-items-center mb-3';
+        newRow.innerHTML = `
+            <div class="col-md-7">
+                <select class="form-select" name="incidences_complementaires[]">
+                    <option value="">Sélectionner une incidence</option>
+                    <option value="agrandis_face_profil">
+                        Réalisation complémentaire de clichés agrandis de face et de profil
+                    </option>
+                    <option value="face_roule">
+                        Réalisation complémentaire d'un cliché de face roulé
+                    </option>
+                    <option value="face_cleopatre">
+                        Réalisation complémentaire d'un cliché de face tournée (dit de Cléopâtre)
+                    </option>
+                    <option value="comprime_localise">
+                        Réalisation complémentaire d'un cliché comprimé localisé
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" name="incidences_lateralite[]">
+                    <option value="">Latéralité ?</option>
+                    <option value="droite">Droite</option>
+                    <option value="gauche">Gauche</option>
+                </select>
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" class="btn btn-outline-danger btn-sm delete-incidence">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        `;
+
+        // Ajouter l'événement de suppression au nouveau bouton
+        const deleteBtn = newRow.querySelector('.delete-incidence');
+        deleteBtn.addEventListener('click', function() {
+            newRow.remove();
+        });
+
+        return newRow;
+    }
+
+    // Gestion du bouton d'ajout d'incidence
+    if (ajouterIncidencesBtn && incidencesContainer) {
+        ajouterIncidencesBtn.addEventListener('click', function() {
+            const newRow = createNewIncidenceRow();
+            incidencesContainer.appendChild(newRow);
+        });
+    }
+
+    // Gestion des boutons de suppression existants
+    document.querySelectorAll('.delete-incidence').forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('.row');
+            row.remove();
+        });
+    });
+
+    // Gestion de la difficulté technique
+    const difficulteTechniqueSelect = document.querySelector('select[name*="difficulte_technique"]');
+    const difficulteTechniqueAutreContainer = document.getElementById('difficulteTechniqueAutreContainer');
+
+    if (difficulteTechniqueSelect && difficulteTechniqueAutreContainer) {
+        // Vérifier la valeur initiale
+        if (difficulteTechniqueSelect.value === 'autre') {
+            difficulteTechniqueAutreContainer.style.display = 'block';
+        }
+
+        difficulteTechniqueSelect.addEventListener('change', function() {
+            if (this.value === 'autre') {
+                difficulteTechniqueAutreContainer.style.display = 'block';
+            } else {
+                difficulteTechniqueAutreContainer.style.display = 'none';
+            }
+        });
+    } 
 });

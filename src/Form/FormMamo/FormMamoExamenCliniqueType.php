@@ -16,11 +16,11 @@ class FormMamoExamenCliniqueType extends AbstractType
         $builder
             ->add('examen_clinique_seins', ChoiceType::class, [
                 'required' => true,
+                'placeholder' => '',
                 'choices' => [
                     'Oui' => 'oui',
                     'Non' => 'non',
-                    'Refus' => 'refus',
-                    '' => ''
+                    'Refus' => 'refus'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -29,10 +29,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Champs pour la masse
             ->add('masse_lateralite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Latéralité ?',
                 'choices' => [
-                    'Latéralité ?' => '',
-                    'Gauche' => 'gauche',
-                    'Droite' => 'droite'
+                    'Droite' => 'droite',
+                    'Gauche' => 'gauche'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -40,10 +40,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('masse_mobilite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Mobilité',
                 'choices' => [
                     'Mobile' => 'mobile',
-                    'Fixée' => 'fixee',
-                    'Mobilité' => ''
+                    'Fixée' => 'fixee'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -51,6 +51,7 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('masse_topographie', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Topographie ?',
                 'choices' => [
                     'Diffuse' => 'diffuse',
                     'Quadrant' => 'quadrant',
@@ -58,8 +59,7 @@ class FormMamoExamenCliniqueType extends AbstractType
                     'Région' => 'region',
                     'Péri-aréolaire' => 'peri_areolaire',
                     'Sous-mammaire' => 'sous_mammaire',
-                    'Axillaire' => 'axillaire',
-                    'Topographie ?' => ''
+                    'Axillaire' => 'axillaire'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -67,12 +67,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('masse_quadrant', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Quadrant',
                 'choices' => [
                     'Supéroexterne' => 'superoexterne',
                     'Supérointerne' => 'superointerne',
                     'Inférointerne' => 'inferointerne',
-                    'Inféroexterne' => 'inferoexterne',
-                    'Quadrant' => ''
+                    'Inféroexterne' => 'inferoexterne'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -80,12 +80,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('masse_union', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Union',
                 'choices' => [
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes',
-                    'Union' => ''
+                    'Externes' => 'externes'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -93,12 +93,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('masse_region', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Régions',
                 'choices' => [
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes',
-                    'Régions' => ''
+                    'Externes' => 'externes'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -107,10 +107,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Champs pour l'écoulement
             ->add('ecoulement_lateralite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Latéralité ?',
                 'choices' => [
-                    'Latéralité ?' => '',
-                    'Gauche' => 'gauche',
-                    'Droite' => 'droite'
+                    'Droite' => 'droite',
+                    'Gauche' => 'gauche'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -118,10 +118,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('ecoulement_reproductible', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => '.',
                 'choices' => [
                     'Reproduit' => 'reproduit',
-                    'Non reproductible ce jour' => 'non_reproductible',
-                    '.' => ''
+                    'Non reproductible ce jour' => 'non_reproductible'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -130,6 +130,7 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Champs pour l'érythème
             ->add('erytheme_topographie', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Topographie ?',
                 'choices' => [
                     'Diffus' => 'diffus',
                     'Quadrant' => 'quadrant',
@@ -137,8 +138,7 @@ class FormMamoExamenCliniqueType extends AbstractType
                     'Région' => 'region',
                     'Péri-aréolaire' => 'peri_areolaire',
                     'Sous-mammaire' => 'sous_mammaire',
-                    'Axillaire' => 'axillaire',
-                    'Topographie ?' => ''
+                    'Axillaire' => 'axillaire'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -146,12 +146,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('erytheme_quadrant', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Quadrant',
                 'choices' => [
                     'Supéroexterne' => 'superoexterne',
                     'Supérointerne' => 'superointerne',
                     'Inférointerne' => 'inferointerne',
-                    'Inféroexterne' => 'inferoexterne',
-                    'Quadrant' => ''
+                    'Inféroexterne' => 'inferoexterne'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -159,12 +159,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('erytheme_union', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Union',
                 'choices' => [
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes',
-                    'Union' => ''
+                    'Externes' => 'externes'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -172,12 +172,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('erytheme_region', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Régions',
                 'choices' => [
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes',
-                    'Régions' => ''
+                    'Externes' => 'externes'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -185,10 +185,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('erytheme_lateralite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Latéralité ?',
                 'choices' => [
                     'Droit' => 'droit',
-                    'Gauche' => 'gauche',
-                    'Latéralité ?' => ''
+                    'Gauche' => 'gauche'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -197,6 +197,7 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Champs pour la rétraction
             ->add('retraction_topographie', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Topographie ?',
                 'choices' => [
                     'Diffuse' => 'diffuse',
                     'Quadrant' => 'quadrant',
@@ -204,8 +205,7 @@ class FormMamoExamenCliniqueType extends AbstractType
                     'Région' => 'region',
                     'Péri-aréolaire' => 'peri_areolaire',
                     'Sous-mammaire' => 'sous_mammaire',
-                    'Axillaire' => 'axillaire',
-                    'Topographie ?' => ''
+                    'Axillaire' => 'axillaire'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -213,12 +213,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('retraction_quadrant', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Quadrant',
                 'choices' => [
                     'Supéroexterne' => 'superoexterne',
                     'Supérointerne' => 'superointerne',
                     'Inférointerne' => 'inferointerne',
-                    'Inféroexterne' => 'inferoexterne',
-                    'Quadrant' => ''
+                    'Inféroexterne' => 'inferoexterne'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -226,12 +226,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('retraction_union', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Union',
                 'choices' => [
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes',
-                    'Union' => ''
+                    'Externes' => 'externes'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -239,12 +239,12 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('retraction_region', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Régions',
                 'choices' => [
                     'Supérieurs' => 'superieurs',
                     'Internes' => 'internes',
                     'Inférieurs' => 'inferieurs',
-                    'Externes' => 'externes',
-                    'Régions' => ''
+                    'Externes' => 'externes'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -252,10 +252,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('retraction_lateralite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Latéralité ?',
                 'choices' => [
                     'Droit' => 'droit',
-                    'Gauche' => 'gauche',
-                    'Latéralité ?' => ''
+                    'Gauche' => 'gauche'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -264,11 +264,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Champs pour l'asymétrie
             ->add('asymetrie_clinique_type', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => '.',
                 'choices' => [
-                    'Non renseigné' => '',
-                    'Asymétrie de volume' => 'volume',
-                    'Asymétrie de forme' => 'forme',
-                    'Asymétrie de position' => 'position'
+                    'Le sein droit est plus volumineux' => 'droit_plus_volumineux',
+                    'Le sein gauche est plus volumineux' => 'gauche_plus_volumineux'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -285,11 +284,11 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Section Examen clinique des creux axillaires
             ->add('examen_clinique_axillaires', ChoiceType::class, [
                 'required' => true,
+                'placeholder' => '',
                 'choices' => [
                     'Oui' => 'oui',
                     'Non' => 'non',
-                    'Refus' => 'refus',
-                    '' => ''
+                    'Refus' => 'refus'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -298,8 +297,8 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Champs pour l'infiltration
             ->add('infiltration_lateralite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Latéralité ?',
                 'choices' => [
-                    'Latéralité ?' => '',
                     'Gauche' => 'gauche',
                     'Droite' => 'droite'
                 ],
@@ -310,10 +309,10 @@ class FormMamoExamenCliniqueType extends AbstractType
             // Champs pour le nodule
             ->add('nodule_mobilite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Mobilité',
                 'choices' => [
                     'Mobile' => 'mobile',
-                    'Fixé' => 'fixe',
-                    'Mobilité' => ''
+                    'Fixé' => 'fixe'
                 ],
                 'attr' => [
                     'class' => 'form-select'
@@ -321,8 +320,8 @@ class FormMamoExamenCliniqueType extends AbstractType
             ])
             ->add('nodule_lateralite', ChoiceType::class, [
                 'required' => false,
+                'placeholder' => 'Latéralité ?',
                 'choices' => [
-                    'Latéralité ?' => '',
                     'Gauche' => 'gauche',
                     'Droite' => 'droite'
                 ],

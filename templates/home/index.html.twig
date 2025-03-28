@@ -11,17 +11,19 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title text-center mb-0">Formulaires disponibles</h2>
+                <div class="card-header text-center">
+                    <h2 class="card-title mb-0">Formulaires disponibles</h2>
                 </div>
                 <div class="card-body">
                     <div class="row g-4">
                         {# Formulaire de Mammographie #}
                         <div class="col-md-4">
                             <div class="card h-100">
+                                <div class="card-header text-center">
+                                    <h3 class="card-title h5 mb-0">Mammographie</h3>
+                                </div>
                                 <div class="card-body text-center">
                                     <i class="bi bi-clipboard-pulse display-4 text-primary mb-3"></i>
-                                    <h3 class="card-title h5">Mammographie</h3>
                                     <p class="card-text">Compte-rendu de mammographie avec échographie associée</p>
                                     <a href="{{ path('app_form_mamo') }}" class="btn btn-primary">Commencer</a>
                                 </div>
@@ -31,9 +33,11 @@
                         {# Formulaire de Poignet #}
                         <div class="col-md-4">
                             <div class="card h-100">
+                                <div class="card-header text-center">
+                                    <h3 class="card-title h5 mb-0">Poignet</h3>
+                                </div>
                                 <div class="card-body text-center">
                                     <i class="bi bi-hand-thumbs-up display-4 text-success mb-3"></i>
-                                    <h3 class="card-title h5">Poignet</h3>
                                     <p class="card-text">Compte-rendu d'examen du poignet</p>
                                     <a href="{{ path('app_form_poignet') }}" class="btn btn-success">Commencer</a>
                                 </div>
@@ -43,9 +47,11 @@
                         {# Formulaire de Cheville #}
                         <div class="col-md-4">
                             <div class="card h-100">
+                                <div class="card-header text-center">
+                                    <h3 class="card-title h5 mb-0">Cheville</h3>
+                                </div>
                                 <div class="card-body text-center">
                                     <i class="bi bi-activity display-4 text-info mb-3"></i>
-                                    <h3 class="card-title h5">Cheville</h3>
                                     <p class="card-text">Compte-rendu d'examen de la cheville</p>
                                     <a href="{{ path('app_form_cheville') }}" class="btn btn-info">Commencer</a>
                                 </div>

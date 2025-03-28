@@ -1,59 +1,49 @@
 {# templates/home/formulaire/Mamo/formMamo.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Mammographie - CR-SYMFONY{% endblock %}
+{% block title %}Formulaire de Mammographie - CR-SYMFONY{% endblock %}
 
 {% block header %}
     {{ include('partials/_header.html.twig') }}
 {% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card main-card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h2 class="card-title mb-0">Compte-rendu de Mammographie</h2>
-                            <div class="d-flex gap-2">
-                                <a href="{{ path('app_home') }}" class="btn btn-outline-secondary">
-                                    <i class="bi bi-arrow-left"></i> Retour
-                                </a>
-                            </div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header text-center d-flex justify-content-between align-items-center">
+                    <div style="width: 85px;"></div>
+                    <h2 class="card-title mb-0">Formulaire de Mammographie</h2>
+                    <a href="{{ path('app_home') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Retour
+                    </a>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {'attr': {'class': 'form-mamo'}}) }}
+                        {# Sections principales #}
+                        {% set main_sections = [
+                            'titre',
+                            'indication',
+                            'technique',
+                            'comparatif',
+                            'examen_clinique'
+                        ] %}
+                        
+                        {% for section in main_sections %}
+                            {% include 'home/formulaire/Mamo/_' ~ section ~ '.html.twig' with {'form': form[section]} %}
+                        {% endfor %}
+
+                        {# Section densité #}
+                        {% include 'home/formulaire/Mamo/_densite.html.twig' with {'form': form} %}
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Générer le compte-rendu</button>
                         </div>
-                        <div class="card-body">
-                            {# Section Titre #}
-                            {% include 'home/formulaire/Mamo/_titre.html.twig' with { 'form': form.titre } %}
-
-                            {# Section Indication #}
-                            {% include 'home/formulaire/Mamo/_indication.html.twig' with { 'form': form.indication } %}
-
-                            {# Section Technique #}
-                            {% include 'home/formulaire/Mamo/_technique.html.twig' with { 'form': form.technique } %}
-
-                            {# Section Comparatif #}
-                            {% include 'home/formulaire/Mamo/_comparatif.html.twig' with { 'form': form.comparatif } %}
-
-                            {# Section Examen clinique #}
-                            {% include 'home/formulaire/Mamo/_examen_clinique.html.twig' with { 'form': form.examen_clinique } %}
-
-                            {# Section Densité des seins #}
-                            {% include 'home/formulaire/Mamo/_densite.html.twig' with { 
-                                'form': {
-                                    'densite_seins': form.densite_seins,
-                                    'densite_gauche': form.densite_gauche,
-                                    'densite_droite': form.densite_droite
-                                }
-                            } %}
-
-                            {# Bouton de soumission #}
-                            <div class="d-grid gap-2 col-6 mx-auto mt-4 mb-4">
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                            </div>
-                        </div>
-                    </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
-    {{ form_end(form) }}
+    </div>
+</div>
 {% endblock %}

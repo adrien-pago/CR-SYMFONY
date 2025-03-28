@@ -1,4 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation de Flatpickr pour les champs de date
+    const dateFields = document.querySelectorAll('.flatpickr');
+    
+    dateFields.forEach(field => {
+        if (field.id === 'comparatif_ancien_date') {
+            flatpickr(field, {
+                dateFormat: "m/Y",
+                locale: "fr",
+                allowInput: true
+            });
+        } else {
+            flatpickr(field, {
+                dateFormat: "d/m/Y",
+                locale: "fr",
+                allowInput: true
+            });
+        }
+    });
+
+    // Gestion du bouton d'ajout de bilan plus ancien
+    const ajouterComparatifAncienBtn = document.getElementById('ajouterComparatifAncienBtn');
+    const comparatifAncienContainer = document.getElementById('comparatifAncienContainer');
+
+    if (ajouterComparatifAncienBtn && comparatifAncienContainer) {
+        ajouterComparatifAncienBtn.addEventListener('click', function() {
+            comparatifAncienContainer.classList.remove('d-none');
+            // Réinitialiser le champ de date
+            const dateField = comparatifAncienContainer.querySelector('.flatpickr');
+            if (dateField) {
+                dateField.value = '';
+            }
+        });
+    }
+
     // Gestion de la section Comparatif
     const comparatifBtn = document.getElementById('comparatifBtn');
     const comparatifOptions = document.getElementById('comparatifOptions');
@@ -79,26 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-    // Gestion des champs de date
-    const dateFields = [
-        'date_precedente',
-        'date_anterieure'
-    ];
-
-    dateFields.forEach(field => {
-        const input = document.querySelector(`#form_mamo_${field}`);
-        if (input) {
-            // Initialiser le datepicker
-            $(input).datepicker({
-                format: 'dd/mm/yyyy',
-                language: 'fr',
-                autoclose: true,
-                todayHighlight: true,
-                endDate: new Date()
-            });
-        }
-    });
 
     // Gestion des champs de stabilité
     const stabiliteFields = [

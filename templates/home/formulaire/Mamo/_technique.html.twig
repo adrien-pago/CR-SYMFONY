@@ -27,7 +27,7 @@
             <div class="incidences-complementaires">
                 {# Ligne par défaut #}
                 <div class="row g-2 align-items-center mb-3">
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <select class="form-select" name="incidences_complementaires[]">
                             <option value="">Sélectionner une incidence</option>
                             <option value="agrandis_face_profil">
@@ -51,9 +51,6 @@
                             <option value="gauche">Gauche</option>
                         </select>
                     </div>
-                    <div class="col-md-1 text-end">
-                        <button type="button" class="btn w-100" style="visibility: hidden;">&nbsp;</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -65,7 +62,9 @@
                 <div class="col-md-6">
                     {{ form_row(form.difficulte_technique, {'label': false}) }}
                 </div>
-                <div class="col-md-6" id="difficulteTechniqueAutreContainer" style="display: none;">
+            </div>
+            <div class="row mt-3" id="difficulteTechniqueAutreContainer" style="display: none;">
+                <div class="col-md-6">
                     {{ form_row(form.difficulte_technique_autre, {'label': false}) }}
                 </div>
             </div>
