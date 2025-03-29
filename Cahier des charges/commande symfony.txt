@@ -1,6 +1,7 @@
+composer install
+
 npm install --legacy-peer-deps
 npm run build
-
 
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
