@@ -80,8 +80,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialiser les cartes de contenu comme fermées
     document.querySelectorAll('.form-mamo .card-body').forEach(content => {
-        // Ne masquer que les cartes de contenu (celles qui ont un parent avec la classe 'card')
-        if (content.closest('.card') && !content.closest('.card').classList.contains('main-card')) {
+        const card = content.closest('.card');
+
+        // Ne masquer que les cartes de contenu :
+        // - qui ont un parent '.card'
+        // - qui ne sont pas des 'main-card'
+        // - qui ne sont pas à l’intérieur de #antecedentsDetails
+        if (
+            card &&
+            !card.classList.contains('main-card') &&
+            !card.closest('#antecedentsDetails')
+        ) {
             content.classList.add('d-none');
         }
     });
