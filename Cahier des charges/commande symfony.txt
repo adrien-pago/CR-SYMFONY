@@ -15,3 +15,7 @@ php bin/console server:run
 
 php bin/console cache:clear
 
+
+https://radiorapide.fr/
+
+Bilan apparait seulement si y a anomalie clinique

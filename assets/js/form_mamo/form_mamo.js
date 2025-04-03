@@ -143,4 +143,36 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Bouton pour tout ouvrir / tout fermer dans la carte principale
+    const toggleAllBtn = document.getElementById('toggleAllSections');
+    const mainCard = document.getElementById('mainFormCard');
+
+    if (toggleAllBtn && mainCard) {
+
+        let allOpen = false;
+
+        toggleAllBtn.addEventListener('click', function () {
+            const childCards = mainCard.querySelectorAll('.card:not(.main-card) > .card-body');
+
+            childCards.forEach(cardBody => {
+                if (allOpen) {
+                    cardBody.classList.add('d-none');
+                } else {
+                    cardBody.classList.remove('d-none');
+                }
+
+                // Mettre à jour l'icône si elle existe
+                const icon = cardBody.closest('.card')?.querySelector('.toggle-visibility');
+                if (icon) {
+                    icon.classList.toggle('bi-eye', allOpen);
+                    icon.classList.toggle('bi-eye-slash', !allOpen);
+                }
+            });
+
+            allOpen = !allOpen;
+            this.textContent = allOpen ? 'Tout fermer' : 'Tout ouvrir';
+        });
+    } 
+
 });
