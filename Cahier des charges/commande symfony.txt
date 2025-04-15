@@ -35,3 +35,16 @@ un fichier twig dans le dossiertemplates/formulaire/Mamo
 et ils ont un fichier commun dans chaque catégorie (php,twig,js) qui appelle tout les autres fichier pour que ça soit facile à lire et faire évoluer. un fichier css est attribuer pour chaque formulaire et on importe le css et le js avec webpack encore. On utilise essentiellement bootstrap dans twig pour le style.
 
 on va reprendre là on c'était arrêter dit moi quand tu es prêt ?
+
+
+Syntaxe cahier des charge
+Si rien n'est sélectionné, retranscrire un "?" dans le CR final par défaut, si je souhaite autre chose, ce sera précisé.
+
+
+Remarque :
+Lorsqu'un choix dans un des menus déclenche l'apparition de plusieurs items, je les mettrai à la même hauteur sur une tabulation.
+Chaque nouveau questionnaire commence par un +
+Chaque item d'un menu déroulant commence par un - (sauf le premier par défaut qui a un +)
+Chaque texte à ajouter à la suite commence par un $
+
+

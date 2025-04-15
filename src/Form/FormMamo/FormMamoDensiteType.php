@@ -28,15 +28,23 @@ class FormMamoDensiteType extends AbstractType
                     'class' => 'form-select'
                 ]
             ])
+            ->add('densite_gauche', FormMamoDensiteGaucheType::class, [
+                'label' => false,
+                'required' => false
+            ])
+            ->add('densite_droite', FormMamoDensiteDroitType::class, [
+                'label' => false,
+                'required' => false
+            ])
             ;
-        }
-                
-        public function configureOptions(OptionsResolver $resolver): void
-        {
-            // Ajuste si tu as besoin d'un data_class
-            $resolver->setDefaults([
-                // 'data_class' => ...
-            ]);
-        }
     }
+                
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        // Ajuste si tu as besoin d'un data_class
+        $resolver->setDefaults([
+            // 'data_class' => ...
+        ]);
+    }
+}
 
