@@ -19,3 +19,19 @@ php bin/console cache:clear
 https://radiorapide.fr/
 
 Bilan apparait seulement si y a anomalie clinique
+
+Commande cursor reprise:
+ça fait un moment que l'on a pas avancé sur le projet CR-SYMFONY qui consiste a afficher des formulaire pour les médecin qui les remplissent et ensuite ils puevent l'envoyer par mail et récupérer un compte rendu pdf ou word sur leur machine en local.
+
+Je te laisse relire le dossier cahier des charges à la racine du projet dedans tu trouvera des fichier texte qui vont te donner le cahier des charges.
+
+Je vais te rapeller comment on procédais, on a coder en symfony une page de login et de register, un page home qui propose plusisuer formulaire, un layout commun, et ona commencer à coder le formulaire mamographie ensemble:
+
+Comme le formulaire est très long et complex on la découper en partie, chaque partie à :
+un fichier php dans le dossier src/Form/FormMamo
+un fichier js dans le dossier  assets/js/form_mamo
+un fichier twig dans le dossiertemplates/formulaire/Mamo
+
+et ils ont un fichier commun dans chaque catégorie (php,twig,js) qui appelle tout les autres fichier pour que ça soit facile à lire et faire évoluer. un fichier css est attribuer pour chaque formulaire et on importe le css et le js avec webpack encore. On utilise essentiellement bootstrap dans twig pour le style.
+
+on va reprendre là on c'était arrêter dit moi quand tu es prêt ?

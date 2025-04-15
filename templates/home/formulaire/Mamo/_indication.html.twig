@@ -15,99 +15,92 @@
             </div>
         </div>
 
-        {# Partie Bilan de la section Indication #}
-        <div class="mb-4">
-            <button type="button" id="bilanBtn" class="btn btn-outline-primary d-flex align-items-center">
-                <i class="bi bi-plus-circle me-2"></i> <span class="bilan-text">Bilan</span>
-            </button>
-            
-            {# Options du bilan #}
-            <div id="bilanOptions" class="d-none mt-3">
-                <div class="d-flex gap-2 mb-4 flex-wrap">
-                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="douleurOptions">
-                        <i class="bi bi-dot-circle me-2"></i>Douleur
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="masseOptions">
-                        <i class="bi bi-dot-circle me-2"></i>Masse
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="ecoulementOptions">
-                        <i class="bi bi-dot-circle me-2"></i>Écoulement
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="gynecomastieOptions">
-                        <i class="bi bi-dot-circle me-2"></i>Gynécomastie
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary option-btn" data-target="autreOptions">
-                        <i class="bi bi-dot-circle me-2"></i>Autre
-                    </button>
-                    <button type="button" id="resetBtn" class="btn btn-outline-danger ms-auto">
-                        <i class="bi bi-x-circle me-2"></i>Reset
-                    </button>
-                </div>
+        {# Partie Bilan de la section Indication - maintenant affichée conditionnellement via JS #}
+        <div class="mb-4 d-none" id="bilanOptions">
+            <div class="d-flex gap-2 mb-4 flex-wrap">
+                <button type="button" class="btn btn-outline-secondary option-btn" data-target="douleurOptions">
+                    <i class="bi bi-dot-circle me-2"></i>Douleur
+                </button>
+                <button type="button" class="btn btn-outline-secondary option-btn" data-target="masseOptions">
+                    <i class="bi bi-dot-circle me-2"></i>Masse
+                </button>
+                <button type="button" class="btn btn-outline-secondary option-btn" data-target="ecoulementOptions">
+                    <i class="bi bi-dot-circle me-2"></i>Écoulement
+                </button>
+                <button type="button" class="btn btn-outline-secondary option-btn" data-target="gynecomastieOptions">
+                    <i class="bi bi-dot-circle me-2"></i>Gynécomastie
+                </button>
+                <button type="button" class="btn btn-outline-secondary option-btn" data-target="autreOptions">
+                    <i class="bi bi-dot-circle me-2"></i>Autre
+                </button>
+                <button type="button" id="resetBtn" class="btn btn-outline-danger ms-auto">
+                    <i class="bi bi-x-circle me-2"></i>Reset
+                </button>
+            </div>
 
-                {# Options pour la douleur #}
-                <div id="douleurOptions" class="option-container d-none mt-3">
-                    <p class="text-muted mb-2">d'une douleur mammaire</p>
-                    <div class="row">
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.douleur_lateralite) }}
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.douleur_apparition) }}
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.douleur_anciennete) }}
-                        </div>
+            {# Options pour la douleur #}
+            <div id="douleurOptions" class="option-container d-none mt-3">
+                <p class="text-muted mb-2">d'une douleur mammaire</p>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.douleur_lateralite) }}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.douleur_apparition) }}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.douleur_anciennete) }}
                     </div>
                 </div>
+            </div>
 
-                {# Options pour la masse #}
-                <div id="masseOptions" class="option-container d-none mt-3">
-                    <p class="text-muted mb-2">d'une masse mammaire</p>
-                    <div class="row">
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.masse_lateralite) }}
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.masse_palpation) }}
-                        </div>
+            {# Options pour la masse #}
+            <div id="masseOptions" class="option-container d-none mt-3">
+                <p class="text-muted mb-2">d'une masse mammaire</p>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.masse_lateralite) }}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.masse_palpation) }}
                     </div>
                 </div>
+            </div>
 
-                {# Options pour l'écoulement #}
-                <div id="ecoulementOptions" class="option-container d-none mt-3">
-                    <p class="text-muted mb-2">d'un écoulement mammelonnaire</p>
-                    <div class="row">
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.ecoulement_lateralite) }}
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.ecoulement_type) }}
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.ecoulement_aspect) }}
-                        </div>
+            {# Options pour l'écoulement #}
+            <div id="ecoulementOptions" class="option-container d-none mt-3">
+                <p class="text-muted mb-2">d'un écoulement mammelonnaire</p>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.ecoulement_lateralite) }}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.ecoulement_type) }}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.ecoulement_aspect) }}
                     </div>
                 </div>
+            </div>
 
-                {# Options pour la gynécomastie #}
-                <div id="gynecomastieOptions" class="option-container d-none mt-3">
-                    <p class="text-muted mb-2">d'une gynécomastie</p>
-                    <div class="row">
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.gynecomastie_lateralite) }}
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            {{ form_row(form.gynecomastie_douleur) }}
-                        </div>
+            {# Options pour la gynécomastie #}
+            <div id="gynecomastieOptions" class="option-container d-none mt-3">
+                <p class="text-muted mb-2">d'une gynécomastie</p>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.gynecomastie_lateralite) }}
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        {{ form_row(form.gynecomastie_douleur) }}
                     </div>
                 </div>
+            </div>
 
-                {# Option pour autre #}
-                <div id="autreOptions" class="option-container d-none mt-3">
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ form_row(form.autre_description) }}
-                        </div>
+            {# Option pour autre #}
+            <div id="autreOptions" class="option-container d-none mt-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.autre_description) }}
                     </div>
                 </div>
             </div>

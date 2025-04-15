@@ -1,31 +1,44 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Gestion du bouton Bilan
-    const bilanBtn = document.getElementById('bilanBtn');
+    // Variables pour la gestion des options d'indication
+    const indicationSelect = document.querySelector('#form_mamo_indication_indication');
     const bilanOptions = document.getElementById('bilanOptions');
-    const bilanText = document.querySelector('.bilan-text');
-    const optionBtns = document.querySelectorAll('.option-btn');
+    const optionButtons = document.querySelectorAll('.option-btn');
+    const optionContainers = document.querySelectorAll('.option-container');
     const resetBtn = document.getElementById('resetBtn');
 
-    // Gestion du bouton Bilan
-    if (bilanBtn && bilanOptions) {
-        bilanBtn.addEventListener('click', function() {
-            bilanOptions.classList.toggle('d-none');
-            this.classList.toggle('active');
-            
-            // Changer l'icône du bouton
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('bi-plus-circle');
-                icon.classList.toggle('bi-minus-circle');
-            }
-        });
+    // Fonction pour gérer l'affichage des options en fonction de la sélection
+    function handleIndicationChange() {
+        if (!indicationSelect || !bilanOptions) return;
+        
+        const selectedValue = indicationSelect.value;
+        console.log('Valeur sélectionnée:', selectedValue);
+        
+        if (selectedValue === 'anomalie_clinique') {
+            bilanOptions.classList.remove('d-none');
+            console.log('Affichage des options d\'anomalie clinique');
+        } else {
+            bilanOptions.classList.add('d-none');
+            // Réinitialiser tous les conteneurs d'options
+            optionContainers.forEach(container => container.classList.add('d-none'));
+            optionButtons.forEach(btn => btn.classList.remove('active'));
+            console.log('Masquage des options d\'anomalie clinique');
+        }
+    }
+
+    // Écouter les changements sur le select d'indication
+    if (indicationSelect) {
+        indicationSelect.addEventListener('change', handleIndicationChange);
+        // Vérifier l'état initial
+        handleIndicationChange();
+    } else {
+        console.error('Le sélecteur d\'indication n\'a pas été trouvé');
     }
 
     // Gestion des boutons d'options
-    optionBtns.forEach(btn => {
+    optionButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             // Retirer la classe active de tous les boutons
-            optionBtns.forEach(b => {
+            optionButtons.forEach(b => {
                 b.classList.remove('active');
                 const icon = b.querySelector('i');
                 if (icon) {
@@ -43,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Masquer tous les conteneurs d'options
-            document.querySelectorAll('.option-container').forEach(container => {
+            optionContainers.forEach(container => {
                 container.classList.add('d-none');
             });
             
@@ -65,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Retirer la classe active de tous les boutons d'options
-            optionBtns.forEach(btn => {
+            optionButtons.forEach(btn => {
                 btn.classList.remove('active');
                 const icon = btn.querySelector('i');
                 if (icon) {
@@ -75,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Masquer tous les conteneurs d'options
-            document.querySelectorAll('.option-container').forEach(container => {
+            optionContainers.forEach(container => {
                 container.classList.add('d-none');
             });
         });
