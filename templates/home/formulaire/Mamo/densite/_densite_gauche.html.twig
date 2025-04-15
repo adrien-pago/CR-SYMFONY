@@ -1,0 +1,525 @@
+{# templates/mamo/densite/_densite_gauche.html.twig #}
+
+<div class="card h-100">
+    <div class="card-header text-center d-flex justify-content-between align-items-center cursor-pointer">
+        <h5 class="mb-0">Sein gauche</h5>
+        <i class="bi bi-eye toggle-visibility" data-target="densite-seins-content"></i>
+    </div>
+    <div class="card-body">
+        {# Asymétrie de densité #}
+        <div class="mb-4">
+            <h5 class="mb-3">Asymétrie de densité</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.asymetrie_densite_gauche) }}
+                </div>
+            </div>
+
+            {# Options si asymétrie = Oui #}
+            <div id="asymetrieDensiteGaucheDetails" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.asymetrie_densite_type_gauche) }}
+                    </div>
+                </div>
+
+                {# Options pour asymétrie focale #}
+                <div id="asymetrieFocaleGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_focale_siege_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_focale_profondeur_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_focale_tomo_gauche) }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_focale_evolution_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_focale_bords_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_focale_anomalie_gauche) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour asymétrie globale #}
+                <div id="asymetrieGlobaleGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_gauche.asymetrie_globale_localisation_gauche) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_gauche.asymetrie_globale_valeur_gauche) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour asymétrie simple #}
+                <div id="asymetrieSimpleGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_simple_incidence_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_simple_siege_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_simple_profondeur_gauche) }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_simple_evolution_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_simple_anomalie_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.asymetrie_simple_valeur_gauche) }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div id="asymetrieSimpleValeurAutreGauche" class="d-none">
+                                {{ form_row(form.densite_gauche.asymetrie_simple_valeur_autre_gauche) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Distorsion architecturale #}
+        <div class="mb-4">
+            <h5 class="mb-3">Distorsion architecturale</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.distorsion_architecturale_gauche) }}
+                </div>
+            </div>
+
+            {# Options pour Intramammaire #}
+            <div id="distorsionIntramammaireGaucheDetails" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.distorsion_intramammaire_topographie_gauche) }}
+                    </div>
+                </div>
+
+                {# Options pour "du quadrant" #}
+                <div id="distorsionIntramammaireQuadrantGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.distorsion_intramammaire_quadrant_gauche) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour "à l'union" et "en projection" #}
+                <div id="distorsionIntraUnionGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.distorsion_intramammaire_union_quadrants_gauche) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour la densité #}
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.distorsion_intramammaire_densite_gauche) }}
+                    </div>
+                </div>
+            </div>
+
+            {# Options pour Des bords mammaires #}
+            <div id="distorsionBordsGaucheDetails" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.distorsion_bords_topographie_gauche) }}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.distorsion_bords_localisation_gauche) }}
+                    </div>
+                </div>
+
+                {# Options pour "au quadrant" #}
+                <div id="distorsionBordsQuadrantGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.distorsion_bords_quadrant_gauche) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour "à l'union" et "en projection" #}
+                <div id="distorsionBordsUnionGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.distorsion_bords_union_quadrants_gauche) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.distorsion_bords_type_gauche) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Section Masses #}
+        <div class="mb-4">
+            <h5 class="mb-3">Masses</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.masse_gauche) }}
+                </div>
+            </div>
+
+            {# Ajout d'un espace vertical #}
+            <div class="mb-4"></div>
+
+            {# Container pour les masses #}
+            <div id="massesGaucheContainer">
+                {# Template pour une masse #}
+                <div id="masseTemplateGauche" class="masse-item border rounded p-3 mb-3 position-relative d-none">
+                    <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 delete-masse">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="numero-masse fw-bold"></div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.masse_topographie_gauche, {
+                                'label': 'Topographie',
+                                'attr': {'class': 'form-select masse-topographie'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    {# Détails du quadrant #}
+                    <div class="quadrant-details d-none">
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                {{ form_row(form.densite_gauche.masse_quadrant_gauche, {
+                                    'label': 'Quadrant',
+                                    'attr': {'class': 'form-select'}
+                                }) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Détails de l'union #}
+                    <div class="union-details d-none">
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                {{ form_row(form.densite_gauche.masse_union_quadrants_gauche, {
+                                    'label': 'Union des quadrants',
+                                    'attr': {'class': 'form-select'}
+                                }) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.masse_profondeur_gauche, {
+                                'label': 'Profondeur',
+                                'attr': {'class': 'form-select'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            {{ form_row(form.densite_gauche.masse_taille_x_gauche, {
+                                'label': 'Taille X (mm)',
+                                'attr': {'class': 'form-control', 'type': 'number'}
+                            }) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.densite_gauche.masse_taille_y_gauche, {
+                                'label': 'Taille Y (mm)',
+                                'attr': {'class': 'form-control', 'type': 'number'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.masse_forme_gauche, {
+                                'label': 'Forme',
+                                'attr': {'class': 'form-select'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.masse_contours_gauche, {
+                                'label': 'Contours',
+                                'attr': {'class': 'form-select'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.masse_densite_gauche, {
+                                'label': 'Densité',
+                                'attr': {'class': 'form-select masse-densite'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.masse_calcifications_gauche, {
+                                'label': 'Microcalcifications',
+                                'attr': {'class': 'form-select'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.masse_anteriorite_gauche, {
+                                'label': 'Antériorité',
+                                'attr': {'class': 'form-select'}
+                            }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Bouton pour ajouter une nouvelle masse #}
+            <button type="button" id="ajouterMasseGauche" class="btn btn-primary mt-3 d-none">
+                <i class="bi bi-plus-circle me-2"></i>Ajouter une masse
+            </button>
+        </div>
+
+        {# Section Microcalcifications Suspectes #}
+        <div class="mb-4">
+            <h5 class="mb-3">Microcalcifications suspectes</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.microcalcifications_suspectes_gauche) }}
+                </div>
+            </div>
+
+            {# Ajout d'un espace vertical #}
+            <div class="mb-4"></div>
+
+            {# Container pour les microcalcifications #}
+            <div id="microcalcificationsGaucheContainer">
+                {# Template pour les microcalcifications #}
+                <div id="microcalcificationsTemplateGauche" class="microcalcifications-item border rounded p-3 mb-3 position-relative d-none">
+                    <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 delete-microcalcifications">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="numero-microcalcifications fw-bold"></div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.microcalcifications_distribution_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.microcalcifications_forme_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.microcalcifications_topographie_gauche) }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.microcalcifications_quadrant_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.microcalcifications_union_quadrants_gauche) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.densite_gauche.microcalcifications_profondeur_gauche) }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            {{ form_row(form.densite_gauche.microcalcifications_taille_x_gauche) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.densite_gauche.microcalcifications_taille_y_gauche) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_gauche.microcalcifications_comparaison_gauche) }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_gauche.microcalcifications_anomalie_gauche) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_gauche.microcalcifications_attitude_gauche) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Bouton pour ajouter de nouvelles microcalcifications #}
+            <button type="button" id="ajouterMicrocalcificationsGauche" class="btn btn-primary mt-3 d-none">
+                <i class="bi bi-plus-circle me-2"></i>Ajouter des microcalcifications
+            </button>
+        </div>
+
+        {# Section Calcifications non suspectes #}
+        <div class="mb-4">
+            <h5 class="mb-3">Calcifications non suspectes</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.calcifications_non_suspectes_gauche, {
+                        'id': 'form_densite_gauche_calcifications_non_suspectes_gauche'
+                    }) }}
+                </div>
+            </div>
+
+            {# Options pour les calcifications non suspectes #}
+            <div id="calcificationsNonSuspectesOptionsGauche" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.calcifications_type_gauche, {
+                            'id': 'form_densite_gauche_calcifications_type_gauche',
+                            'label': 'Type de calcifications',
+                            'attr': {
+                                'class': 'form-select'
+                            }
+                        }) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Section Désorganisation architecturale #}
+        <div class="mb-4">
+            <h5 class="mb-3">Désorganisation architecturale</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.desorganisation_architecturale_gauche, {
+                        'id': 'form_densite_gauche_desorganisation_architecturale_gauche'
+                    }) }}
+                </div>
+            </div>
+
+            {# Options pour la désorganisation architecturale #}
+            <div id="desorganisationOptionsGauche" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.desorganisation_topographie_gauche, {
+                            'id': 'form_densite_gauche_desorganisation_topographie_gauche'
+                        }) }}
+                    </div>
+                </div>
+
+                {# Options pour le quadrant #}
+                <div id="desorganisationQuadrantGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.desorganisation_quadrant_gauche, {
+                                'id': 'form_densite_gauche_desorganisation_quadrant_gauche'
+                            }) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour l'union et la projection #}
+                <div id="desorganisationUnionGaucheDetails" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.desorganisation_union_quadrants_gauche, {
+                                'id': 'form_densite_gauche_desorganisation_union_quadrants_gauche'
+                            }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Section prolongement axillaire #}
+        <div class="mb-4">
+            <h5 class="mb-3">Prolongement axillaire</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.prolongement_axillaire_gauche) }}
+                    <div id="prolongementAxillaireTypeGauche" class="d-none mt-3">
+                        {{ form_row(form.densite_gauche.prolongement_axillaire_type_gauche) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Section téguments cutanés #}
+        <div class="mb-4">
+            <h5 class="mb-3">Téguments cutanés</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.teguments_cutanes_gauche) }}
+                </div>
+            </div>
+
+            {# Options pour épaississement #}
+            <div id="tegumentsEpaissiTypeGauche" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.teguments_epaissi_type_gauche) }}
+                    </div>
+                </div>
+
+                {# Options pour type diffus #}
+                <div id="tegumentsEpaissiRTGauche" class="d-none mt-3">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.teguments_epaissi_rt_gauche) }}
+                        </div>
+                    </div>
+                </div>
+
+                {# Options pour type focal #}
+                <div id="tegumentsEpaissiTopoGauche" class="d-none mt-3">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.teguments_epaissi_topographie_gauche) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Commentaire #}
+            <div id="tegumentsCommentaireGauche" class="d-none mt-3">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        {{ form_row(form.densite_gauche.teguments_commentaire_gauche) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

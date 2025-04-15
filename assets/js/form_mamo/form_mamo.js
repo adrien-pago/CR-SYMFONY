@@ -5,6 +5,8 @@ import './form_mamo_technique.js';
 import './form_mamo_comparatif.js';
 import './form_mamo_examen_clinique.js';
 import './form_mamo_densite.js';
+import './form_mamo_densite_gauche.js';
+import './form_mamo_densite_droite.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Gestion de la navigation entre les sections
@@ -85,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ne masquer que les cartes de contenu :
         // - qui ont un parent '.card'
         // - qui ne sont pas des 'main-card'
-        // - qui ne sont pas à l’intérieur de #antecedentsDetails
+        // - qui ne sont pas à l'intérieur de #antecedentsDetails
         if (
             card &&
             !card.classList.contains('main-card') &&
