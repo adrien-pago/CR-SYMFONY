@@ -74,6 +74,24 @@ document.addEventListener('DOMContentLoaded', function() {
         typeSelect: document.querySelector('#form_mamo_densite_droite_prolongement_axillaire_type_droite')
     };
 
+    // Configuration des masses échographiques pour le sein droit
+    const masseEchoDroiteConfig = {
+        masseEchoSelect: document.querySelector('#form_mamo_densite_droite_masse_echo_droite'),
+        container: document.querySelector('#masseEchoDroiteContainer'),
+        template: document.querySelector('#masseEchoTemplateDroite'),
+        addButton: document.querySelector('#ajouterMasseEchoDroite'),
+        counter: 0
+    };
+
+    // Configuration des non-masses échographiques pour le sein droit
+    const nonMasseEchoDroiteConfig = {
+        nonMasseEchoSelect: document.querySelector('#form_densite_droite_non_masse_echo_droite'),
+        container: document.querySelector('#nonMasseEchoDroiteContainer'),
+        template: document.querySelector('#nonMasseEchoTemplateDroite'),
+        addButton: document.querySelector('#ajouterNonMasseEchoDroite'),
+        counter: 0
+    };
+
     // Fonctions pour le sein droit
     function handleAsymetrieDroite() {
         if (!asymetrieDroiteConfig.asymetrieSelect || !asymetrieDroiteConfig.detailsContainer) return;
@@ -454,6 +472,272 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Fonctions pour les masses échographiques
+    function handleMasseEchoDroite() {
+        if (!masseEchoDroiteConfig.masseEchoSelect || !masseEchoDroiteConfig.addButton) return;
+
+        if (masseEchoDroiteConfig.masseEchoSelect.value === 'oui') {
+            masseEchoDroiteConfig.addButton.classList.remove('d-none');
+            if (masseEchoDroiteConfig.counter === 0) {
+                ajouterMasseEchoDroite();
+            }
+        } else {
+            masseEchoDroiteConfig.addButton.classList.add('d-none');
+            const masses = masseEchoDroiteConfig.container.querySelectorAll('.masse-echo-item:not(#masseEchoTemplateDroite)');
+            masses.forEach(masse => masse.remove());
+            masseEchoDroiteConfig.counter = 0;
+        }
+    }
+
+    function ajouterMasseEchoDroite() {
+        if (!masseEchoDroiteConfig.template || !masseEchoDroiteConfig.container) return;
+
+        masseEchoDroiteConfig.counter++;
+        const newMasse = masseEchoDroiteConfig.template.cloneNode(true);
+        const masseId = `masse-echo-droite-${masseEchoDroiteConfig.counter}`;
+        
+        newMasse.id = masseId;
+        newMasse.classList.remove('d-none');
+
+        // Mise à jour des IDs et noms
+        newMasse.querySelectorAll('select, input').forEach(field => {
+            if (field.id) {
+                field.id = `${field.id}-${masseEchoDroiteConfig.counter}`;
+            }
+            if (field.name) {
+                field.name = `${field.name}-${masseEchoDroiteConfig.counter}`;
+            }
+        });
+
+        // Gestion de la topographie
+        const topographieSelect = newMasse.querySelector('.masse-echo-topographie');
+        if (topographieSelect) {
+            topographieSelect.addEventListener('change', function() {
+                handleMasseEchoTopographieDroite(newMasse, this.value);
+            });
+        }
+
+        // Gestion de la correspondance mammographie
+        const correspondanceSelect = newMasse.querySelector('[id*="masse_echo_correspondance_mammo_droite"]');
+        if (correspondanceSelect) {
+            correspondanceSelect.addEventListener('change', function() {
+                handleCorrespondanceMammoDroite(newMasse, this.value);
+            });
+        }
+
+        // Gestion de l'antériorité
+        const anterioriteSelect = newMasse.querySelector('[id*="masse_echo_anteriorite_suivi_droite"]');
+        if (anterioriteSelect) {
+            anterioriteSelect.addEventListener('change', function() {
+                handleAnterioriteEchoDroite(newMasse, this.value);
+            });
+        }
+
+        // Bouton de suppression
+        const deleteButton = newMasse.querySelector('.delete-masse-echo');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                newMasse.remove();
+                updateMasseEchoNumbersDroite();
+            });
+        }
+
+        masseEchoDroiteConfig.container.appendChild(newMasse);
+    }
+
+    function handleMasseEchoTopographieDroite(masseElement, value) {
+        const quadrantDetails = masseElement.querySelector('.quadrant-echo-details');
+        const unionDetails = masseElement.querySelector('.union-echo-details');
+
+        if (quadrantDetails) quadrantDetails.classList.add('d-none');
+        if (unionDetails) unionDetails.classList.add('d-none');
+
+        switch(value) {
+            case 'quadrant':
+                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
+                break;
+            case 'union':
+                if (unionDetails) unionDetails.classList.remove('d-none');
+                break;
+        }
+    }
+
+    function handleCorrespondanceMammoDroite(masseElement, value) {
+        const numeroMammoContainer = masseElement.querySelector('.numero-mammo-container');
+        if (numeroMammoContainer) {
+            if (value === 'correspond_mammo') {
+                numeroMammoContainer.classList.remove('d-none');
+            } else {
+                numeroMammoContainer.classList.add('d-none');
+            }
+        }
+    }
+
+    function handleAnterioriteEchoDroite(masseElement, value) {
+        const taillesContainers = masseElement.querySelectorAll('.tailles-evolution');
+        taillesContainers.forEach(container => {
+            if (value === 'diminue' || value === 'augmente') {
+                container.classList.remove('d-none');
+            } else {
+                container.classList.add('d-none');
+            }
+        });
+    }
+
+    function updateMasseEchoNumbersDroite() {
+        const masses = masseEchoDroiteConfig.container.querySelectorAll('.masse-echo-item:not(#masseEchoTemplateDroite)');
+        masseEchoDroiteConfig.counter = masses.length;
+    }
+
+    // Fonctions pour les non-masses échographiques
+    function handleNonMasseEchoDroite() {
+        if (!nonMasseEchoDroiteConfig.nonMasseEchoSelect || !nonMasseEchoDroiteConfig.addButton) {
+            console.log('Configuration non valide:', {
+                select: nonMasseEchoDroiteConfig.nonMasseEchoSelect,
+                addButton: nonMasseEchoDroiteConfig.addButton
+            });
+            return;
+        }
+
+        const value = nonMasseEchoDroiteConfig.nonMasseEchoSelect.value;
+        console.log('Valeur sélectionnée:', value);
+        
+        // Réinitialiser le conteneur et le compteur
+        const nonMasses = nonMasseEchoDroiteConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateDroite)');
+        nonMasses.forEach(nonMasse => nonMasse.remove());
+        nonMasseEchoDroiteConfig.counter = 0;
+
+        // Afficher le bouton d'ajout uniquement pour les options qui nécessitent des détails
+        const needsDetails = ['dilatation_avec_image', 'plage_hypoechogene', 'microcalcifications'].includes(value);
+        console.log('Nécessite des détails:', needsDetails);
+        
+        if (needsDetails) {
+            nonMasseEchoDroiteConfig.addButton.classList.remove('d-none');
+            ajouterNonMasseEchoDroite();
+        } else {
+            nonMasseEchoDroiteConfig.addButton.classList.add('d-none');
+        }
+    }
+
+    function ajouterNonMasseEchoDroite() {
+        if (!nonMasseEchoDroiteConfig.template || !nonMasseEchoDroiteConfig.container) return;
+
+        nonMasseEchoDroiteConfig.counter++;
+        const newNonMasse = nonMasseEchoDroiteConfig.template.cloneNode(true);
+        const nonMasseId = `non-masse-echo-droite-${nonMasseEchoDroiteConfig.counter}`;
+        
+        newNonMasse.id = nonMasseId;
+        newNonMasse.classList.remove('d-none');
+
+        // Mise à jour des IDs et noms
+        newNonMasse.querySelectorAll('select, input').forEach(field => {
+            if (field.id) {
+                field.id = `${field.id}-${nonMasseEchoDroiteConfig.counter}`;
+            }
+            if (field.name) {
+                field.name = `${field.name}-${nonMasseEchoDroiteConfig.counter}`;
+            }
+        });
+
+        // Affichage des champs selon le type de non-masse
+        const value = nonMasseEchoDroiteConfig.nonMasseEchoSelect.value;
+
+        // Masquer tous les conteneurs par défaut
+        const rayonDistance = newNonMasse.querySelector('.rayon-distance-container');
+        const taillesContainer = newNonMasse.querySelector('.tailles-container');
+        const formeContoursContainer = newNonMasse.querySelector('.forme-contours-container');
+        const topographieContainer = newNonMasse.querySelector('.topographie-container');
+
+        if (rayonDistance) rayonDistance.classList.add('d-none');
+        if (taillesContainer) taillesContainer.classList.add('d-none');
+        if (formeContoursContainer) formeContoursContainer.classList.add('d-none');
+        if (topographieContainer) topographieContainer.classList.add('d-none');
+
+        switch(value) {
+            case 'dilatation_avec_image':
+                if (rayonDistance) rayonDistance.classList.remove('d-none');
+                if (taillesContainer) taillesContainer.classList.remove('d-none');
+                if (formeContoursContainer) formeContoursContainer.classList.remove('d-none');
+
+                // Ajouter les écouteurs d'événements pour la validation des champs
+                const rayonInput = rayonDistance.querySelector('input[id*="rayon"]');
+                const distanceInput = rayonDistance.querySelector('input[id*="distance_mammelon"]');
+                const tailleXInput = taillesContainer.querySelector('input[id*="taille_x"]');
+                const tailleYInput = taillesContainer.querySelector('input[id*="taille_y"]');
+                const tailleZInput = taillesContainer.querySelector('input[id*="taille_z"]');
+
+                // Fonction pour vérifier si tous les champs obligatoires sont vides
+                const checkEmptyFields = () => {
+                    const rayonEmpty = !rayonInput || !rayonInput.value.trim();
+                    const distanceEmpty = !distanceInput || !distanceInput.value.trim();
+                    const allTaillesEmpty = (!tailleXInput || !tailleXInput.value.trim()) && 
+                                          (!tailleYInput || !tailleYInput.value.trim()) && 
+                                          (!tailleZInput || !tailleZInput.value.trim());
+
+                    if (rayonEmpty && distanceEmpty && allTaillesEmpty) {
+                        newNonMasse.remove();
+                        if (nonMasseEchoDroiteConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateDroite)').length === 0) {
+                            nonMasseEchoDroiteConfig.counter = 0;
+                        }
+                    }
+                };
+
+                // Ajouter les écouteurs pour la validation
+                [rayonInput, distanceInput, tailleXInput, tailleYInput, tailleZInput].forEach(input => {
+                    if (input) {
+                        input.addEventListener('blur', checkEmptyFields);
+                    }
+                });
+                break;
+
+            case 'plage_hypoechogene':
+                if (topographieContainer) topographieContainer.classList.remove('d-none');
+                if (taillesContainer) taillesContainer.classList.remove('d-none');
+                break;
+            case 'microcalcifications':
+                if (topographieContainer) topographieContainer.classList.remove('d-none');
+                break;
+        }
+
+        // Gestion de la topographie si nécessaire
+        const topographieSelect = newNonMasse.querySelector('.non-masse-echo-topographie');
+        if (topographieSelect) {
+            topographieSelect.addEventListener('change', function() {
+                handleNonMasseEchoTopographieDroite(newNonMasse, this.value);
+            });
+        }
+
+        // Bouton de suppression
+        const deleteButton = newNonMasse.querySelector('.delete-non-masse-echo');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                newNonMasse.remove();
+                if (nonMasseEchoDroiteConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateDroite)').length === 0) {
+                    nonMasseEchoDroiteConfig.counter = 0;
+                }
+            });
+        }
+
+        nonMasseEchoDroiteConfig.container.appendChild(newNonMasse);
+    }
+
+    function handleNonMasseEchoTopographieDroite(nonMasseElement, value) {
+        const quadrantDetails = nonMasseElement.querySelector('.quadrant-non-masse-echo-details');
+        const unionDetails = nonMasseElement.querySelector('.union-non-masse-echo-details');
+
+        if (quadrantDetails) quadrantDetails.classList.add('d-none');
+        if (unionDetails) unionDetails.classList.add('d-none');
+
+        switch(value) {
+            case 'quadrant':
+                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
+                break;
+            case 'union':
+                if (unionDetails) unionDetails.classList.remove('d-none');
+                break;
+        }
+    }
+
     // Initialisation des écouteurs d'événements
     if (asymetrieDroiteConfig.asymetrieSelect) {
         asymetrieDroiteConfig.asymetrieSelect.addEventListener('change', handleAsymetrieDroite);
@@ -515,6 +799,22 @@ document.addEventListener('DOMContentLoaded', function() {
         prolongementAxillaireDroiteConfig.prolongementSelect.addEventListener('change', handleProlongementAxillaireDroite);
     }
 
+    if (masseEchoDroiteConfig.masseEchoSelect) {
+        masseEchoDroiteConfig.masseEchoSelect.addEventListener('change', handleMasseEchoDroite);
+    }
+
+    if (masseEchoDroiteConfig.addButton) {
+        masseEchoDroiteConfig.addButton.addEventListener('click', ajouterMasseEchoDroite);
+    }
+
+    if (nonMasseEchoDroiteConfig.nonMasseEchoSelect) {
+        nonMasseEchoDroiteConfig.nonMasseEchoSelect.addEventListener('change', handleNonMasseEchoDroite);
+    }
+
+    if (nonMasseEchoDroiteConfig.addButton) {
+        nonMasseEchoDroiteConfig.addButton.addEventListener('click', ajouterNonMasseEchoDroite);
+    }
+
     // Initialisation de l'état
     handleAsymetrieDroite();
     handleMasseDroite();
@@ -524,6 +824,8 @@ document.addEventListener('DOMContentLoaded', function() {
     handleCalcificationsNonSuspectesDroite();
     handleDesorganisationDroite();
     handleProlongementAxillaireDroite();
+    handleMasseEchoDroite();
+    handleNonMasseEchoDroite();
 
     // Export des configurations et fonctions
     window.densiteDroite = {
@@ -535,7 +837,9 @@ document.addEventListener('DOMContentLoaded', function() {
             distorsion: distorsionDroiteConfig,
             calcificationsNonSuspectes: calcificationsNonSuspectesDroiteConfig,
             desorganisation: desorganisationDroiteConfig,
-            prolongementAxillaire: prolongementAxillaireDroiteConfig
+            prolongementAxillaire: prolongementAxillaireDroiteConfig,
+            masseEcho: masseEchoDroiteConfig,
+            nonMasseEcho: nonMasseEchoDroiteConfig
         },
         handlers: {
             handleAsymetrie: handleAsymetrieDroite,
@@ -547,7 +851,9 @@ document.addEventListener('DOMContentLoaded', function() {
             handleDistorsion: handleDistorsionDroite,
             handleCalcificationsNonSuspectes: handleCalcificationsNonSuspectesDroite,
             handleDesorganisation: handleDesorganisationDroite,
-            handleProlongementAxillaire: handleProlongementAxillaireDroite
+            handleProlongementAxillaire: handleProlongementAxillaireDroite,
+            handleMasseEcho: handleMasseEchoDroite,
+            handleNonMasseEcho: handleNonMasseEchoDroite
         }
     };
 }); 

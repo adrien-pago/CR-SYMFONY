@@ -74,6 +74,24 @@ document.addEventListener('DOMContentLoaded', function() {
         typeSelect: document.querySelector('#form_mamo_densite_gauche_prolongement_axillaire_type_gauche')
     };
 
+    // Configuration des masses échographiques pour le sein gauche
+    const masseEchoGaucheConfig = {
+        masseEchoSelect: document.querySelector('#form_mamo_densite_gauche_masse_echo_gauche'),
+        container: document.querySelector('#masseEchoGaucheContainer'),
+        template: document.querySelector('#masseEchoTemplateGauche'),
+        addButton: document.querySelector('#ajouterMasseEchoGauche'),
+        counter: 0
+    };
+
+    // Configuration des non-masses échographiques pour le sein gauche
+    const nonMasseEchoGaucheConfig = {
+        nonMasseEchoSelect: document.querySelector('#form_mamo_densite_gauche_non_masse_echo_gauche'),
+        container: document.querySelector('#nonMasseEchoGaucheContainer'),
+        template: document.querySelector('#nonMasseEchoTemplateGauche'),
+        addButton: document.querySelector('#ajouterNonMasseEchoGauche'),
+        counter: 0
+    };
+
     // Fonctions pour le sein gauche
     function handleAsymetrieGauche() {
         if (!asymetrieGaucheConfig.asymetrieSelect || !asymetrieGaucheConfig.detailsContainer) return;
@@ -454,6 +472,555 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Fonctions pour les masses échographiques
+    function handleMasseEchoGauche() {
+        if (!masseEchoGaucheConfig.masseEchoSelect || !masseEchoGaucheConfig.addButton) return;
+
+        if (masseEchoGaucheConfig.masseEchoSelect.value === 'oui') {
+            masseEchoGaucheConfig.addButton.classList.remove('d-none');
+            if (masseEchoGaucheConfig.counter === 0) {
+                ajouterMasseEchoGauche();
+            }
+        } else {
+            masseEchoGaucheConfig.addButton.classList.add('d-none');
+            const masses = masseEchoGaucheConfig.container.querySelectorAll('.masse-echo-item:not(#masseEchoTemplateGauche)');
+            masses.forEach(masse => masse.remove());
+            masseEchoGaucheConfig.counter = 0;
+        }
+    }
+
+    function ajouterMasseEchoGauche() {
+        if (!masseEchoGaucheConfig.template || !masseEchoGaucheConfig.container) return;
+
+        masseEchoGaucheConfig.counter++;
+        const newMasse = masseEchoGaucheConfig.template.cloneNode(true);
+        const masseId = `masse-echo-gauche-${masseEchoGaucheConfig.counter}`;
+        
+        newMasse.id = masseId;
+        newMasse.classList.remove('d-none');
+
+        // Mise à jour des IDs et noms
+        newMasse.querySelectorAll('select, input').forEach(field => {
+            if (field.id) {
+                field.id = `${field.id}-${masseEchoGaucheConfig.counter}`;
+            }
+            if (field.name) {
+                field.name = `${field.name}-${masseEchoGaucheConfig.counter}`;
+            }
+        });
+
+        // Gestion de la topographie
+        const topographieSelect = newMasse.querySelector('.masse-echo-topographie');
+        if (topographieSelect) {
+            topographieSelect.addEventListener('change', function() {
+                handleMasseEchoTopographieGauche(newMasse, this.value);
+            });
+        }
+
+        // Gestion de la correspondance mammographie
+        const correspondanceSelect = newMasse.querySelector('[id*="masse_echo_correspondance_mammo_gauche"]');
+        if (correspondanceSelect) {
+            correspondanceSelect.addEventListener('change', function() {
+                handleCorrespondanceMammoGauche(newMasse, this.value);
+            });
+        }
+
+        // Gestion de l'antériorité
+        const anterioriteSelect = newMasse.querySelector('[id*="masse_echo_anteriorite_suivi_gauche"]');
+        if (anterioriteSelect) {
+            anterioriteSelect.addEventListener('change', function() {
+                handleAnterioriteEchoGauche(newMasse, this.value);
+            });
+        }
+
+        // Bouton de suppression
+        const deleteButton = newMasse.querySelector('.delete-masse-echo');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                newMasse.remove();
+                updateMasseEchoNumbersGauche();
+            });
+        }
+
+        masseEchoGaucheConfig.container.appendChild(newMasse);
+    }
+
+    function handleMasseEchoTopographieGauche(masseElement, value) {
+        const quadrantDetails = masseElement.querySelector('.quadrant-echo-details');
+        const unionDetails = masseElement.querySelector('.union-echo-details');
+
+        if (quadrantDetails) quadrantDetails.classList.add('d-none');
+        if (unionDetails) unionDetails.classList.add('d-none');
+
+        switch(value) {
+            case 'quadrant':
+                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
+                break;
+            case 'union':
+                if (unionDetails) unionDetails.classList.remove('d-none');
+                break;
+        }
+    }
+
+    function handleCorrespondanceMammoGauche(masseElement, value) {
+        const numeroMammoContainer = masseElement.querySelector('.numero-mammo-container');
+        if (numeroMammoContainer) {
+            if (value === 'correspond_mammo') {
+                numeroMammoContainer.classList.remove('d-none');
+            } else {
+                numeroMammoContainer.classList.add('d-none');
+            }
+        }
+    }
+
+    function handleAnterioriteEchoGauche(masseElement, value) {
+        const taillesContainers = masseElement.querySelectorAll('.tailles-evolution');
+        taillesContainers.forEach(container => {
+            if (value === 'diminue' || value === 'augmente') {
+                container.classList.remove('d-none');
+            } else {
+                container.classList.add('d-none');
+            }
+        });
+    }
+
+    function updateMasseEchoNumbersGauche() {
+        const masses = masseEchoGaucheConfig.container.querySelectorAll('.masse-echo-item:not(#masseEchoTemplateGauche)');
+        masseEchoGaucheConfig.counter = masses.length;
+    }
+
+    // Fonctions pour les non-masses échographiques
+    function handleNonMasseEchoGauche() {
+        if (!nonMasseEchoGaucheConfig.nonMasseEchoSelect || !nonMasseEchoGaucheConfig.addButton) return;
+
+        const value = nonMasseEchoGaucheConfig.nonMasseEchoSelect.value;
+        
+        // Réinitialiser le conteneur et le compteur
+        const nonMasses = nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)');
+        nonMasses.forEach(nonMasse => nonMasse.remove());
+        nonMasseEchoGaucheConfig.counter = 0;
+
+        // Afficher le bouton d'ajout uniquement pour les options qui nécessitent des détails
+        const needsDetails = ['dilatation_avec_image', 'plage_hypoechogene', 'visualisation_micros'].includes(value);
+        
+        if (needsDetails) {
+            nonMasseEchoGaucheConfig.addButton.classList.remove('d-none');
+            ajouterNonMasseEchoGauche();
+        } else {
+            nonMasseEchoGaucheConfig.addButton.classList.add('d-none');
+        }
+    }
+
+    function ajouterNonMasseEchoGauche() {
+        if (!nonMasseEchoGaucheConfig.template || !nonMasseEchoGaucheConfig.container) return;
+
+        nonMasseEchoGaucheConfig.counter++;
+        const newNonMasse = nonMasseEchoGaucheConfig.template.cloneNode(true);
+        const nonMasseId = `non-masse-echo-gauche-${nonMasseEchoGaucheConfig.counter}`;
+        
+        newNonMasse.id = nonMasseId;
+        newNonMasse.classList.remove('d-none');
+
+        // Mise à jour des IDs et noms
+        newNonMasse.querySelectorAll('select, input').forEach(field => {
+            if (field.id) {
+                field.id = `${field.id}-${nonMasseEchoGaucheConfig.counter}`;
+            }
+            if (field.name) {
+                field.name = `${field.name}-${nonMasseEchoGaucheConfig.counter}`;
+            }
+        });
+
+        // Affichage des champs selon le type de non-masse
+        const value = nonMasseEchoGaucheConfig.nonMasseEchoSelect.value;
+
+        // Masquer tous les conteneurs par défaut
+        const rayonDistance = newNonMasse.querySelector('.rayon-distance-container');
+        const taillesContainer = newNonMasse.querySelector('.tailles-container');
+        const formeContoursContainer = newNonMasse.querySelector('.forme-contours-container');
+        const topographieContainer = newNonMasse.querySelector('.topographie-container');
+
+        if (rayonDistance) rayonDistance.classList.add('d-none');
+        if (taillesContainer) taillesContainer.classList.add('d-none');
+        if (formeContoursContainer) formeContoursContainer.classList.add('d-none');
+        if (topographieContainer) topographieContainer.classList.add('d-none');
+
+        switch(value) {
+            case 'dilatation_avec_image':
+                if (rayonDistance) rayonDistance.classList.remove('d-none');
+                if (taillesContainer) taillesContainer.classList.remove('d-none');
+                if (formeContoursContainer) formeContoursContainer.classList.remove('d-none');
+
+                // Ajouter les écouteurs d'événements pour la validation des champs
+                const rayonInput = rayonDistance.querySelector('input[id*="rayon"]');
+                const distanceInput = rayonDistance.querySelector('input[id*="distance_mammelon"]');
+                const tailleXInput = taillesContainer.querySelector('input[id*="taille_x"]');
+                const tailleYInput = taillesContainer.querySelector('input[id*="taille_y"]');
+                const tailleZInput = taillesContainer.querySelector('input[id*="taille_z"]');
+                const formeSelect = formeContoursContainer.querySelector('select[id*="forme"]');
+                const contoursSelect = formeContoursContainer.querySelector('select[id*="contours"]');
+
+                // On crée un conteneur pour tous les champs
+                const allFields = [rayonInput, distanceInput, tailleXInput, tailleYInput, tailleZInput, formeSelect, contoursSelect];
+
+                // Variable pour suivre si l'utilisateur a commencé à remplir le formulaire
+                let hasStartedFilling = false;
+
+                // Fonction pour vérifier si tous les champs sont vides
+                const areAllFieldsEmpty = () => {
+                    const inputsEmpty = [rayonInput, distanceInput, tailleXInput, tailleYInput, tailleZInput]
+                        .every(input => !input || !input.value.trim());
+                    const selectsEmpty = [formeSelect, contoursSelect]
+                        .every(select => !select || !select.value);
+                    return inputsEmpty && selectsEmpty;
+                };
+
+                // Ajouter les écouteurs pour le focus
+                allFields.forEach(field => {
+                    if (field) {
+                        // Quand un champ reçoit le focus
+                        field.addEventListener('focus', () => {
+                            hasStartedFilling = true;
+                        });
+
+                        // Quand un champ est modifié
+                        field.addEventListener('input', () => {
+                            if (field.value.trim()) {
+                                hasStartedFilling = true;
+                            }
+                        });
+
+                        // Quand un champ change (pour les selects)
+                        field.addEventListener('change', () => {
+                            if (field.value) {
+                                hasStartedFilling = true;
+                            }
+                        });
+                    }
+                });
+
+                // Fonction pour gérer la perte de focus du formulaire entier
+                const handleFormBlur = (event) => {
+                    // On vérifie si le nouveau focus est en dehors de notre formulaire
+                    const isClickOutside = !newNonMasse.contains(event.relatedTarget);
+                    
+                    if (isClickOutside && !hasStartedFilling && areAllFieldsEmpty()) {
+                        newNonMasse.remove();
+                        if (nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)').length === 0) {
+                            nonMasseEchoGaucheConfig.counter = 0;
+                        }
+                        // On retire l'écouteur car le formulaire n'existe plus
+                        document.removeEventListener('focusout', handleFormBlur);
+                    }
+                };
+
+                // On ajoute l'écouteur au niveau du document
+                document.addEventListener('focusout', handleFormBlur);
+
+                // Bouton de suppression
+                const deleteButton = newNonMasse.querySelector('.delete-non-masse-echo');
+                if (deleteButton) {
+                    deleteButton.addEventListener('click', function() {
+                        newNonMasse.remove();
+                        if (nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)').length === 0) {
+                            nonMasseEchoGaucheConfig.counter = 0;
+                        }
+                        // On retire l'écouteur car le formulaire n'existe plus
+                        document.removeEventListener('focusout', handleFormBlur);
+                    });
+                }
+                break;
+
+            case 'plage_hypoechogene':
+                // Afficher d'abord la topographie
+                if (topographieContainer) {
+                    topographieContainer.classList.remove('d-none');
+                    // Déplacer le conteneur de topographie en premier
+                    const parent = topographieContainer.parentNode;
+                    parent.insertBefore(topographieContainer, parent.firstChild);
+                }
+
+                // Puis les autres conteneurs
+                if (rayonDistance) {
+                    rayonDistance.classList.remove('d-none');
+                    // Déplacer après la topographie
+                    const parent = rayonDistance.parentNode;
+                    parent.insertBefore(rayonDistance, topographieContainer.nextSibling);
+                }
+                if (taillesContainer) {
+                    taillesContainer.classList.remove('d-none');
+                    // Déplacer après le rayon/distance
+                    const parent = taillesContainer.parentNode;
+                    parent.insertBefore(taillesContainer, rayonDistance.nextSibling);
+                }
+
+                // Récupérer les champs
+                const plageRayonInput = rayonDistance.querySelector('input[id*="rayon"]');
+                const plageDistanceInput = rayonDistance.querySelector('input[id*="distance_mammelon"]');
+                const plageTailleXInput = taillesContainer.querySelector('input[id*="taille_x"]');
+                const plageTailleYInput = taillesContainer.querySelector('input[id*="taille_y"]');
+                const plageTailleZInput = taillesContainer.querySelector('input[id*="taille_z"]');
+                const plageTopographieSelect = topographieContainer.querySelector('select[id*="topographie"]');
+
+                // On crée un conteneur pour tous les champs
+                const plageTousChamps = [plageRayonInput, plageDistanceInput, plageTailleXInput, plageTailleYInput, plageTailleZInput, plageTopographieSelect];
+
+                // Variable pour suivre si l'utilisateur a commencé à remplir le formulaire
+                let plageHasStartedFilling = false;
+
+                // Fonction pour vérifier si tous les champs sont vides
+                const plageSontTousVides = () => {
+                    const inputsEmpty = [plageRayonInput, plageDistanceInput, plageTailleXInput, plageTailleYInput, plageTailleZInput]
+                        .every(input => !input || !input.value.trim());
+                    const selectEmpty = !plageTopographieSelect || !plageTopographieSelect.value;
+                    return inputsEmpty && selectEmpty;
+                };
+
+                // Ajouter les écouteurs pour le focus et les changements
+                plageTousChamps.forEach(field => {
+                    if (field) {
+                        // Quand un champ reçoit le focus
+                        field.addEventListener('focus', () => {
+                            plageHasStartedFilling = true;
+                        });
+
+                        // Quand un champ est modifié
+                        field.addEventListener('input', () => {
+                            if (field.value.trim()) {
+                                plageHasStartedFilling = true;
+                            }
+                        });
+
+                        // Quand un champ change (pour les selects)
+                        field.addEventListener('change', () => {
+                            if (field.value) {
+                                plageHasStartedFilling = true;
+                            }
+                        });
+                    }
+                });
+
+                // Fonction pour gérer la perte de focus du formulaire entier
+                const plageHandleFormBlur = (event) => {
+                    // On vérifie si le nouveau focus est en dehors de notre formulaire
+                    const isClickOutside = !newNonMasse.contains(event.relatedTarget);
+                    
+                    if (isClickOutside && !plageHasStartedFilling && plageSontTousVides()) {
+                        newNonMasse.remove();
+                        if (nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)').length === 0) {
+                            nonMasseEchoGaucheConfig.counter = 0;
+                        }
+                        // On retire l'écouteur car le formulaire n'existe plus
+                        document.removeEventListener('focusout', plageHandleFormBlur);
+                    }
+                };
+
+                // On ajoute l'écouteur au niveau du document
+                document.addEventListener('focusout', plageHandleFormBlur);
+
+                // Gestion spécifique de la topographie
+                if (plageTopographieSelect) {
+                    plageTopographieSelect.addEventListener('change', function() {
+                        const quadrantDetails = newNonMasse.querySelector('.quadrant-non-masse-echo-details');
+                        const unionDetails = newNonMasse.querySelector('.union-non-masse-echo-details');
+
+                        // Masquer tous les détails
+                        if (quadrantDetails) quadrantDetails.classList.add('d-none');
+                        if (unionDetails) unionDetails.classList.add('d-none');
+
+                        // Afficher les détails selon la sélection
+                        switch(this.value) {
+                            case 'quadrant':
+                                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
+                                break;
+                            case 'union':
+                                if (unionDetails) unionDetails.classList.remove('d-none');
+                                break;
+                            case 'retro_areolaire':
+                            case 'prolongement_axillaire':
+                                // Pas de détails supplémentaires à afficher
+                                break;
+                        }
+                    });
+                }
+
+                // Bouton de suppression
+                const plageDeleteButton = newNonMasse.querySelector('.delete-non-masse-echo');
+                if (plageDeleteButton) {
+                    plageDeleteButton.addEventListener('click', function() {
+                        newNonMasse.remove();
+                        if (nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)').length === 0) {
+                            nonMasseEchoGaucheConfig.counter = 0;
+                        }
+                        // On retire l'écouteur car le formulaire n'existe plus
+                        document.removeEventListener('focusout', plageHandleFormBlur);
+                    });
+                }
+                break;
+
+            case 'visualisation_micros':
+                // Afficher d'abord la topographie
+                if (topographieContainer) {
+                    topographieContainer.classList.remove('d-none');
+                    // Déplacer le conteneur de topographie en premier
+                    const parent = topographieContainer.parentNode;
+                    parent.insertBefore(topographieContainer, parent.firstChild);
+                }
+
+                // Puis le conteneur rayon/distance
+                if (rayonDistance) {
+                    rayonDistance.classList.remove('d-none');
+                    // Déplacer après la topographie
+                    const parent = rayonDistance.parentNode;
+                    parent.insertBefore(rayonDistance, topographieContainer.nextSibling);
+                }
+
+                // Masquer le conteneur des tailles qui n'est pas utilisé ici
+                if (taillesContainer) {
+                    taillesContainer.classList.add('d-none');
+                }
+
+                // Récupérer les champs
+                const microRayonInput = rayonDistance.querySelector('input[id*="rayon"]');
+                const microDistanceInput = rayonDistance.querySelector('input[id*="distance_mammelon"]');
+                const microTopographieSelect = topographieContainer.querySelector('select[id*="topographie"]');
+
+                // On crée un conteneur pour tous les champs
+                const microTousChamps = [microRayonInput, microDistanceInput, microTopographieSelect];
+
+                // Variable pour suivre si l'utilisateur a commencé à remplir le formulaire
+                let microHasStartedFilling = false;
+
+                // Fonction pour vérifier si tous les champs sont vides
+                const microSontTousVides = () => {
+                    const inputsEmpty = [microRayonInput, microDistanceInput]
+                        .every(input => !input || !input.value.trim());
+                    const selectEmpty = !microTopographieSelect || !microTopographieSelect.value;
+                    return inputsEmpty && selectEmpty;
+                };
+
+                // Ajouter les écouteurs pour le focus et les changements
+                microTousChamps.forEach(field => {
+                    if (field) {
+                        // Quand un champ reçoit le focus
+                        field.addEventListener('focus', () => {
+                            microHasStartedFilling = true;
+                        });
+
+                        // Quand un champ est modifié
+                        field.addEventListener('input', () => {
+                            if (field.value.trim()) {
+                                microHasStartedFilling = true;
+                            }
+                        });
+
+                        // Quand un champ change (pour les selects)
+                        field.addEventListener('change', () => {
+                            if (field.value) {
+                                microHasStartedFilling = true;
+                            }
+                        });
+                    }
+                });
+
+                // Fonction pour gérer la perte de focus du formulaire entier
+                const microHandleFormBlur = (event) => {
+                    // On vérifie si le nouveau focus est en dehors de notre formulaire
+                    const isClickOutside = !newNonMasse.contains(event.relatedTarget);
+                    
+                    if (isClickOutside && !microHasStartedFilling && microSontTousVides()) {
+                        newNonMasse.remove();
+                        if (nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)').length === 0) {
+                            nonMasseEchoGaucheConfig.counter = 0;
+                        }
+                        // On retire l'écouteur car le formulaire n'existe plus
+                        document.removeEventListener('focusout', microHandleFormBlur);
+                    }
+                };
+
+                // On ajoute l'écouteur au niveau du document
+                document.addEventListener('focusout', microHandleFormBlur);
+
+                // Gestion spécifique de la topographie
+                if (microTopographieSelect) {
+                    microTopographieSelect.addEventListener('change', function() {
+                        const quadrantDetails = newNonMasse.querySelector('.quadrant-non-masse-echo-details');
+                        const unionDetails = newNonMasse.querySelector('.union-non-masse-echo-details');
+
+                        // Masquer tous les détails
+                        if (quadrantDetails) quadrantDetails.classList.add('d-none');
+                        if (unionDetails) unionDetails.classList.add('d-none');
+
+                        // Afficher les détails selon la sélection
+                        switch(this.value) {
+                            case 'quadrant':
+                                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
+                                break;
+                            case 'union':
+                                if (unionDetails) unionDetails.classList.remove('d-none');
+                                break;
+                            case 'retro_areolaire':
+                            case 'prolongement_axillaire':
+                                // Pas de détails supplémentaires à afficher
+                                break;
+                        }
+                    });
+                }
+
+                // Bouton de suppression
+                const microDeleteButton = newNonMasse.querySelector('.delete-non-masse-echo');
+                if (microDeleteButton) {
+                    microDeleteButton.addEventListener('click', function() {
+                        newNonMasse.remove();
+                        if (nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)').length === 0) {
+                            nonMasseEchoGaucheConfig.counter = 0;
+                        }
+                        // On retire l'écouteur car le formulaire n'existe plus
+                        document.removeEventListener('focusout', microHandleFormBlur);
+                    });
+                }
+                break;
+        }
+
+        // Gestion de la topographie si nécessaire
+        const topographieSelect = newNonMasse.querySelector('.non-masse-echo-topographie');
+        if (topographieSelect) {
+            topographieSelect.addEventListener('change', function() {
+                handleNonMasseEchoTopographieGauche(newNonMasse, this.value);
+            });
+        }
+
+        // Bouton de suppression
+        const deleteButton = newNonMasse.querySelector('.delete-non-masse-echo');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                newNonMasse.remove();
+                if (nonMasseEchoGaucheConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateGauche)').length === 0) {
+                    nonMasseEchoGaucheConfig.counter = 0;
+                }
+            });
+        }
+
+        nonMasseEchoGaucheConfig.container.appendChild(newNonMasse);
+    }
+
+    function handleNonMasseEchoTopographieGauche(nonMasseElement, value) {
+        const quadrantDetails = nonMasseElement.querySelector('.quadrant-non-masse-echo-details');
+        const unionDetails = nonMasseElement.querySelector('.union-non-masse-echo-details');
+
+        if (quadrantDetails) quadrantDetails.classList.add('d-none');
+        if (unionDetails) unionDetails.classList.add('d-none');
+
+        switch(value) {
+            case 'quadrant':
+                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
+                break;
+            case 'union':
+                if (unionDetails) unionDetails.classList.remove('d-none');
+                break;
+        }
+    }
+
     // Initialisation des écouteurs d'événements
     if (asymetrieGaucheConfig.asymetrieSelect) {
         asymetrieGaucheConfig.asymetrieSelect.addEventListener('change', handleAsymetrieGauche);
@@ -515,6 +1082,22 @@ document.addEventListener('DOMContentLoaded', function() {
         prolongementAxillaireGaucheConfig.prolongementSelect.addEventListener('change', handleProlongementAxillaireGauche);
     }
 
+    if (masseEchoGaucheConfig.masseEchoSelect) {
+        masseEchoGaucheConfig.masseEchoSelect.addEventListener('change', handleMasseEchoGauche);
+    }
+
+    if (masseEchoGaucheConfig.addButton) {
+        masseEchoGaucheConfig.addButton.addEventListener('click', ajouterMasseEchoGauche);
+    }
+
+    if (nonMasseEchoGaucheConfig.nonMasseEchoSelect) {
+        nonMasseEchoGaucheConfig.nonMasseEchoSelect.addEventListener('change', handleNonMasseEchoGauche);
+    }
+
+    if (nonMasseEchoGaucheConfig.addButton) {
+        nonMasseEchoGaucheConfig.addButton.addEventListener('click', ajouterNonMasseEchoGauche);
+    }
+
     // Initialisation de l'état
     handleAsymetrieGauche();
     handleMasseGauche();
@@ -524,6 +1107,8 @@ document.addEventListener('DOMContentLoaded', function() {
     handleCalcificationsNonSuspectesGauche();
     handleDesorganisationGauche();
     handleProlongementAxillaireGauche();
+    handleMasseEchoGauche();
+    handleNonMasseEchoGauche();
 
     // Export des configurations et fonctions
     window.densiteGauche = {
@@ -535,7 +1120,9 @@ document.addEventListener('DOMContentLoaded', function() {
             distorsion: distorsionGaucheConfig,
             calcificationsNonSuspectes: calcificationsNonSuspectesGaucheConfig,
             desorganisation: desorganisationGaucheConfig,
-            prolongementAxillaire: prolongementAxillaireGaucheConfig
+            prolongementAxillaire: prolongementAxillaireGaucheConfig,
+            masseEcho: masseEchoGaucheConfig,
+            nonMasseEcho: nonMasseEchoGaucheConfig
         },
         handlers: {
             handleAsymetrie: handleAsymetrieGauche,
@@ -547,7 +1134,9 @@ document.addEventListener('DOMContentLoaded', function() {
             handleDistorsion: handleDistorsionGauche,
             handleCalcificationsNonSuspectes: handleCalcificationsNonSuspectesGauche,
             handleDesorganisation: handleDesorganisationGauche,
-            handleProlongementAxillaire: handleProlongementAxillaireGauche
+            handleProlongementAxillaire: handleProlongementAxillaireGauche,
+            handleMasseEcho: handleMasseEchoGauche,
+            handleNonMasseEcho: handleNonMasseEchoGauche
         }
     };
 }); 
