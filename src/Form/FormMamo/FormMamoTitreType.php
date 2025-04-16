@@ -22,9 +22,9 @@ class FormMamoTitreType extends AbstractType
                 'Mammographie unilatérale gauche' => 'mammographie unilaterale gauche',
                 'Mammographie et échographie unilatérale droite' => 'mammographie echo unilaterale droite',
                 'Mammographie et échographie unilatérale gauche' => 'mammographie echo unilaterale gauche',
-                'Échographie mammaire bilatérale' => 'echo bilaterale',
-                'Échographie mammaire unilatérale droite' => 'echo unilaterale droite',
-                'Échographie mammaire unilatérale gauche' => 'echo unilaterale gauche'
+                'Échographie mammaire bilatérale' => 'Échographie mammaire bilatérale',
+                'Échographie mammaire unilatérale droite' => 'Échographie mammaire unilatérale droite',
+                'Échographie mammaire unilatérale gauche' => 'Échographie mammaire unilatérale gauche'
             ],
             'attr' => [
                 'class' => 'form-select',

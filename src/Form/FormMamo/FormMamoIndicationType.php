@@ -17,13 +17,13 @@ class FormMamoIndicationType extends AbstractType
         // Section Indication
         $builder
             ->add('indication', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Dépistage organisé' => 'depistage_organise',
-                    'Dépistage individuel' => 'depistage_individuel',
-                    'Suivi d\'une anomalie classée ACR 3' => 'suivi_acr3',
-                    'Suivi annuel chez une patiente aux antécédents de néoplasie mammaire' => 'suivi_neoplasie',
-                    'Anomalie clinique' => 'anomalie_clinique'
+                    'Dépistage organisé' => 'Dépistage organisé.',
+                    'Dépistage individuel' => 'dDépistage individuel.',
+                    'Suivi d\'une anomalie classée ACR 3' => 'Suivi d\'une anomalie classée ACR 3.',
+                    'Suivi annuel chez une patiente aux antécédents de néoplasie mammaire' => 'Suivi annuel chez une patiente aux antécédents de néoplasie mammaire.',
+                    'Anomalie clinique' => 'Anomalie clinique.'
                 ],
                 'attr' => [
                     'class' => 'form-select'
