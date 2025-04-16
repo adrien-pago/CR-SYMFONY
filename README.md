@@ -1,136 +1,177 @@
-# CR-SYMFONY - Application de Comptes-Rendus de Mammographie
+# Projet CR-SYMFONY - Compte Rendu Mammographie
 
 ## Description du Projet
-Application web développée avec Symfony pour la création et la gestion de comptes-rendus de mammographie. L'application permet de standardiser et simplifier la rédaction des comptes-rendus en utilisant des formulaires dynamiques et des menus déroulants.
-
-## Technologies Utilisées
-- Symfony 6.4 (Framework PHP)
-- Twig (Moteur de template)
-- Webpack Encore (Gestion des assets)
-- Doctrine ORM (Gestion de la base de données)
-- SQLite (Base de données de développement)
-- Bootstrap (Framework CSS)
-
-## Journal de Développement
-
-### Phase 1 - Configuration Initiale (En cours)
-- [x] Création du projet Symfony 6.4
-- [x] Configuration de l'environnement de développement
-- [x] Configuration de SQLite
-- [ ] Configuration de Webpack Encore
-- [ ] Configuration de base de Twig
-- [ ] Installation des dépendances supplémentaires
-
-### Phase 2 - Structure de Base (Planifiée)
-#### Entités prévues :
-1. User (Utilisateur)
-   - Informations d'authentification
-   - Profil
-   - Rôles et permissions
-   - Abonnements/Licences
-
-2. Form (Formulaire)
-   - Type de formulaire (Mammographie, etc.)
-   - Template
-   - Configuration
-   - Version
-
-3. Report (Compte-rendu)
-   - Lien vers le formulaire
-   - Données du compte-rendu
-   - Métadonnées (date, auteur, etc.)
-   - État (brouillon, final, etc.)
-
-4. MedicalHistory (Antécédents)
-   - Antécédents personnels
-   - Antécédents familiaux
-   - Scores de risque
-
-5. Examination (Examen)
-   - Type d'examen
-   - Résultats
-   - Images/Documents associés
-
-6. Template (Modèle)
-   - Structure du document
-   - Styles
-   - Variables
-
-7. Subscription (Abonnement)
-   - Type d'abonnement
-   - Durée
-   - Fonctionnalités incluses
-   - État
-
-### Phase 3 - Développement des Fonctionnalités (À venir)
-- [ ] Création des formulaires
-- [ ] Développement des services
-- [ ] Implémentation de la logique métier
-
-### Phase 4 - Interface Utilisateur (À venir)
-- [ ] Développement des templates Twig
-- [ ] Intégration des assets
-- [ ] Mise en place de l'export .docx
-
-### Phase 5 - Tests et Documentation (À venir)
-- [ ] Tests unitaires et fonctionnels
-- [ ] Documentation technique
-- [ ] Finalisation du README
-
-## Installation et Configuration
-
-### Prérequis
-- PHP 8.2 ou supérieur
-- Composer
-- Node.js et npm
-- SQLite3
-
-### Installation
-1. Cloner le repository
-2. Installer les dépendances PHP :
-   ```bash
-   composer install
-   ```
-3. Installer les dépendances JavaScript :
-   ```bash
-   npm install
-   ```
-4. Configurer la base de données SQLite :
-   ```bash
-   php bin/console doctrine:database:create
-   php bin/console doctrine:schema:create
-   ```
-5. Compiler les assets :
-   ```bash
-   npm run dev
-   ```
-6. Lancer le serveur de développement :
-   ```bash
-   symfony server:start
-   ```
+Application web développée avec Symfony pour la gestion des comptes rendus de mammographie. Cette application permet aux professionnels de santé de saisir et gérer les données d'examens mammographiques de manière structurée et sécurisée.
 
 ## Structure du Projet
+
 ```
-src/
-├── Controller/    # Contrôleurs de l'application
-├── Entity/        # Entités Doctrine
-├── Form/          # Formulaires Symfony
-├── Service/       # Services métier
-├── Repository/    # Repositories Doctrine
-├── Security/      # Classes liées à la sécurité
-└── DataFixtures/  # Données de test
+CR-SYMFONY/
+├── assets/
+│   ├── css/
+│   │   └── app.css
+│   └── js/
+│       └── form_mamo/
+│           ├── form_mamo_densite_droite.js
+│           ├── form_mamo_densite_gauche.js
+│           ├── form_mamo_densite_echo_droite.js
+│           ├── form_mamo_densite_echo_gauche.js
+│           ├── form_mamo_conclusion.js
+│           └── ..................
+├── config/
+│   ├── packages/
+│   │   ├── security.yaml
+│   │   └── doctrine.yaml
+│   └── routes/
+│       └── annotations.yaml
+├── src/
+│   ├── Controller/
+│   │   ├── SecurityController.php
+│   │   ├── HomeController.php
+│   │   └── FormMamo/
+│   │       ├── FormMamoDensiteController.php
+│   │       ├── FormMamoConclusionController.php
+│   │       └── ................................
+│   ├── Entity/
+│   │   ├── User.php
+│   │   └── FormMamo/
+│   │       ├── FormMamoDensite.php
+│   │       ├── FormMamoConclusion.php
+│   │       └── ........................
+│   ├── Form/
+│   │   └── FormMamo/
+│   │       ├── Densite/
+│   │       │   ├── FormMamoDensiteDroiteType.php
+│   │       │   ├── FormMamoDensiteGaucheType.php
+│   │       │   ├── FormMamoDensiteEchoDroiteType.php
+│   │       │   └── FormMamoDensiteEchoGaucheType.php
+│   │       └── ......................................
+│   └── Repository/
+│       ├── UserRepository.php
+│ 
+├── templates/
+│   ├── base.html.twig
+│   ├── security/
+│   │   └── login.html.twig
+│   └── home/
+│       └── formulaire/
+│           └── Mamo/
+│               ├── densite/
+│               │   ├── _densite_droite.html.twig
+│               │   ├── _densite_gauche.html.twig
+│               │   ├── _densite_echo_droite.html.twig
+│               │   └── _densite_echo_gauche.html.twig
+│               └── ..........................................
+└── public/
+    └── css/
+         └── app.css
 
-templates/         # Templates Twig
-assets/           # Fichiers source JS/CSS
-public/           # Assets publics compilés
-config/           # Fichiers de configuration
 ```
 
-## Documentation Technique
-La documentation technique détaillée sera ajoutée au fur et à mesure du développement.
+## Compétences Techniques Validées
 
-## Contribution
-Ce projet est en cours de développement. Les contributions ne sont pas encore ouvertes.
+### 1. Configuration et Base du Projet ✅
+- Création et initialisation du projet Symfony
+- Configuration de l'environnement de développement
+- Gestion des dépendances via Composer
 
-## Licence
-À définir 
+### 2. Système d'Authentification ✅
+- Mise en place du système de login
+- Gestion des utilisateurs et des rôles
+- Sécurisation des routes
+- Protection contre les attaques CSRF
+
+### 3. Gestion des Formulaires ✅
+- Création de formulaires complexes avec FormType
+- Validation des données
+- Gestion des erreurs
+- Formulaires imbriqués et collections
+
+### 4. Base de Données et Doctrine ✅
+- Configuration de la base de données
+- Création des entités
+- Mise en place des repositories
+- Gestion des migrations
+
+### 5. Templates et Vues ✅
+- Utilisation avancée de Twig
+- Création de layouts réutilisables
+- Gestion des assets
+- Templates modulaires et extensibles
+
+### 6. Routage et Navigation ✅
+- Configuration des routes
+- Gestion des paramètres
+- Sécurisation des accès
+- Navigation fluide entre les pages
+
+## Points en Cours de Développement
+
+### 1. Webpack Encore ✅
+- Installation et configuration de Webpack Encore réalisée
+- Assets (JS/CSS) correctement organisés dans le dossier assets/
+- Compilation avec npm run dev/build
+- Optimisation des ressources front-end en place
+
+### 2. Services Symfony ❓
+- Refactorisation du code en services
+- Implémentation de l'injection de dépendances
+- Tests unitaires des services
+
+## Installation et Déploiement
+
+### Prérequis
+- PHP 8.1 ou supérieur
+- Composer
+- Symfony CLI
+- MySQL/MariaDB
+
+### Installation
+
+1. Cloner le repository
+```bash
+git clone [URL_DU_REPO]
+```
+
+2. Installer les dépendances
+```bash
+composer install
+```
+
+3. Configurer la base de données dans .env
+```
+DATABASE_URL="mysql://user:password@127.0.0.1:3306/cr_symfony"
+```
+
+4. Créer la base de données et exécuter les migrations
+```bash
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+```
+
+5. Lancer le serveur de développement
+```bash
+symfony server:start
+```
+
+## Fonctionnalités Principales
+
+### 1. Gestion des Comptes Rendus
+- Saisie des données mammographiques
+
+### 2. Interface Utilisateur
+- Interface intuitive et responsive
+- Formulaires dynamiques
+- Validation en temps réel
+
+### 3. Sécurité
+- Authentification sécurisée
+- Gestion des rôles et permissions
+- Protection des données sensibles
+
+## Prochaines Étapes
+
+1. Refactorisation en services
+2. Ajout de tests unitaires et fonctionnels
+3. Documentation technique complète
+4. Optimisation des performances

@@ -6,6 +6,9 @@
 parameters:
     recaptcha.site_key: '%env(RECAPTCHA_SITE_KEY)%'
     recaptcha.secret_key: '%env(RECAPTCHA_SECRET_KEY)%'
+    app.sender_email: 'noreply@example.com'
+    app.sender_name: 'Service Mammographie'
+    app.template_dir: '%kernel.project_dir%/templates/pdf'
 
 services:
     # default configuration for services in *this* file
@@ -24,3 +27,16 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Configuration des services FormMamo
+    App\Service\FormMamo\FormDataService:
+        arguments: []
+
+    App\Service\FormMamo\DocumentGeneratorService:
+        arguments:
+            $templateDir: '%app.template_dir%'
+
+    App\Service\FormMamo\EmailService:
+        arguments:
+            $senderEmail: '%app.sender_email%'
+            $senderName: '%app.sender_name%'
