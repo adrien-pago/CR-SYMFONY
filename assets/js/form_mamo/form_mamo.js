@@ -7,6 +7,8 @@ import './form_mamo_examen_clinique.js';
 import './form_mamo_densite.js';
 import './form_mamo_densite_gauche.js';
 import './form_mamo_densite_droite.js';
+import './form_mamo_densite_echo_gauche.js';
+import './form_mamo_densite_echo_droite.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Gestion de la navigation entre les sections

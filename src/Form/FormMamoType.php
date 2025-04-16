@@ -15,6 +15,7 @@ use App\Form\FormMamo\FormMamoExamenCliniqueType;
 use App\Form\FormMamo\FormMamoDensiteGaucheType;
 use App\Form\FormMamo\FormMamoDensiteDroitType;
 use App\Form\FormMamo\FormMamoDensiteType;
+use App\Form\FormMamo\FormMamoDensiteEchoGaucheType;
 
 class FormMamoType extends AbstractType
 {
@@ -29,6 +30,7 @@ class FormMamoType extends AbstractType
             ->add('densite_seins', FormMamoDensiteType::class)
             ->add('densite_gauche', FormMamoDensiteGaucheType::class)
             ->add('densite_droite', FormMamoDensiteDroitType::class)
+            ->add('densite_echo_gauche', FormMamoDensiteEchoGaucheType::class)
         ;
     }
 
