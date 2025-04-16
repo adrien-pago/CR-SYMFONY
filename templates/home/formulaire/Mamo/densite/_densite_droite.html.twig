@@ -522,305 +522,68 @@
             </div>
         </div>
 
-        {# Section Exploration échographique #}
+        {# Section Creux axillaire #}
         <div class="mb-4">
-            <h5 class="mb-3">Exploration échographique</h5>
-            
-            {# Masse échographique #}
-            <div class="mb-4">
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ form_row(form.densite_droite.masse_echo_droite) }}
-                    </div>
+            <h5 class="mb-3">Creux axillaire</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_droite.creux_axillaire_droite) }}
                 </div>
-
-                 {# Ajout d'un espace vertical #}
-                <div class="mb-4"></div>
-
-                {# Container pour les masses échographiques #}
-                <div id="masseEchoDroiteContainer">
-                    {# Template pour une masse échographique #}
-                    <div id="masseEchoTemplateDroite" class="masse-echo-item border rounded p-3 mb-3 position-relative d-none">
-                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 delete-masse-echo">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                        
-                        <div class="row">
-                            <div class="col-md-4">
-                                {{ form_row(form.densite_droite.masse_echo_numero_droite, {
-                                    'label': 'Numéro Mécho',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-4">
-                                {{ form_row(form.densite_droite.masse_echo_topographie_droite, {
-                                    'label': 'Topographie',
-                                    'attr': {'class': 'form-select masse-echo-topographie'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        {# Détails du quadrant #}
-                        <div class="quadrant-echo-details d-none">
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    {{ form_row(form.densite_droite.masse_echo_quadrant_droite, {
-                                        'label': 'Quadrant',
-                                        'attr': {'class': 'form-select'}
-                                    }) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        {# Détails de l'union #}
-                        <div class="union-echo-details d-none">
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    {{ form_row(form.densite_droite.masse_echo_union_quadrants_droite, {
-                                        'label': 'Union des quadrants',
-                                        'attr': {'class': 'form-select'}
-                                    }) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                {{ form_row(form.densite_droite.masse_echo_rayon_droite, {
-                                    'label': 'Rayon (h)',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.densite_droite.masse_echo_distance_mammelon_droite, {
-                                    'label': 'Distance du mammelon (cm)',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                {{ form_row(form.densite_droite.masse_echo_taille_x_droite, {
-                                    'label': 'Taille X (mm)',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.densite_droite.masse_echo_taille_y_droite, {
-                                    'label': 'Taille Y (mm)',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.densite_droite.masse_echo_taille_z_droite, {
-                                    'label': 'Taille Z (mm)',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-4">
-                                {{ form_row(form.densite_droite.masse_echo_forme_droite, {
-                                    'label': 'Forme',
-                                    'attr': {'class': 'form-select'}
-                                }) }}
-                            </div>
-                            <div class="col-md-4">
-                                {{ form_row(form.densite_droite.masse_echo_contours_droite, {
-                                    'label': 'Contours',
-                                    'attr': {'class': 'form-select'}
-                                }) }}
-                            </div>
-                            <div class="col-md-4">
-                                {{ form_row(form.densite_droite.masse_echo_stroma_droite, {
-                                    'label': 'Stroma',
-                                    'attr': {'class': 'form-select'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                {{ form_row(form.densite_droite.masse_echo_echostructure_droite, {
-                                    'label': 'Échostructure',
-                                    'attr': {'class': 'form-select'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                {{ form_row(form.densite_droite.masse_echo_correspondance_mammo_droite, {
-                                    'label': 'Correspondance mammographie',
-                                    'attr': {'class': 'form-select'}
-                                }) }}
-                            </div>
-                            <div class="col-md-6 numero-mammo-container d-none">
-                                {{ form_row(form.densite_droite.masse_echo_numero_mammo_droite, {
-                                    'label': 'Numéro Mmammo',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                {{ form_row(form.densite_droite.masse_echo_anteriorite_suivi_droite, {
-                                    'label': 'Antériorité suivi',
-                                    'attr': {'class': 'form-select'}
-                                }) }}
-                            </div>
-                            <div class="col-md-3 tailles-evolution d-none">
-                                {{ form_row(form.densite_droite.masse_echo_taille_precedente_droite, {
-                                    'label': 'Taille précédente',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                            <div class="col-md-3 tailles-evolution d-none">
-                                {{ form_row(form.densite_droite.masse_echo_taille_actuelle_droite, {
-                                    'label': 'Taille actuelle',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                {{ form_row(form.densite_droite.masse_echo_birads_droite, {
-                                    'label': 'Classification BI-RADS',
-                                    'attr': {'class': 'form-select'}
-                                }) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {# Bouton pour ajouter une nouvelle masse échographique #}
-                <button type="button" id="ajouterMasseEchoDroite" class="btn btn-primary mt-3 d-none">
-                    <i class="bi bi-plus-circle me-2"></i>Ajouter une masse
-                </button>
             </div>
 
-            {# Non masse échographique #}
-            <div class="mb-4">
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ form_row(form.densite_droite.non_masse_echo_droite) }}
+            {# Options pour ADM et ADMs #}
+            <div id="creuxAxillaireDetailsDroite" class="d-none mt-3">
+                {# Section pour ADM simple #}
+                <div id="admSimpleDetailsDroite" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_droite.creux_axillaire_adm_type_droite) }}
+                        </div>
                     </div>
-                </div>
 
-                {# Ajout d'un espace vertical #}
-                <div class="mb-4"></div>
-
-                {# Container pour les non-masses échographiques #}
-                <div id="nonMasseEchoDroiteContainer">
-                    {# Template pour une non-masse échographique #}
-                    <div id="nonMasseEchoTemplateDroite" class="non-masse-echo-item border rounded p-3 mb-3 position-relative d-none">
-                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 delete-non-masse-echo">
-                            <i class="bi bi-trash"></i>
-                        </button>
-
-                        {# Champs communs pour dilatation canalaire avec image, plage hypoéchogène et microcalcifications #}
-                        <div class="row mt-3">
-                            <div class="col-md-4">
-                                {{ form_row(form.densite_droite.non_masse_echo_topographie_droite, {
-                                    'label': 'Topographie',
-                                    'attr': {'class': 'form-select non-masse-echo-topographie'}
-                                }) }}
+                    {# Champs pour cortex épaissi #}
+                    <div id="cortexEpaissiDetailsDroite" class="d-none">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_row(form.densite_droite.creux_axillaire_cortex_taille_droite) }}
                             </div>
                         </div>
+                    </div>
 
-                        {# Détails du quadrant #}
-                        <div class="quadrant-non-masse-echo-details d-none">
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    {{ form_row(form.densite_droite.non_masse_echo_quadrant_droite, {
-                                        'label': 'Quadrant',
-                                        'attr': {'class': 'form-select'}
-                                    }) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        {# Détails de l'union #}
-                        <div class="union-non-masse-echo-details d-none">
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    {{ form_row(form.densite_droite.non_masse_echo_union_quadrants_droite, {
-                                        'label': 'Union des quadrants',
-                                        'attr': {'class': 'form-select'}
-                                    }) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                {{ form_row(form.densite_droite.non_masse_echo_rayon_droite, {
-                                    'label': 'Rayon (h)',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.densite_droite.non_masse_echo_distance_mammelon_droite, {
-                                    'label': 'Distance du mammelon (cm)',
-                                    'attr': {'class': 'form-control'}
-                                }) }}
-                            </div>
-                        </div>
-
-                        {# Champs spécifiques pour dilatation canalaire avec image #}
-                        <div class="dilatation-avec-image-details d-none">
-                            <div class="row mt-3">
-                                <div class="col-md-3">
-                                    {{ form_row(form.densite_droite.non_masse_echo_taille_x_droite, {
-                                        'label': 'Taille X (mm)',
-                                        'attr': {'class': 'form-control'}
-                                    }) }}
-                                </div>
-                                <div class="col-md-3">
-                                    {{ form_row(form.densite_droite.non_masse_echo_taille_y_droite, {
-                                        'label': 'Taille Y (mm)',
-                                        'attr': {'class': 'form-control'}
-                                    }) }}
-                                </div>
-                                <div class="col-md-3">
-                                    {{ form_row(form.densite_droite.non_masse_echo_taille_z_droite, {
-                                        'label': 'Taille Z (mm)',
-                                        'attr': {'class': 'form-control'}
-                                    }) }}
-                                </div>
-                            </div>
-
-                            <div class="row mt-3">
-                                <div class="col-md-4">
-                                    {{ form_row(form.densite_droite.non_masse_echo_forme_droite, {
-                                        'label': 'Forme',
-                                        'attr': {'class': 'form-select'}
-                                    }) }}
-                                </div>
-                                <div class="col-md-4">
-                                    {{ form_row(form.densite_droite.non_masse_echo_contours_droite, {
-                                        'label': 'Contours',
-                                        'attr': {'class': 'form-select'}
-                                    }) }}
-                                </div>
+                    {# Champs pour petit axe #}
+                    <div id="petitAxeDetailsDroite" class="d-none">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_row(form.densite_droite.creux_axillaire_adm_petit_axe_taille_droite) }}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {# Bouton pour ajouter une nouvelle non-masse échographique #}
-                <button type="button" id="ajouterNonMasseEchoDroite" class="btn btn-primary mt-3 d-none">
-                    <i class="bi bi-plus-circle me-2"></i>Ajouter une non-masse
-                </button>
+                {# Section spécifique pour ADMs #}
+                <div id="admsDetailsDroite" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_droite.creux_axillaire_adms_nombre_droite) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_droite.creux_axillaire_adms_taille_droite) }}
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            {# Commentaire #}
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_droite.creux_axillaire_commentaire_droite) }}
+                </div>
+            </div>
         </div>
+
+         {# Inclusion de l'exploration échographique #}
+        {% include 'home/formulaire/Mamo/densite/_densite_echo_droite.html.twig' %}
     </div>
 </div> 
+
+ 

@@ -522,6 +522,65 @@
             </div>
         </div>
 
+        {# Section Creux axillaire #}
+        <div class="mb-4">
+            <h5 class="mb-3">Creux axillaire</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.creux_axillaire_gauche) }}
+                </div>
+            </div>
+
+            {# Options pour ADM et ADMs #}
+            <div id="creuxAxillaireDetailsGauche" class="d-none mt-3">
+                {# Section pour ADM simple #}
+                <div id="admSimpleDetailsGauche" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            {{ form_row(form.densite_gauche.creux_axillaire_adm_type_gauche) }}
+                        </div>
+                    </div>
+
+                    {# Champs pour cortex épaissi #}
+                    <div id="cortexEpaissiDetailsGauche" class="d-none">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_row(form.densite_gauche.creux_axillaire_cortex_taille_gauche) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {# Champs pour petit axe #}
+                    <div id="petitAxeDetailsGauche" class="d-none">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_row(form.densite_gauche.creux_axillaire_adm_petit_axe_taille_gauche) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Section spécifique pour ADMs #}
+                <div id="admsDetailsGauche" class="d-none">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_gauche.creux_axillaire_adms_nombre_gauche) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.densite_gauche.creux_axillaire_adms_taille_gauche) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Commentaire #}
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    {{ form_row(form.densite_gauche.creux_axillaire_commentaire_gauche) }}
+                </div>
+            </div>
+        </div>
+
         {# Inclusion de l'exploration échographique #}
         {% include 'home/formulaire/Mamo/densite/_densite_echo_gauche.html.twig' %}
     </div>

@@ -16,6 +16,7 @@ use App\Form\FormMamo\FormMamoDensiteGaucheType;
 use App\Form\FormMamo\FormMamoDensiteDroitType;
 use App\Form\FormMamo\FormMamoDensiteType;
 use App\Form\FormMamo\FormMamoDensiteEchoGaucheType;
+use App\Form\FormMamo\FormMamoDensiteEchoDroiteType;
 
 class FormMamoType extends AbstractType
 {
@@ -31,6 +32,7 @@ class FormMamoType extends AbstractType
             ->add('densite_gauche', FormMamoDensiteGaucheType::class)
             ->add('densite_droite', FormMamoDensiteDroitType::class)
             ->add('densite_echo_gauche', FormMamoDensiteEchoGaucheType::class)
+            ->add('densite_echo_droite', FormMamoDensiteEchoDroiteType::class)
         ;
     }
 

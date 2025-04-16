@@ -74,6 +74,17 @@ document.addEventListener('DOMContentLoaded', function() {
         typeSelect: document.querySelector('#form_mamo_densite_gauche_prolongement_axillaire_type_gauche')
     };
 
+    // Configuration du creux axillaire pour le sein gauche
+    const creuxAxillaireGaucheConfig = {
+        creuxAxillaireSelect: document.querySelector('#form_mamo_densite_gauche_creux_axillaire_gauche'),
+        detailsContainer: document.querySelector('#creuxAxillaireDetailsGauche'),
+        admSimpleDetails: document.querySelector('#admSimpleDetailsGauche'),
+        admTypeSelect: document.querySelector('#form_mamo_densite_gauche_creux_axillaire_adm_type_gauche'),
+        cortexDetails: document.querySelector('#cortexEpaissiDetailsGauche'),
+        petitAxeDetails: document.querySelector('#petitAxeDetailsGauche'),
+        admsDetails: document.querySelector('#admsDetailsGauche')
+    };
+
     // Fonctions pour le sein gauche
     function handleAsymetrieGauche() {
         if (!asymetrieGaucheConfig.asymetrieSelect || !asymetrieGaucheConfig.detailsContainer) return;
@@ -454,6 +465,65 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Gestion du creux axillaire
+    function handleCreuxAxillaireGauche() {
+        if (!creuxAxillaireGaucheConfig.creuxAxillaireSelect || !creuxAxillaireGaucheConfig.detailsContainer) return;
+
+        const value = creuxAxillaireGaucheConfig.creuxAxillaireSelect.value;
+        
+        // Masquer tous les conteneurs par défaut
+        creuxAxillaireGaucheConfig.detailsContainer.classList.add('d-none');
+        creuxAxillaireGaucheConfig.admSimpleDetails.classList.add('d-none');
+        creuxAxillaireGaucheConfig.admsDetails.classList.add('d-none');
+        creuxAxillaireGaucheConfig.cortexDetails.classList.add('d-none');
+        creuxAxillaireGaucheConfig.petitAxeDetails.classList.add('d-none');
+
+        // Réinitialiser les champs si nécessaire
+        if (value !== 'adm' && value !== 'adms') {
+            resetCreuxAxillaireFields();
+        }
+
+        if (value === 'adm') {
+            // Afficher les détails pour une ADM simple
+            creuxAxillaireGaucheConfig.detailsContainer.classList.remove('d-none');
+            creuxAxillaireGaucheConfig.admSimpleDetails.classList.remove('d-none');
+            handleCreuxAxillaireTypeGauche();
+        } else if (value === 'adms') {
+            // Afficher les détails pour ADMs multiples
+            creuxAxillaireGaucheConfig.detailsContainer.classList.remove('d-none');
+            creuxAxillaireGaucheConfig.admsDetails.classList.remove('d-none');
+        }
+    }
+
+    function handleCreuxAxillaireTypeGauche() {
+        if (!creuxAxillaireGaucheConfig.admTypeSelect) return;
+
+        const value = creuxAxillaireGaucheConfig.admTypeSelect.value;
+        
+        // Masquer tous les conteneurs de détails spécifiques
+        creuxAxillaireGaucheConfig.cortexDetails.classList.add('d-none');
+        creuxAxillaireGaucheConfig.petitAxeDetails.classList.add('d-none');
+
+        // Afficher les détails appropriés selon le type
+        switch(value) {
+            case 'cortex_epaissi':
+                creuxAxillaireGaucheConfig.cortexDetails.classList.remove('d-none');
+                break;
+            case 'petit_axe':
+            case 'petit_axe_perte_hile':
+                creuxAxillaireGaucheConfig.petitAxeDetails.classList.remove('d-none');
+                break;
+        }
+    }
+
+    // Fonction pour réinitialiser les champs
+    function resetCreuxAxillaireFields() {
+        const inputs = creuxAxillaireGaucheConfig.detailsContainer.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+    }
+
     // Initialisation des écouteurs d'événements
     if (asymetrieGaucheConfig.asymetrieSelect) {
         asymetrieGaucheConfig.asymetrieSelect.addEventListener('change', handleAsymetrieGauche);
@@ -515,6 +585,14 @@ document.addEventListener('DOMContentLoaded', function() {
         prolongementAxillaireGaucheConfig.prolongementSelect.addEventListener('change', handleProlongementAxillaireGauche);
     }
 
+    if (creuxAxillaireGaucheConfig.creuxAxillaireSelect) {
+        creuxAxillaireGaucheConfig.creuxAxillaireSelect.addEventListener('change', handleCreuxAxillaireGauche);
+    }
+
+    if (creuxAxillaireGaucheConfig.admTypeSelect) {
+        creuxAxillaireGaucheConfig.admTypeSelect.addEventListener('change', handleCreuxAxillaireTypeGauche);
+    }
+
     // Initialisation de l'état
     handleAsymetrieGauche();
     handleMasseGauche();
@@ -524,6 +602,7 @@ document.addEventListener('DOMContentLoaded', function() {
     handleCalcificationsNonSuspectesGauche();
     handleDesorganisationGauche();
     handleProlongementAxillaireGauche();
+    handleCreuxAxillaireGauche();
 
     // Export des configurations et fonctions
     window.densiteGauche = {
@@ -535,7 +614,8 @@ document.addEventListener('DOMContentLoaded', function() {
             distorsion: distorsionGaucheConfig,
             calcificationsNonSuspectes: calcificationsNonSuspectesGaucheConfig,
             desorganisation: desorganisationGaucheConfig,
-            prolongementAxillaire: prolongementAxillaireGaucheConfig
+            prolongementAxillaire: prolongementAxillaireGaucheConfig,
+            creuxAxillaire: creuxAxillaireGaucheConfig
         },
         handlers: {
             handleAsymetrie: handleAsymetrieGauche,
@@ -547,7 +627,8 @@ document.addEventListener('DOMContentLoaded', function() {
             handleDistorsion: handleDistorsionGauche,
             handleCalcificationsNonSuspectes: handleCalcificationsNonSuspectesGauche,
             handleDesorganisation: handleDesorganisationGauche,
-            handleProlongementAxillaire: handleProlongementAxillaireGauche
+            handleProlongementAxillaire: handleProlongementAxillaireGauche,
+            handleCreuxAxillaire: handleCreuxAxillaireGauche
         }
     };
 }); 

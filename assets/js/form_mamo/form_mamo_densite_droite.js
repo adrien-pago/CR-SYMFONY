@@ -74,22 +74,15 @@ document.addEventListener('DOMContentLoaded', function() {
         typeSelect: document.querySelector('#form_mamo_densite_droite_prolongement_axillaire_type_droite')
     };
 
-    // Configuration des masses échographiques pour le sein droit
-    const masseEchoDroiteConfig = {
-        masseEchoSelect: document.querySelector('#form_mamo_densite_droite_masse_echo_droite'),
-        container: document.querySelector('#masseEchoDroiteContainer'),
-        template: document.querySelector('#masseEchoTemplateDroite'),
-        addButton: document.querySelector('#ajouterMasseEchoDroite'),
-        counter: 0
-    };
-
-    // Configuration des non-masses échographiques pour le sein droit
-    const nonMasseEchoDroiteConfig = {
-        nonMasseEchoSelect: document.querySelector('#form_densite_droite_non_masse_echo_droite'),
-        container: document.querySelector('#nonMasseEchoDroiteContainer'),
-        template: document.querySelector('#nonMasseEchoTemplateDroite'),
-        addButton: document.querySelector('#ajouterNonMasseEchoDroite'),
-        counter: 0
+        // Configuration du creux axillaire pour le sein droite
+    const creuxAxillaireDroiteConfig = {
+        creuxAxillaireSelect: document.querySelector('#form_mamo_densite_droite_creux_axillaire_droite'),
+        detailsContainer: document.querySelector('#creuxAxillaireDetailsDroite'),
+        admSimpleDetails: document.querySelector('#admSimpleDetailsDroite'),
+        admTypeSelect: document.querySelector('#form_mamo_densite_droite_creux_axillaire_adm_type_droite'),
+        cortexDetails: document.querySelector('#cortexEpaissiDetailsDroite'),
+        petitAxeDetails: document.querySelector('#petitAxeDetailsDroite'),
+        admsDetails: document.querySelector('#admsDetailsDroite')
     };
 
     // Fonctions pour le sein droit
@@ -472,268 +465,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Fonctions pour les masses échographiques
-    function handleMasseEchoDroite() {
-        if (!masseEchoDroiteConfig.masseEchoSelect || !masseEchoDroiteConfig.addButton) return;
+    // Gestion du creux axillaire
+    function handleCreuxAxillaireDroite() {
+        if (!creuxAxillaireDroiteConfig.creuxAxillaireSelect || !creuxAxillaireDroiteConfig.detailsContainer) return;
 
-        if (masseEchoDroiteConfig.masseEchoSelect.value === 'oui') {
-            masseEchoDroiteConfig.addButton.classList.remove('d-none');
-            if (masseEchoDroiteConfig.counter === 0) {
-                ajouterMasseEchoDroite();
-            }
-        } else {
-            masseEchoDroiteConfig.addButton.classList.add('d-none');
-            const masses = masseEchoDroiteConfig.container.querySelectorAll('.masse-echo-item:not(#masseEchoTemplateDroite)');
-            masses.forEach(masse => masse.remove());
-            masseEchoDroiteConfig.counter = 0;
-        }
-    }
-
-    function ajouterMasseEchoDroite() {
-        if (!masseEchoDroiteConfig.template || !masseEchoDroiteConfig.container) return;
-
-        masseEchoDroiteConfig.counter++;
-        const newMasse = masseEchoDroiteConfig.template.cloneNode(true);
-        const masseId = `masse-echo-droite-${masseEchoDroiteConfig.counter}`;
+        const value = creuxAxillaireDroiteConfig.creuxAxillaireSelect.value;
         
-        newMasse.id = masseId;
-        newMasse.classList.remove('d-none');
-
-        // Mise à jour des IDs et noms
-        newMasse.querySelectorAll('select, input').forEach(field => {
-            if (field.id) {
-                field.id = `${field.id}-${masseEchoDroiteConfig.counter}`;
-            }
-            if (field.name) {
-                field.name = `${field.name}-${masseEchoDroiteConfig.counter}`;
-            }
-        });
-
-        // Gestion de la topographie
-        const topographieSelect = newMasse.querySelector('.masse-echo-topographie');
-        if (topographieSelect) {
-            topographieSelect.addEventListener('change', function() {
-                handleMasseEchoTopographieDroite(newMasse, this.value);
-            });
-        }
-
-        // Gestion de la correspondance mammographie
-        const correspondanceSelect = newMasse.querySelector('[id*="masse_echo_correspondance_mammo_droite"]');
-        if (correspondanceSelect) {
-            correspondanceSelect.addEventListener('change', function() {
-                handleCorrespondanceMammoDroite(newMasse, this.value);
-            });
-        }
-
-        // Gestion de l'antériorité
-        const anterioriteSelect = newMasse.querySelector('[id*="masse_echo_anteriorite_suivi_droite"]');
-        if (anterioriteSelect) {
-            anterioriteSelect.addEventListener('change', function() {
-                handleAnterioriteEchoDroite(newMasse, this.value);
-            });
-        }
-
-        // Bouton de suppression
-        const deleteButton = newMasse.querySelector('.delete-masse-echo');
-        if (deleteButton) {
-            deleteButton.addEventListener('click', function() {
-                newMasse.remove();
-                updateMasseEchoNumbersDroite();
-            });
-        }
-
-        masseEchoDroiteConfig.container.appendChild(newMasse);
-    }
-
-    function handleMasseEchoTopographieDroite(masseElement, value) {
-        const quadrantDetails = masseElement.querySelector('.quadrant-echo-details');
-        const unionDetails = masseElement.querySelector('.union-echo-details');
-
-        if (quadrantDetails) quadrantDetails.classList.add('d-none');
-        if (unionDetails) unionDetails.classList.add('d-none');
-
-        switch(value) {
-            case 'quadrant':
-                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
-                break;
-            case 'union':
-                if (unionDetails) unionDetails.classList.remove('d-none');
-                break;
-        }
-    }
-
-    function handleCorrespondanceMammoDroite(masseElement, value) {
-        const numeroMammoContainer = masseElement.querySelector('.numero-mammo-container');
-        if (numeroMammoContainer) {
-            if (value === 'correspond_mammo') {
-                numeroMammoContainer.classList.remove('d-none');
-            } else {
-                numeroMammoContainer.classList.add('d-none');
-            }
-        }
-    }
-
-    function handleAnterioriteEchoDroite(masseElement, value) {
-        const taillesContainers = masseElement.querySelectorAll('.tailles-evolution');
-        taillesContainers.forEach(container => {
-            if (value === 'diminue' || value === 'augmente') {
-                container.classList.remove('d-none');
-            } else {
-                container.classList.add('d-none');
-            }
-        });
-    }
-
-    function updateMasseEchoNumbersDroite() {
-        const masses = masseEchoDroiteConfig.container.querySelectorAll('.masse-echo-item:not(#masseEchoTemplateDroite)');
-        masseEchoDroiteConfig.counter = masses.length;
-    }
-
-    // Fonctions pour les non-masses échographiques
-    function handleNonMasseEchoDroite() {
-        if (!nonMasseEchoDroiteConfig.nonMasseEchoSelect || !nonMasseEchoDroiteConfig.addButton) {
-            console.log('Configuration non valide:', {
-                select: nonMasseEchoDroiteConfig.nonMasseEchoSelect,
-                addButton: nonMasseEchoDroiteConfig.addButton
-            });
-            return;
-        }
-
-        const value = nonMasseEchoDroiteConfig.nonMasseEchoSelect.value;
-        console.log('Valeur sélectionnée:', value);
-        
-        // Réinitialiser le conteneur et le compteur
-        const nonMasses = nonMasseEchoDroiteConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateDroite)');
-        nonMasses.forEach(nonMasse => nonMasse.remove());
-        nonMasseEchoDroiteConfig.counter = 0;
-
-        // Afficher le bouton d'ajout uniquement pour les options qui nécessitent des détails
-        const needsDetails = ['dilatation_avec_image', 'plage_hypoechogene', 'microcalcifications'].includes(value);
-        console.log('Nécessite des détails:', needsDetails);
-        
-        if (needsDetails) {
-            nonMasseEchoDroiteConfig.addButton.classList.remove('d-none');
-            ajouterNonMasseEchoDroite();
-        } else {
-            nonMasseEchoDroiteConfig.addButton.classList.add('d-none');
-        }
-    }
-
-    function ajouterNonMasseEchoDroite() {
-        if (!nonMasseEchoDroiteConfig.template || !nonMasseEchoDroiteConfig.container) return;
-
-        nonMasseEchoDroiteConfig.counter++;
-        const newNonMasse = nonMasseEchoDroiteConfig.template.cloneNode(true);
-        const nonMasseId = `non-masse-echo-droite-${nonMasseEchoDroiteConfig.counter}`;
-        
-        newNonMasse.id = nonMasseId;
-        newNonMasse.classList.remove('d-none');
-
-        // Mise à jour des IDs et noms
-        newNonMasse.querySelectorAll('select, input').forEach(field => {
-            if (field.id) {
-                field.id = `${field.id}-${nonMasseEchoDroiteConfig.counter}`;
-            }
-            if (field.name) {
-                field.name = `${field.name}-${nonMasseEchoDroiteConfig.counter}`;
-            }
-        });
-
-        // Affichage des champs selon le type de non-masse
-        const value = nonMasseEchoDroiteConfig.nonMasseEchoSelect.value;
-
         // Masquer tous les conteneurs par défaut
-        const rayonDistance = newNonMasse.querySelector('.rayon-distance-container');
-        const taillesContainer = newNonMasse.querySelector('.tailles-container');
-        const formeContoursContainer = newNonMasse.querySelector('.forme-contours-container');
-        const topographieContainer = newNonMasse.querySelector('.topographie-container');
+        creuxAxillaireDroiteConfig.detailsContainer.classList.add('d-none');
+        creuxAxillaireDroiteConfig.admSimpleDetails.classList.add('d-none');
+        creuxAxillaireDroiteConfig.admsDetails.classList.add('d-none');
+        creuxAxillaireDroiteConfig.cortexDetails.classList.add('d-none');
+        creuxAxillaireDroiteConfig.petitAxeDetails.classList.add('d-none');
 
-        if (rayonDistance) rayonDistance.classList.add('d-none');
-        if (taillesContainer) taillesContainer.classList.add('d-none');
-        if (formeContoursContainer) formeContoursContainer.classList.add('d-none');
-        if (topographieContainer) topographieContainer.classList.add('d-none');
-
-        switch(value) {
-            case 'dilatation_avec_image':
-                if (rayonDistance) rayonDistance.classList.remove('d-none');
-                if (taillesContainer) taillesContainer.classList.remove('d-none');
-                if (formeContoursContainer) formeContoursContainer.classList.remove('d-none');
-
-                // Ajouter les écouteurs d'événements pour la validation des champs
-                const rayonInput = rayonDistance.querySelector('input[id*="rayon"]');
-                const distanceInput = rayonDistance.querySelector('input[id*="distance_mammelon"]');
-                const tailleXInput = taillesContainer.querySelector('input[id*="taille_x"]');
-                const tailleYInput = taillesContainer.querySelector('input[id*="taille_y"]');
-                const tailleZInput = taillesContainer.querySelector('input[id*="taille_z"]');
-
-                // Fonction pour vérifier si tous les champs obligatoires sont vides
-                const checkEmptyFields = () => {
-                    const rayonEmpty = !rayonInput || !rayonInput.value.trim();
-                    const distanceEmpty = !distanceInput || !distanceInput.value.trim();
-                    const allTaillesEmpty = (!tailleXInput || !tailleXInput.value.trim()) && 
-                                          (!tailleYInput || !tailleYInput.value.trim()) && 
-                                          (!tailleZInput || !tailleZInput.value.trim());
-
-                    if (rayonEmpty && distanceEmpty && allTaillesEmpty) {
-                        newNonMasse.remove();
-                        if (nonMasseEchoDroiteConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateDroite)').length === 0) {
-                            nonMasseEchoDroiteConfig.counter = 0;
-                        }
-                    }
-                };
-
-                // Ajouter les écouteurs pour la validation
-                [rayonInput, distanceInput, tailleXInput, tailleYInput, tailleZInput].forEach(input => {
-                    if (input) {
-                        input.addEventListener('blur', checkEmptyFields);
-                    }
-                });
-                break;
-
-            case 'plage_hypoechogene':
-                if (topographieContainer) topographieContainer.classList.remove('d-none');
-                if (taillesContainer) taillesContainer.classList.remove('d-none');
-                break;
-            case 'microcalcifications':
-                if (topographieContainer) topographieContainer.classList.remove('d-none');
-                break;
+        // Réinitialiser les champs si nécessaire
+        if (value !== 'adm' && value !== 'adms') {
+            resetCreuxAxillaireFields();
         }
 
-        // Gestion de la topographie si nécessaire
-        const topographieSelect = newNonMasse.querySelector('.non-masse-echo-topographie');
-        if (topographieSelect) {
-            topographieSelect.addEventListener('change', function() {
-                handleNonMasseEchoTopographieDroite(newNonMasse, this.value);
-            });
+        if (value === 'adm') {
+            // Afficher les détails pour une ADM simple
+            creuxAxillaireDroiteConfig.detailsContainer.classList.remove('d-none');
+            creuxAxillaireDroiteConfig.admSimpleDetails.classList.remove('d-none');
+            handleCreuxAxillaireTypeDroite();
+        } else if (value === 'adms') {
+            // Afficher les détails pour ADMs multiples
+            creuxAxillaireDroiteConfig.detailsContainer.classList.remove('d-none');
+            creuxAxillaireDroiteConfig.admsDetails.classList.remove('d-none');
         }
-
-        // Bouton de suppression
-        const deleteButton = newNonMasse.querySelector('.delete-non-masse-echo');
-        if (deleteButton) {
-            deleteButton.addEventListener('click', function() {
-                newNonMasse.remove();
-                if (nonMasseEchoDroiteConfig.container.querySelectorAll('.non-masse-echo-item:not(#nonMasseEchoTemplateDroite)').length === 0) {
-                    nonMasseEchoDroiteConfig.counter = 0;
-                }
-            });
-        }
-
-        nonMasseEchoDroiteConfig.container.appendChild(newNonMasse);
     }
 
-    function handleNonMasseEchoTopographieDroite(nonMasseElement, value) {
-        const quadrantDetails = nonMasseElement.querySelector('.quadrant-non-masse-echo-details');
-        const unionDetails = nonMasseElement.querySelector('.union-non-masse-echo-details');
+    function handleCreuxAxillaireTypeDroite() {
+        if (!creuxAxillaireDroiteConfig.admTypeSelect) return;
 
-        if (quadrantDetails) quadrantDetails.classList.add('d-none');
-        if (unionDetails) unionDetails.classList.add('d-none');
+        const value = creuxAxillaireDroiteConfig.admTypeSelect.value;
+        
+        // Masquer tous les conteneurs de détails spécifiques
+        creuxAxillaireDroiteConfig.cortexDetails.classList.add('d-none');
+        creuxAxillaireDroiteConfig.petitAxeDetails.classList.add('d-none');
 
+        // Afficher les détails appropriés selon le type
         switch(value) {
-            case 'quadrant':
-                if (quadrantDetails) quadrantDetails.classList.remove('d-none');
+            case 'cortex_epaissi':
+                creuxAxillaireDroiteConfig.cortexDetails.classList.remove('d-none');
                 break;
-            case 'union':
-                if (unionDetails) unionDetails.classList.remove('d-none');
+            case 'petit_axe':
+            case 'petit_axe_perte_hile':
+                creuxAxillaireDroiteConfig.petitAxeDetails.classList.remove('d-none');
                 break;
         }
     }
@@ -799,20 +577,12 @@ document.addEventListener('DOMContentLoaded', function() {
         prolongementAxillaireDroiteConfig.prolongementSelect.addEventListener('change', handleProlongementAxillaireDroite);
     }
 
-    if (masseEchoDroiteConfig.masseEchoSelect) {
-        masseEchoDroiteConfig.masseEchoSelect.addEventListener('change', handleMasseEchoDroite);
+    if (creuxAxillaireDroiteConfig.creuxAxillaireSelect) {
+        creuxAxillaireDroiteConfig.creuxAxillaireSelect.addEventListener('change', handleCreuxAxillaireDroite);
     }
 
-    if (masseEchoDroiteConfig.addButton) {
-        masseEchoDroiteConfig.addButton.addEventListener('click', ajouterMasseEchoDroite);
-    }
-
-    if (nonMasseEchoDroiteConfig.nonMasseEchoSelect) {
-        nonMasseEchoDroiteConfig.nonMasseEchoSelect.addEventListener('change', handleNonMasseEchoDroite);
-    }
-
-    if (nonMasseEchoDroiteConfig.addButton) {
-        nonMasseEchoDroiteConfig.addButton.addEventListener('click', ajouterNonMasseEchoDroite);
+    if (creuxAxillaireDroiteConfig.admTypeSelect) {
+        creuxAxillaireDroiteConfig.admTypeSelect.addEventListener('change', handleCreuxAxillaireTypeDroite);
     }
 
     // Initialisation de l'état
@@ -824,8 +594,7 @@ document.addEventListener('DOMContentLoaded', function() {
     handleCalcificationsNonSuspectesDroite();
     handleDesorganisationDroite();
     handleProlongementAxillaireDroite();
-    handleMasseEchoDroite();
-    handleNonMasseEchoDroite();
+    handleCreuxAxillaireDroite();
 
     // Export des configurations et fonctions
     window.densiteDroite = {
@@ -838,8 +607,7 @@ document.addEventListener('DOMContentLoaded', function() {
             calcificationsNonSuspectes: calcificationsNonSuspectesDroiteConfig,
             desorganisation: desorganisationDroiteConfig,
             prolongementAxillaire: prolongementAxillaireDroiteConfig,
-            masseEcho: masseEchoDroiteConfig,
-            nonMasseEcho: nonMasseEchoDroiteConfig
+            creuxAxillaire: creuxAxillaireDroiteConfig
         },
         handlers: {
             handleAsymetrie: handleAsymetrieDroite,
@@ -852,8 +620,7 @@ document.addEventListener('DOMContentLoaded', function() {
             handleCalcificationsNonSuspectes: handleCalcificationsNonSuspectesDroite,
             handleDesorganisation: handleDesorganisationDroite,
             handleProlongementAxillaire: handleProlongementAxillaireDroite,
-            handleMasseEcho: handleMasseEchoDroite,
-            handleNonMasseEcho: handleNonMasseEchoDroite
+            handleCreuxAxillaire: handleCreuxAxillaireDroite
         }
     };
 }); 
