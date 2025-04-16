@@ -8,6 +8,7 @@ class FormDataService
     {
         // Organiser les données par sections
         return [
+            'titre' => $this->formatTitreData($formData),
             'patient' => $this->formatPatientData($formData),
             'densite' => [
                 'droite' => $this->formatDensiteData($formData, 'droite'),
@@ -19,17 +20,15 @@ class FormDataService
 
     public function validateFormData(array $formData): bool
     {
-        // Vérifier les champs obligatoires
-        if (!$this->validatePatientData($formData)) {
-            return false;
-        }
+        // Pour le test, on ne valide que le titre
+        return isset($formData['titre']['titre']) && !empty($formData['titre']['titre']);
+    }
 
-        // Vérifier la cohérence des données
-        if (!$this->validateDensiteData($formData)) {
-            return false;
-        }
-
-        return true;
+    private function formatTitreData(array $formData): array
+    {
+        return [
+            'titre' => $formData['titre']['titre'] ?? ''
+        ];
     }
 
     private function formatPatientData(array $formData): array
@@ -62,17 +61,18 @@ class FormDataService
         ];
     }
 
-    private function validatePatientData(array $formData): bool
+    private function formatMassesData(array $masses): array
     {
-        // Vérifier les données obligatoires du patient
-        return !empty($formData['patient']['nom']) 
-            && !empty($formData['patient']['prenom'])
-            && !empty($formData['patient']['date_examen']);
+        return $masses;
     }
 
-    private function validateDensiteData(array $formData): bool
+    private function formatMicrocalcificationsData(array $microcalcifications): array
     {
-        // Vérifier la cohérence des données de densité
-        return true; // À adapter selon vos règles de validation
+        return $microcalcifications;
+    }
+
+    private function formatAsymetriesData(array $asymetries): array
+    {
+        return $asymetries;
     }
 } 

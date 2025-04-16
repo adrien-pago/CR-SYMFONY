@@ -11,6 +11,67 @@ import './form_mamo_densite_echo_gauche.js';
 import './form_mamo_densite_echo_droite.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Gestion de la génération de documents
+    const form = document.querySelector('.form-mamo');
+    const generatePdfButton = document.getElementById('generate-report');
+    const generateWordButton = document.getElementById('generate-word');
+
+    function generateDocument(format) {
+        if (!form || !generatePdfButton || !generateWordButton) return;
+
+        const formData = new FormData(form);
+        formData.append('format', format);
+
+        // Récupérer l'URL depuis l'attribut data
+        const generateUrl = format === 'pdf' 
+            ? generatePdfButton.dataset.generateUrl 
+            : generateWordButton.dataset.generateUrl;
+
+        if (!generateUrl) {
+            console.error('URL de génération non trouvée');
+            return;
+        }
+
+        // Désactiver les boutons pendant la génération
+        generatePdfButton.disabled = true;
+        generateWordButton.disabled = true;
+
+        fetch(generateUrl, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Créer un lien temporaire pour télécharger le fichier
+                const link = document.createElement('a');
+                link.href = data.path;
+                link.download = data.filename || `compte_rendu.${format}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('Erreur lors de la génération : ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Erreur lors de la génération du document');
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            // Réactiver les boutons
+            generatePdfButton.disabled = false;
+            generateWordButton.disabled = false;
+        });
+    }
+
+    if (generatePdfButton) {
+        generatePdfButton.addEventListener('click', () => generateDocument('pdf'));
+    }
+    if (generateWordButton) {
+        generateWordButton.addEventListener('click', () => generateDocument('word'));
+    }
+
     // Gestion de la navigation entre les sections
     const sections = [
         'titre',
@@ -51,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Gestion de la soumission du formulaire
-    const form = document.getElementById('form_mamo');
     if (form) {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -153,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainCard = document.getElementById('mainFormCard');
 
     if (toggleAllBtn && mainCard) {
-
         let allOpen = false;
 
         toggleAllBtn.addEventListener('click', function () {
@@ -178,5 +237,4 @@ document.addEventListener('DOMContentLoaded', function() {
             this.textContent = allOpen ? 'Tout fermer' : 'Tout ouvrir';
         });
     } 
-
 });

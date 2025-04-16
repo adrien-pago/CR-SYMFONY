@@ -15,13 +15,12 @@ CR-SYMFONY/
 │           ├── form_mamo_densite_droite.js
 │           ├── form_mamo_densite_gauche.js
 │           ├── form_mamo_densite_echo_droite.js
-│           ├── form_mamo_densite_echo_gauche.js
-│           ├── form_mamo_conclusion.js
-│           └── ..................
+│           └── form_mamo_densite_echo_gauche.js
 ├── config/
 │   ├── packages/
 │   │   ├── security.yaml
 │   │   └── doctrine.yaml
+│   ├── services.yaml
 │   └── routes/
 │       └── annotations.yaml
 ├── src/
@@ -29,39 +28,41 @@ CR-SYMFONY/
 │   │   ├── SecurityController.php
 │   │   ├── HomeController.php
 │   │   └── FormMamo/
-│   │       ├── FormMamoDensiteController.php
-│   │       ├── FormMamoConclusionController.php
-│   │       └── ................................
+│   │       └── FormMamoController.php
 │   ├── Entity/
 │   │   ├── User.php
 │   │   └── FormMamo/
-│   │       ├── FormMamoDensite.php
-│   │       ├── FormMamoConclusion.php
-│   │       └── ........................
+│   │       └── FormMamoDensite.php
 │   ├── Form/
 │   │   └── FormMamo/
-│   │       ├── Densite/
-│   │       │   ├── FormMamoDensiteDroiteType.php
-│   │       │   ├── FormMamoDensiteGaucheType.php
-│   │       │   ├── FormMamoDensiteEchoDroiteType.php
-│   │       │   └── FormMamoDensiteEchoGaucheType.php
-│   │       └── ......................................
-│   └── Repository/
-│       ├── UserRepository.php
-│ 
+│   │       └── Densite/
+│   │           ├── FormMamoDensiteDroiteType.php
+│   │           ├── FormMamoDensiteGaucheType.php
+│   │           ├── FormMamoDensiteEchoDroiteType.php
+│   │           └── FormMamoDensiteEchoGaucheType.php
+│   ├── Repository/
+│   │   ├── UserRepository.php
+│   │   └── FormMamo/
+│   │       └── FormMamoDensiteRepository.php
+│   └── Service/
+│       └── FormMamo/
+│           ├── FormDataService.php        # Service de gestion des données du formulaire
+│           ├── DocumentGeneratorService.php # Service de génération de documents (PDF/Word)
+│           └── EmailService.php           # Service d'envoi d'emails
 ├── templates/
 │   ├── base.html.twig
 │   ├── security/
 │   │   └── login.html.twig
+│   ├── pdf/
+│   │   └── pdf_template.html.twig        # Template pour la génération de PDF
 │   └── home/
 │       └── formulaire/
 │           └── Mamo/
-│               ├── densite/
-│               │   ├── _densite_droite.html.twig
-│               │   ├── _densite_gauche.html.twig
-│               │   ├── _densite_echo_droite.html.twig
-│               │   └── _densite_echo_gauche.html.twig
-│               └── ..........................................
+│               └── densite/
+│                   ├── _densite_droite.html.twig
+│                   ├── _densite_gauche.html.twig
+│                   ├── _densite_echo_droite.html.twig
+│                   └── _densite_echo_gauche.html.twig
 └── public/
     └── css/
          └── app.css

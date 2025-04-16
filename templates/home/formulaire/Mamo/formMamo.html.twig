@@ -40,7 +40,16 @@
                         {% include 'home/formulaire/Mamo/_densite.html.twig' with {'form': form} %}
                         
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Générer le compte-rendu</button>
+                            <div class="btn-group">
+                                <button type="button" id="generate-report" class="btn btn-success me-2" 
+                                    data-generate-url="{{ path('app_form_mamo_generate') }}">
+                                    <i class="bi bi-file-earmark-pdf"></i> Générer en PDF
+                                </button>
+                                <button type="button" id="generate-word" class="btn btn-success"
+                                    data-generate-url="{{ path('app_form_mamo_generate') }}">
+                                    <i class="bi bi-file-earmark-word"></i> Générer en Word
+                                </button>
+                            </div>
                         </div>
                     {{ form_end(form, {'render_rest': false}) }}
                 </div>

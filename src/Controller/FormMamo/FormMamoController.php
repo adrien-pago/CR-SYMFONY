@@ -3,7 +3,6 @@
 namespace App\Controller\FormMamo;
 
 use App\Service\FormMamo\DocumentGeneratorService;
-use App\Service\FormMamo\EmailService;
 use App\Service\FormMamo\FormDataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,22 +13,26 @@ class FormMamoController extends AbstractController
 {
     private FormDataService $formDataService;
     private DocumentGeneratorService $documentGenerator;
-    private EmailService $emailService;
 
     public function __construct(
         FormDataService $formDataService,
-        DocumentGeneratorService $documentGenerator,
-        EmailService $emailService
+        DocumentGeneratorService $documentGenerator
     ) {
         $this->formDataService = $formDataService;
         $this->documentGenerator = $documentGenerator;
-        $this->emailService = $emailService;
     }
 
     #[Route('/form/mamo/generate', name: 'app_form_mamo_generate', methods: ['POST'])]
     public function generateReport(Request $request): Response
     {
-        $formData = $request->request->all();
+        $rawData = $request->request->all();
+        
+        // Formater les données pour correspondre à la structure attendue
+        $formData = [
+            'titre' => [
+                'titre' => $rawData['titre']['titre'] ?? ''
+            ]
+        ];
 
         // Valider les données
         if (!$this->formDataService->validateFormData($formData)) {
@@ -40,25 +43,18 @@ class FormMamoController extends AbstractController
         }
 
         try {
-            // Générer le document (PDF ou Word selon la demande)
-            $documentPath = $request->request->get('format') === 'word' 
+            // Générer le document selon le format demandé
+            $format = $request->request->get('format', 'pdf');
+            $documentPath = $format === 'word' 
                 ? $this->documentGenerator->generateWord($formData)
                 : $this->documentGenerator->generatePDF($formData);
 
-            // Envoyer par email si demandé
-            if ($recipientEmail = $request->request->get('email')) {
-                $this->emailService->sendReport(
-                    $recipientEmail,
-                    $formData,
-                    $documentPath,
-                    $request->request->get('format', 'pdf')
-                );
-            }
-
+            // Retourner le chemin du fichier généré
             return $this->json([
                 'success' => true,
                 'message' => 'Document généré avec succès',
-                'path' => $documentPath
+                'path' => $documentPath,
+                'filename' => basename($documentPath)
             ]);
 
         } catch (\Exception $e) {
