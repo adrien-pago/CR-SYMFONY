@@ -469,29 +469,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleCreuxAxillaireDroite() {
         if (!creuxAxillaireDroiteConfig.creuxAxillaireSelect || !creuxAxillaireDroiteConfig.detailsContainer) return;
 
-        const value = creuxAxillaireDroiteConfig.creuxAxillaireSelect.value;
-        
-        // Masquer tous les conteneurs par défaut
-        creuxAxillaireDroiteConfig.detailsContainer.classList.add('d-none');
-        creuxAxillaireDroiteConfig.admSimpleDetails.classList.add('d-none');
-        creuxAxillaireDroiteConfig.admsDetails.classList.add('d-none');
-        creuxAxillaireDroiteConfig.cortexDetails.classList.add('d-none');
-        creuxAxillaireDroiteConfig.petitAxeDetails.classList.add('d-none');
-
-        // Réinitialiser les champs si nécessaire
-        if (value !== 'adm' && value !== 'adms') {
+        if (creuxAxillaireDroiteConfig.creuxAxillaireSelect.value === 'oui') {
+            creuxAxillaireDroiteConfig.detailsContainer.classList.remove('d-none');
+            handleCreuxAxillaireTypeDroite();
+        } else {
+            creuxAxillaireDroiteConfig.detailsContainer.classList.add('d-none');
             resetCreuxAxillaireFields();
         }
+    }
 
-        if (value === 'adm') {
-            // Afficher les détails pour une ADM simple
-            creuxAxillaireDroiteConfig.detailsContainer.classList.remove('d-none');
-            creuxAxillaireDroiteConfig.admSimpleDetails.classList.remove('d-none');
-            handleCreuxAxillaireTypeDroite();
-        } else if (value === 'adms') {
-            // Afficher les détails pour ADMs multiples
-            creuxAxillaireDroiteConfig.detailsContainer.classList.remove('d-none');
-            creuxAxillaireDroiteConfig.admsDetails.classList.remove('d-none');
+    function resetCreuxAxillaireFields() {
+        if (creuxAxillaireDroiteConfig.admSimpleDetails) {
+            creuxAxillaireDroiteConfig.admSimpleDetails.classList.add('d-none');
+        }
+        if (creuxAxillaireDroiteConfig.cortexDetails) {
+            creuxAxillaireDroiteConfig.cortexDetails.classList.add('d-none');
+        }
+        if (creuxAxillaireDroiteConfig.petitAxeDetails) {
+            creuxAxillaireDroiteConfig.petitAxeDetails.classList.add('d-none');
+        }
+        if (creuxAxillaireDroiteConfig.admsDetails) {
+            creuxAxillaireDroiteConfig.admsDetails.classList.add('d-none');
         }
     }
 

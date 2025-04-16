@@ -2,26 +2,32 @@
 
 namespace App\Service\FormMamo;
 
+use Psr\Log\LoggerInterface;
+
 class FormDataService
 {
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function formatFormData(array $formData): array
     {
         // Organiser les données par sections
         return [
             'titre' => $this->formatTitreData($formData),
-            'patient' => $this->formatPatientData($formData),
-            'densite' => [
-                'droite' => $this->formatDensiteData($formData, 'droite'),
-                'gauche' => $this->formatDensiteData($formData, 'gauche')
-            ],
-            'conclusion' => $this->formatConclusionData($formData)
+            'indication' => $this->formatIndicationData($formData),
+            'technique' => $this->formatTechniqueData($formData),
+            'comparatif' => $this->formatComparatifData($formData),
+            'examen_clinique' => $this->formatExamenCliniqueData($formData),
+            'densite_seins' => $this->formatDensiteSeinsData($formData),
+            'densite_gauche' => $this->formatDensiteGaucheData($formData),
+            'densite_droite' => $this->formatDensiteDroiteData($formData),
+            'densite_echo_gauche' => $this->formatDensiteEchoGaucheData($formData),
+            'densite_echo_droite' => $this->formatDensiteEchoDroiteData($formData)          
         ];
-    }
-
-    public function validateFormData(array $formData): bool
-    {
-        // Pour le test, on ne valide que le titre
-        return isset($formData['titre']['titre']) && !empty($formData['titre']['titre']);
     }
 
     private function formatTitreData(array $formData): array
@@ -31,48 +37,49 @@ class FormDataService
         ];
     }
 
-    private function formatPatientData(array $formData): array
+    private function formatIndicationData(array $formData): array
     {
-        // Extraire et formater les données du patient
-        return [
-            'nom' => $formData['patient']['nom'] ?? '',
-            'prenom' => $formData['patient']['prenom'] ?? '',
-            'date_naissance' => $formData['patient']['date_naissance'] ?? '',
-            'date_examen' => $formData['patient']['date_examen'] ?? ''
-        ];
+        return $formData['indication'] ?? [];
     }
 
-    private function formatDensiteData(array $formData, string $cote): array
+    private function formatTechniqueData(array $formData): array
     {
-        // Formater les données de densité pour un côté spécifique
-        return [
-            'masses' => $this->formatMassesData($formData[$cote]['masses'] ?? []),
-            'microcalcifications' => $this->formatMicrocalcificationsData($formData[$cote]['microcalcifications'] ?? []),
-            'asymetries' => $this->formatAsymetriesData($formData[$cote]['asymetries'] ?? [])
-        ];
+        return $formData['technique'] ?? [];
     }
 
-    private function formatConclusionData(array $formData): array
+    private function formatComparatifData(array $formData): array
     {
-        // Formater les données de conclusion
-        return [
-            'birads' => $formData['conclusion']['birads'] ?? '',
-            'commentaire' => $formData['conclusion']['commentaire'] ?? ''
-        ];
+        return $formData['comparatif'] ?? [];
     }
 
-    private function formatMassesData(array $masses): array
+    private function formatExamenCliniqueData(array $formData): array
     {
-        return $masses;
+        return $formData['examen_clinique'] ?? [];
     }
 
-    private function formatMicrocalcificationsData(array $microcalcifications): array
+    private function formatDensiteSeinsData(array $formData): array
     {
-        return $microcalcifications;
+        return $formData['densite_seins'] ?? [];
     }
 
-    private function formatAsymetriesData(array $asymetries): array
+    private function formatDensiteGaucheData(array $formData): array
     {
-        return $asymetries;
+        return $formData['densite_gauche'] ?? [];
     }
+
+    private function formatDensiteDroiteData(array $formData): array
+    {
+        return $formData['densite_droite'] ?? [];
+    }
+
+    private function formatDensiteEchoGaucheData(array $formData): array
+    {
+        return $formData['densite_echo_gauche'] ?? [];
+    }
+
+    private function formatDensiteEchoDroiteData(array $formData): array
+    {
+        return $formData['densite_echo_droite'] ?? [];
+    }
+
 } 

@@ -21,28 +21,41 @@ class PdfGeneratorService implements DocumentGeneratorInterface
 
     public function generate(array $data, string $formType): string
     {
-        // Configurer DomPDF
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
+        try {
+            // Configurer DomPDF
+            $options = new Options();
+            $options->set('isHtml5ParserEnabled', true);
+            $options->set('isPhpEnabled', true);
+            $options->set('isRemoteEnabled', true);
 
-        $dompdf = new Dompdf($options);
+            $dompdf = new Dompdf($options);
 
-        // Générer le HTML en utilisant le template approprié
-        $template = sprintf('pdf_formulaire/%s/pdf_template.html.twig', $formType);
-        $html = $this->twig->render($template, $data);
+            // Générer le HTML en utilisant le template approprié
+            $template = sprintf('pdf_formulaire/%s/pdf_template.html.twig', $formType);
+            
+            if (!$this->twig->getLoader()->exists($template)) {
+                throw new \RuntimeException(sprintf('Le template "%s" n\'existe pas', $template));
+            }
 
-        // Convertir en PDF
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+            $html = $this->twig->render($template, $data);
 
-        // Sauvegarder le PDF
-        $output = $dompdf->output();
-        $filename = sprintf('compte_rendu_%s_%s.pdf', $formType, date('Y-m-d_H-i-s'));
-        $filepath = sys_get_temp_dir() . '/' . $filename;
-        file_put_contents($filepath, $output);
+            // Convertir en PDF
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
 
-        return $filepath;
+            // Sauvegarder le PDF
+            $output = $dompdf->output();
+            $filename = sprintf('compte_rendu_%s_%s.pdf', $formType, date('Y-m-d_H-i-s'));
+            $filepath = sys_get_temp_dir() . '/' . $filename;
+            
+            if (file_put_contents($filepath, $output) === false) {
+                throw new \RuntimeException('Impossible d\'écrire le fichier PDF');
+            }
+
+            return $filepath;
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Erreur lors de la génération du PDF : ' . $e->getMessage(), 0, $e);
+        }
     }
 } 

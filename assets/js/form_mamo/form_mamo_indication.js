@@ -11,17 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!indicationSelect || !bilanOptions) return;
         
         const selectedValue = indicationSelect.value;
-        console.log('Valeur sélectionnée:', selectedValue);
         
         if (selectedValue === 'anomalie_clinique') {
             bilanOptions.classList.remove('d-none');
-            console.log('Affichage des options d\'anomalie clinique');
         } else {
             bilanOptions.classList.add('d-none');
             // Réinitialiser tous les conteneurs d'options
             optionContainers.forEach(container => container.classList.add('d-none'));
             optionButtons.forEach(btn => btn.classList.remove('active'));
-            console.log('Masquage des options d\'anomalie clinique');
         }
     }
 

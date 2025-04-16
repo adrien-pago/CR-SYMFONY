@@ -21,6 +21,12 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
     # Configuration des services FormMamo
     App\Service\FormMamo\FormDataService:
         arguments: []
@@ -28,3 +34,7 @@ services:
     App\Service\FormMamo\DocumentGeneratorService:
         arguments:
             $templateDir: '%app.template_dir%'
+
+    App\Service\Document\PdfGeneratorService:
+        arguments:
+            $templateDir: '%kernel.project_dir%/templates/pdf_formulaire'

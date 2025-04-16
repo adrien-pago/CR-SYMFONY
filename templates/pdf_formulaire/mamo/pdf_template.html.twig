@@ -31,11 +31,68 @@
             margin-top: 15px;
             margin-bottom: 8px;
         }
+        .section {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>{{ titre.titre }}</h1>
+    <h1>{{ titre.titre|default('Mammographie') }}</h1>
 
-    {# Reste du template... #}
+    <div class="section">
+        <h2>Indication</h2>
+        {% if indication is defined and indication.indication is defined and indication.indication %}
+            <p>{{ indication.indication }}</p>
+        {% endif %}
+        {% if indication is defined and indication.douleur_lateralite is defined and indication.douleur_lateralite %}
+            <p>Latéralité de la douleur : {{ indication.douleur_lateralite }}</p>
+        {% endif %}
+        {% if indication is defined and indication.douleur_apparition is defined and indication.douleur_apparition %}
+            <p>Apparition de la douleur : {{ indication.douleur_apparition }}</p>
+        {% endif %}
+        {% if indication is defined and indication.douleur_anciennete is defined and indication.douleur_anciennete %}
+            <p>Ancienneté de la douleur : {{ indication.douleur_anciennete }}</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>Technique</h2>
+        {% if technique is defined and technique.technique is defined and technique.technique %}
+            <p>{{ technique.technique }}</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>Comparatif</h2>
+        {% if comparatif is defined and comparatif.comparatif is defined and comparatif.comparatif %}
+            <p>{{ comparatif.comparatif }}</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>Examen Clinique</h2>
+        {% if examen_clinique is defined and examen_clinique.examen_clinique is defined and examen_clinique.examen_clinique %}
+            <p>{{ examen_clinique.examen_clinique }}</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <h2>Densité Mammaire</h2>
+        <h3>Sein Droit</h3>
+        {% if densite_droite is defined and densite_droite.densite_droite is defined and densite_droite.densite_droite %}
+            <p>{{ densite_droite.densite_droite }}</p>
+        {% endif %}
+        {% if densite_echo_droite is defined and densite_echo_droite.densite_echo_droite is defined and densite_echo_droite.densite_echo_droite %}
+            <p>Écho : {{ densite_echo_droite.densite_echo_droite }}</p>
+        {% endif %}
+
+        <h3>Sein Gauche</h3>
+        {% if densite_gauche is defined and densite_gauche.densite_gauche is defined and densite_gauche.densite_gauche %}
+            <p>{{ densite_gauche.densite_gauche }}</p>
+        {% endif %}
+        {% if densite_echo_gauche is defined and densite_echo_gauche.densite_echo_gauche is defined and densite_echo_gauche.densite_echo_gauche %}
+            <p>Écho : {{ densite_echo_gauche.densite_echo_gauche }}</p>
+        {% endif %}
+    </div>
 </body>
 </html> 
