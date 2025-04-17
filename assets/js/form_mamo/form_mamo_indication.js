@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const selectedValue = indicationSelect.value;
         
-        if (selectedValue === 'Anomalie clinique.') {
+        if (selectedValue === 'Anomalie_clinique') {
             bilanOptions.classList.remove('d-none');
         } else {
             bilanOptions.classList.add('d-none');

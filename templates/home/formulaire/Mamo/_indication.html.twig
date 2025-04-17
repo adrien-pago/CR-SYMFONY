@@ -123,6 +123,53 @@
                     <i class="bi bi-x-circle"></i> Reset
                 </button>
             </div>
+            
+            {# Champ caché pour stocker la valeur sélectionnée #}
+            {{ form_widget(form.antecedents_selection) }}
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const antecedentsBtns = document.querySelectorAll('.antecedents-btn');
+                    const resetAntecedentsBtn = document.getElementById('resetAntecedentsBtn');
+                    const antecedentsSelectionField = document.querySelector('input[name="form_mamo[indication][antecedents_selection]"]');
+                    
+                    // Fonction pour mettre à jour l'apparence des boutons
+                    function updateButtons(selectedBtn) {
+                        antecedentsBtns.forEach(btn => {
+                            btn.classList.remove('btn-primary');
+                            btn.classList.add('btn-outline-secondary');
+                        });
+                        
+                        if (selectedBtn) {
+                            selectedBtn.classList.remove('btn-outline-secondary');
+                            selectedBtn.classList.add('btn-primary');
+                        }
+                    }
+                    
+                    // Gestionnaire d'événements pour les boutons d'antécédents
+                    antecedentsBtns.forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const value = this.getAttribute('data-value');
+                            antecedentsSelectionField.value = value;
+                            updateButtons(this);
+                        });
+                    });
+                    
+                    // Gestionnaire d'événements pour le bouton de réinitialisation
+                    resetAntecedentsBtn.addEventListener('click', function() {
+                        antecedentsSelectionField.value = '';
+                        updateButtons(null);
+                    });
+                    
+                    // Initialiser l'état des boutons si une valeur est déjà sélectionnée
+                    if (antecedentsSelectionField.value) {
+                        const selectedBtn = document.querySelector(`.antecedents-btn[data-value="${antecedentsSelectionField.value}"]`);
+                        if (selectedBtn) {
+                            updateButtons(selectedBtn);
+                        }
+                    }
+                });
+            </script>
 
             {# Conteneur pour les options détaillées #}
             <div id="antecedentsDetails" class="d-none mt-3">
@@ -142,7 +189,7 @@
                         <div id="cancerSeinDetails" class="d-none">
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    {{ form_row(form.cancer_sein_annee) }}
+                                    {{ form_row(form.cancer_sein_annee, {'attr': {'type': 'number', 'min': '1900', 'max': '2030'}}) }}
                                 </div>
                                 <div class="col-md-4">
                                     {{ form_row(form.cancer_sein_histologie) }}

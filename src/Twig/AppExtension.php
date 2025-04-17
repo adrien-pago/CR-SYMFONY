@@ -33,7 +33,9 @@ class AppExtension extends AbstractExtension
             'Organise' => 'Organisé',
             'Individuel' => 'Individuel',
             'Acr' => 'ACR',
-            'recente' => 'récente',       
+            'recente' => 'récente',  
+            'carcinome_lobulaire' =>'Carcinome lobulaire infiltrant' ,
+            'carcinome_infiltrant' => 'Carcinome infiltrant non spécifique'
         ];
         
         foreach ($replacements as $search => $replace) {

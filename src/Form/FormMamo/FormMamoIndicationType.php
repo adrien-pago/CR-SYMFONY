@@ -23,16 +23,16 @@ class FormMamoIndicationType extends AbstractType
                     'Dépistage individuel' => 'Dépistage individuel.',
                     'Suivi d\'une anomalie classée ACR 3' => 'Suivi d\'une anomalie classée ACR 3.',
                     'Suivi annuel chez une patiente aux antécédents de néoplasie mammaire' => 'Suivi annuel chez une patiente aux antécédents de néoplasie mammaire.',
-                    'Anomalie clinique' => 'Anomalie clinique.'
+                    'Anomalie clinique' => 'Anomalie_clinique'
                 ],
                 'attr' => [
                     'class' => 'form-select'
                 ]
             ])
             ->add('douleur_lateralite', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Latéralité ?' => '',
+                    'Latéralité ?' => '?',
                     'Gauche' => 'gauche',
                     'Droite' => 'droite'
                 ],
@@ -41,9 +41,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('douleur_apparition', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Apparition' => '',
+                    ''=>'',
                     'Spontanée' => 'spontanee',
                     'Post-traumatique' => 'post_traumatique'
                 ],
@@ -52,9 +52,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('douleur_anciennete', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Ancienneté' => '',
+                    ''=>'',
                     'Récente' => 'recente',
                     'Datant de plusieurs mois' => 'ancienne'
                 ],
@@ -63,7 +63,7 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('masse_lateralite', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
                     'Droite' => 'droite',
                     'Gauche' => 'gauche',
@@ -74,9 +74,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('masse_palpation', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Palpation' => '',
+                    ''=>'',
                     'De découverte récente' => 'recente',
                     'Ancienne, stable' => 'ancienne_stable',
                     'Ancienne, évolutive' => 'ancienne_evolutive'
@@ -86,8 +86,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('ecoulement_lateralite', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
+                    ''=>'',
                     'Droit' => 'droit',
                     'Gauche' => 'gauche',
                     'Latéralité ?' => ''
@@ -97,9 +98,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('ecoulement_type', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Type' => '',
+                    ''=>'',
                     'Unipore' => 'unipore',
                     'Multipore' => 'multipore'
                 ],
@@ -108,9 +109,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('ecoulement_aspect', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Aspect' => '',
+                    ''=>'',
                     'Clair' => 'clair',
                     'Lactescent' => 'lactescent',
                     'Verdâtre' => 'verdatre',
@@ -121,9 +122,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('gynecomastie_lateralite', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Latéralité' => '',
+                    ''=>'',
                     'Gauche' => 'gauche',
                     'Droite' => 'droite',
                     'Bilatérale' => 'bilaterale'
@@ -133,9 +134,9 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('gynecomastie_douleur', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Douleur' => '',
+                    ''=>'',
                     'Douloureuse' => 'douloureuse',
                     'Indolore' => 'indolore'
                 ],
@@ -144,7 +145,7 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('autre_description', TextareaType::class, [
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Description de l\'anomalie',
@@ -152,7 +153,7 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('cancer_sein', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
                     'Non renseigné' => '',
                     'Oui' => 'oui',
@@ -162,17 +163,23 @@ class FormMamoIndicationType extends AbstractType
                     'class' => 'form-select'
                 ]
             ])
-            ->add('cancer_sein_annee', ChoiceType::class, [
+            ->add('cancer_sein_annee', NumberType::class, [
                 'required' => false,
-                'choices' => $this->getYearChoices(),
                 'attr' => [
-                    'class' => 'form-select'
-                ]
+                    'class' => 'form-control',
+                    'placeholder' => 'Année',
+                    'min' => '1900',
+                    'max' => '2030',
+                    'type' => 'number',
+                    'pattern' => '[0-9]*',
+                    'inputmode' => 'numeric'
+                ],
+                'html5' => true,
+                'invalid_message' => 'Veuillez entrer une année valide entre 1900 et 2030'
             ])
             ->add('cancer_sein_histologie', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Histologie' => '',
                     'Carcinome infiltrant non spécifique' => 'carcinome_infiltrant',
                     'Carcinome lobulaire infiltrant' => 'carcinome_lobulaire'
                 ],
@@ -181,9 +188,8 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('cancer_sein_traitement', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Traitement' => '',
                     'Traitement conservateur' => 'conservateur',
                     'Mastectomie totale' => 'mastectomie'
                 ],
@@ -192,19 +198,19 @@ class FormMamoIndicationType extends AbstractType
                 ]
             ])
             ->add('mastectomie_reconstruction', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
-                    'Reconstruction' => '',
-                    'Sans geste de reconstruction' => 'sans',
-                    'Reconstruction par prothèse' => 'prothese',
-                    'Reconstruction par lipofilling' => 'lipofilling'
+                    'Non renseigné' => '',
+                    'Sans geste de reconstruction' => 'sans geste de reconstruction',
+                    'Reconstruction par prothèse' => 'et reconstruction par prothese',
+                    'Reconstruction par lipofilling' => 'et reconstruction par lipofilling'
                 ],
                 'attr' => [
                     'class' => 'form-select'
                 ]
             ])
             ->add('chirurgie_risque', ChoiceType::class, [
-                'required' => false,
+                'required' => true,
                 'choices' => [
                     'Non renseigné' => '',
                     'Oui' => 'oui',
@@ -650,6 +656,12 @@ class FormMamoIndicationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Nombre'
+                ]
+            ])
+            ->add('antecedents_selection', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'd-none'
                 ]
             ])
         ;
