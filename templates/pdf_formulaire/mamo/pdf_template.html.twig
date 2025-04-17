@@ -45,7 +45,7 @@
     <div class="section">
         <h2>Indication :</h2>              
         {% if indication is defined and indication.indication is defined %}
-        {# Si l'indication est une anomalie clinique #}
+        {# Start anomalie clinique #}
             {% if indication.indication == 'Anomalie_clinique' %}
                 <p>Anomalie clinique :</p>
                 {% if indication.douleur_lateralite is defined %}
@@ -80,7 +80,7 @@
                 {% if indication.autre_description is defined and indication.autre_description is not null %}
                     <p>informations supplémentaires : {{indication.autre_description}}</p>
                 {% endif %}
-            {# En anomalie clinique #}
+            {# End anomalie clinique #}
             {% else %}
                 <p>{{ indication.indication }}</p>
             {% endif %}
