@@ -1,0 +1,77 @@
+{# templates/pdf_formulaire/mamo/_indication.html.twig #}
+
+<div class="section">
+    <h2>Indication :</h2>              
+    {% if indication is defined and indication.indication is defined %}
+    {# Start anomalie clinique #}
+        {% if indication.indication == 'Anomalie_clinique' %}
+            <p>Anomalie clinique :</p>
+            {% if indication.douleur_lateralite is defined %}
+                <p>D'une douleur mammaire, latéralité {{indication.douleur_lateralite}}, 
+                {% if indication.douleur_apparition is defined %}apparition {{clean_label(indication.douleur_apparition)}}{% endif %}, 
+                {% if indication.douleur_anciennete is defined %}ancienneté {{clean_label(indication.douleur_anciennete)}}{% endif %}</p> 
+            {% endif %}
+
+            {% if indication.masse_lateralite is defined %}
+                <p>D'une masse mammaire, latéralité {{indication.masse_lateralite}}, 
+                {% if indication.masse_palpation is defined %}palpation {{clean_label(indication.masse_palpation)}}{% endif %}</p>
+            {% endif %}
+
+            {% if indication.ecoulement_lateralite is defined %}
+                 <p>D'un écoulement mammaire, latéralité 
+                {% if indication.ecoulement_lateralite == '1' %}
+                    droite
+                {% elseif indication.ecoulement_lateralite == '2' %}
+                    gauche
+                {% else %}
+                    ?
+                {% endif %},
+                {% if indication.ecoulement_type is defined %}écoulement {{clean_label(indication.ecoulement_type)}}{% endif %}, 
+                {% if indication.ecoulement_aspect is defined %}{{clean_label(indication.ecoulement_aspect)}}{% endif %}</p>
+            {% endif %}
+
+            {% if indication.gynecomastie_lateralite is defined %}
+                <p>D'une gynécomastie, latéralité {{indication.gynecomastie_lateralite}}, 
+                {% if indication.gynecomastie_aspect is defined %}{{clean_label(indication.gynecomastie_aspect)}}{% endif %}</p>
+            {% endif %}
+
+            {% if indication.autre_description is defined and indication.autre_description is not null %}
+                <p>informations supplémentaires : {{indication.autre_description}}</p>
+            {% endif %}
+        {# End anomalie clinique #}
+        {% else %}
+            <p>{{ indication.indication }}</p>
+        {% endif %}
+
+        {% if indication.antecedents_selection is defined %}
+            
+                {% if indication.antecedents_selection == 'oui' %}
+                    <p><u>Antécédents personnels :</u></p>
+                    {% if indication.cancer_sein is defined %}
+                       <p> Cancer du sein : {{ indication.cancer_sein }}</p>
+                    {% endif %}
+                    {% if indication.cancer_sein_annee is defined %}
+                        <p> Détecté en {{ indication.cancer_sein_annee }}</p>
+                    {% endif %}
+                    {% if indication.cancer_sein_histologie is defined %}
+                        <p> Histologie : {{ clean_label(indication.cancer_sein_histologie) }}</p>
+                    {% endif %}
+                    {% if indication.cancer_sein_traitement is defined %}
+                        <p> Traitement : {{ indication.cancer_sein_traitement }} 
+                        {% if indication.mastectomie_reconstruction is defined %}
+                            {{ indication.mastectomie_reconstruction }}
+                        {% endif %}
+                        </p>
+                    {% endif %}
+                    
+                    
+                {% elseif indication.antecedents_selection == 'non' %}
+                    Absence d'antécédent personnel chirurgie mammaire, de cancer du sein ou de l'ovaire.
+                {% elseif indication.antecedents_selection == 'ne_sait_pas' %}
+                    Antécédents personnels sénologiques et ovariens : Ne sait pas
+                {% endif %}
+            </p>
+        {% endif %}
+    {% endif %}
+</div>
+{# Fin Indication #}
