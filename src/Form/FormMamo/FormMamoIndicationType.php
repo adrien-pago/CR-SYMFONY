@@ -20,7 +20,7 @@ class FormMamoIndicationType extends AbstractType
                 'required' => true,
                 'choices' => [
                     'Dépistage organisé' => 'Dépistage organisé.',
-                    'Dépistage individuel' => 'dDépistage individuel.',
+                    'Dépistage individuel' => 'Dépistage individuel.',
                     'Suivi d\'une anomalie classée ACR 3' => 'Suivi d\'une anomalie classée ACR 3.',
                     'Suivi annuel chez une patiente aux antécédents de néoplasie mammaire' => 'Suivi annuel chez une patiente aux antécédents de néoplasie mammaire.',
                     'Anomalie clinique' => 'Anomalie clinique.'
